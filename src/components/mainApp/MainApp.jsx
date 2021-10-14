@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
-
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
@@ -116,6 +115,7 @@ const MainApp = () => {
 					value={packs}
 					type='number'
 					variant='outlined'
+					margin='normal'
 					step='0.5'
 					label='Number of packs per day'
 					InputProps={{ inputProps: { min: 0, step: 0.5 } }}
@@ -125,6 +125,7 @@ const MainApp = () => {
 					value={price}
 					id='price-input'
 					variant='outlined'
+					margin='normal'
 					label='Price per pack'
 					inputProps={{
 						inputMode: 'decimal',
