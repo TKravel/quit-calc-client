@@ -17,6 +17,12 @@ const MainApp = () => {
 	const [calculations, setCalculations] = useState({
 		savings: 0,
 	});
+	const [errors, setErrors] = useState({
+		packs: false,
+		packsMsg: '',
+		price: false,
+		priceMsg: '',
+	});
 	let moneySaved = 0;
 	let daysQuit = differenceInCalendarDays(date, quitDate);
 
@@ -63,6 +69,24 @@ const MainApp = () => {
 		console.log(arr);
 		if (arr[0] !== '0' && arr.length === 6) {
 			return;
+		}
+		if (arr[arr.length - 1] === '.') {
+			setErrors((prevValues) => {
+				return {
+					...prevValues,
+					price: true,
+					priceMsg: 'Only enter numbers',
+				};
+			});
+			return;
+		} else if (errors.price) {
+			setErrors((prevValues) => {
+				return {
+					...prevValues,
+					price: false,
+					priceMsg: '',
+				};
+			});
 		}
 		console.log(userInput.length);
 		if (arr.length === 6) {
@@ -131,6 +155,8 @@ const MainApp = () => {
 						inputMode: 'decimal',
 						pattern: '[0-9]*',
 					}}
+					error={errors.priceMsg}
+					helperText={errors.priceMsg ? errors.priceMsg : null}
 				/>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<KeyboardDatePicker
@@ -138,23 +164,40 @@ const MainApp = () => {
 						value={quitDate}
 						format='MM/dd/yyyy'
 						disableFuture={true}
-						inputVariant='filled'
+						inputVariant='outlined'
 					/>
 				</MuiPickersUtilsProvider>
 				<Button variant='outlined' onClick={calcData}>
-					Save
+					Calculate
 				</Button>
 			</div>
 			<div className='savings-container'>
-				quiting for {daysQuit} days saved you {calculations.savings}
+				Quiting for
+				{daysQuit === 1 ? ` ${daysQuit} day` : ` ${daysQuit} days`}{' '}
+				saved you ${calculations.savings}.
 			</div>
 			<div className='goal-container'>
 				<p>goal 1: $100.00</p>
-				<p>Progress: {(calculations.savings / 100.0) * 100 + '%'}</p>
+				<p>
+					Progress:{' '}
+					{parseFloat((calculations.savings / 100.0) * 100).toFixed(
+						1
+					) + '%'}
+				</p>
 				<p>Goal 2: $500</p>
-				<p>Progress: {(calculations.savings / 500.0) * 100 + '%'}</p>
+				<p>
+					Progress:{' '}
+					{parseFloat((calculations.savings / 500.0) * 100).toFixed(
+						1
+					) + '%'}
+				</p>
 				<p>Goal 3: $1000</p>
-				<p>Progress: {(calculations.savings / 1000.0) * 100 + '%'}</p>
+				<p>
+					Progress:{' '}
+					{parseFloat((calculations.savings / 1000.0) * 100).toFixed(
+						1
+					) + '%'}
+				</p>
 			</div>
 		</div>
 	);
