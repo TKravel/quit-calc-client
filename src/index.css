@@ -19,7 +19,7 @@ code {
 html {
 	height: 100vh;
 	color: #fff;
-	background-color: rgb(22, 21, 21);
+	background-color: #2b2929;
 }
 
 .app-container {
@@ -31,5 +31,13 @@ html {
 }
 
 .subButton {
-	margin-top: 1em !important;
+	margin: 1em !important;
+}
+
+#date-picker {
+	width: 195px !important;
+}
+
+.form-container {
+	text-align: center;
 }

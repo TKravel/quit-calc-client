@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 
 const SavingsCalcMsg = ({ daysQuit, calculations }) => {
 	return (
@@ -11,7 +11,8 @@ const SavingsCalcMsg = ({ daysQuit, calculations }) => {
 			alignItems='center'
 		>
 			<Grid item xs={12} sm={6}>
-				<div
+				<Paper
+					elevation={8}
 					className='savings-container'
 					sx={{ style: { margin: '10px' } }}
 				>
@@ -20,7 +21,7 @@ const SavingsCalcMsg = ({ daysQuit, calculations }) => {
 						? ` ${daysQuit} day`
 						: ` ${daysQuit} days`}{' '}
 					saved you ${calculations.savings}.
-				</div>
+				</Paper>
 			</Grid>
 		</Grid>
 	);

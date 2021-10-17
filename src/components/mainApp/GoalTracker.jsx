@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Box, AppBar, Tab, Tabs } from '@material-ui/core';
+import { Container, AppBar, Tab, Tabs } from '@material-ui/core';
 
 const GoalTracker = ({ calculations }) => {
 	function TabPanel(props) {
@@ -14,7 +14,7 @@ const GoalTracker = ({ calculations }) => {
 				{...other}
 			>
 				{value === index && (
-					<Box sx={{ p: 1, width: 1 }}>{children}</Box>
+					<Container sx={{ p: 1, width: 1 }}>{children}</Container>
 				)}
 			</div>
 		);

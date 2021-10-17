@@ -15,10 +15,16 @@ const theme = createTheme({
 
 	overrides: {
 		// Name of the component
+		MuiFormControl: {
+			root: {
+				maxWidth: '80%',
+			},
+		},
 		MuiInputBase: {
 			// Name of the slot
 			root: {
 				color: blue[50],
+				backgroundColor: '#2b2929',
 			},
 		},
 		MuiInputLabel: {
@@ -29,6 +35,13 @@ const theme = createTheme({
 		MuiSvgIcon: {
 			root: {
 				color: cyan[300],
+			},
+		},
+		MuiPaper: {
+			root: {
+				color: cyan[300],
+				backgroundColor: '#080707',
+				margin: '1em',
 			},
 		},
 	},
