@@ -5,7 +5,6 @@ import {
 	KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { useSubmit } from '../../hooks/useSubmit';
 
 const UserInput = ({
 	packs,
@@ -16,14 +15,7 @@ const UserInput = ({
 	handleDate,
 	calcData,
 	errors,
-	setErrors,
 }) => {
-	// const { packs, price, quitDate } = useSubmit(validate, calcData);
-
-	// const validate = (e) => {
-	// 	e.preventDefault();
-
-	// };
 	return (
 		<Grid
 			container
@@ -77,9 +69,6 @@ const UserInput = ({
 						disableFuture={true}
 						inputVariant='outlined'
 						color='primary'
-						inputProps={{
-							maxwidth: '195px',
-						}}
 					/>
 				</MuiPickersUtilsProvider>
 			</Grid>
@@ -89,11 +78,6 @@ const UserInput = ({
 					variant='contained'
 					onClick={calcData}
 					color='primary'
-					InputProps={{
-						style: {
-							marginTop: '1em',
-						},
-					}}
 				>
 					Calculate
 				</Button>

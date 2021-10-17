@@ -39,9 +39,6 @@ const GoalTracker = ({ calculations }) => {
 		setValue(newValue);
 	};
 
-	const handleChangeIndex = (index) => {
-		setValue(index);
-	};
 	return (
 		<Container sx={{ width: 1, px: 0 }} className='goal-container'>
 			<AppBar position='static'>
@@ -50,7 +47,7 @@ const GoalTracker = ({ calculations }) => {
 					<Tab label='Personal goals' />
 				</Tabs>
 			</AppBar>
-			<TabPanel value={value} index={0}>
+			<TabPanel sx={{ width: 1 }} value={value} index={0}>
 				<p>goal 1: $100.00</p>
 				<p>
 					Progress:{' '}

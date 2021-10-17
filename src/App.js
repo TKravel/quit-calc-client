@@ -20,11 +20,6 @@ const theme = createTheme({
 			root: {
 				color: blue[50],
 			},
-			typography: {
-				// Some CSS
-				color: blue[50],
-				fontSize: '30px',
-			},
 		},
 		MuiInputLabel: {
 			root: {
