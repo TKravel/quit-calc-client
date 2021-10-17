@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Grid } from '@material-ui/core';
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
@@ -7,12 +7,43 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { differenceInCalendarDays } from 'date-fns';
 import '../../index.css';
+import { makeStyles, styled } from '@material-ui/core';
+
+const useStyles = makeStyles({});
+
+const Inputs = styled(TextField)({
+	// '& input:valid + fieldset': {
+	// 	border: 'none',
+	// 	borderWidth: 2,
+	// },
+	// '& input:invalid + fieldset': {
+	// 	border: 'none',
+	// 	borderWidth: 2,
+	// },
+	// '& input:valid:focus + fieldset': {
+	// 	borderWidth: 3,
+	// },
+});
+
+const DatePicker = styled(KeyboardDatePicker)({
+	'& input:valid + fieldset': {
+		borderColor: 'green',
+		borderWidth: 2,
+	},
+	'& input:invalid + fieldset': {
+		borderColor: 'red',
+		borderWidth: 2,
+	},
+	'& input:valid:focus + fieldset': {
+		borderWidth: 3,
+	},
+});
 
 const MainApp = () => {
+	const classes = useStyles();
 	const date = new Date();
-	// let convertedPrice = convertedPrice.toLocalString('en-us');
-	const [packs, setPacks] = useState(0);
-	const [price, setPrice] = useState('$00.00');
+	const [packs, setPacks] = useState('');
+	const [price, setPrice] = useState('');
 	const [quitDate, setQuitDate] = useState(date);
 	const [calculations, setCalculations] = useState({
 		savings: 0,
@@ -27,50 +58,32 @@ const MainApp = () => {
 	let daysQuit = differenceInCalendarDays(date, quitDate);
 
 	const handlePacks = (e) => {
-		setPacks(e.target.value);
+		const userInput = e.target.value;
+		console.log(userInput);
+		if (isNaN(userInput)) {
+			setErrors((prevValues) => {
+				return {
+					...prevValues,
+					packs: true,
+					packsMsg: 'Only enter numbers',
+				};
+			});
+			return;
+		} else if (errors.packs) {
+			setErrors((prevValues) => {
+				return {
+					...prevValues,
+					packs: false,
+					packsMsg: '',
+				};
+			});
+		}
+		setPacks(userInput);
 	};
 
-	// const formatter = (num) => {
-	// 	console.log(num);
-	// 	let check = parseFloat(num);
-	// 	console.log(typeof check, 'check');
-	// 	if (typeof check === 'number') {
-	// 		const result = new Intl.NumberFormat('en-US', {
-	// 			style: 'currency',
-	// 			currency: 'USD',
-	// 		}).format(check);
-	// 		console.log(typeof result, 'result');
-	// 		let numResult = parseFloat(result);
-	// 		console.log(typeof numResult, 'numResults');
-	// 		return numResult;
-	// 	} else {
-	// 		console.log(typeof num);
-	// 	}
-	// };
-
-	// const handlePrice = (e) => {
-	// 	let userInput = e.target.value;
-	// 	let test = userInput.substring(1);
-	// 	console.log(test);
-	// 	let test2 = parseFloat(test);
-	// 	console.log(typeof test2, 'parsed');
-	// 	test2 = formatter(test2);
-	// 	console.log(typeof test2, 'after format');
-	// 	// let rounded = Math.round((test2 + Number.EPSILON) * 100) / 100;
-	// 	// console.log(typeof rounded, 'rounded', rounded);
-	// 	setPrice(test2.toString());
-	// };
-
 	const handlePrice = (e) => {
-		e.preventDefault();
-		let userInput = e.target.value;
-		const arr = userInput.split('');
-		arr.shift();
-		console.log(arr);
-		if (arr[0] !== '0' && arr.length === 6) {
-			return;
-		}
-		if (arr[arr.length - 1] === '.') {
+		const userInput = e.target.value;
+		if (isNaN(userInput)) {
 			setErrors((prevValues) => {
 				return {
 					...prevValues,
@@ -88,34 +101,70 @@ const MainApp = () => {
 				};
 			});
 		}
-		console.log(userInput.length);
-		if (arr.length === 6) {
-			arr.shift();
-			const numbers = arr.filter((item) => item !== '.');
-			numbers.splice(2, 0, '.');
-			let result = numbers.join('');
-			setPrice('$' + result);
-		} else if (arr.length === 4) {
-			arr.unshift('0');
-			const numbers = arr.filter((item) => item !== '.');
-			numbers.splice(2, 0, '.');
-			let result = numbers.join('');
-			setPrice('$' + result);
-		} else if (arr.length < 4) {
-			const diff = 4 - arr.length;
-			for (let i = 0; i < diff; i++) {
-				console.log('shifted');
-				arr.unshift('0');
-			}
-			if (arr.length > 5) {
-				arr.pop();
-			}
-			const numbers = arr.filter((item) => item !== '.');
-			numbers.splice(2, 0, '.');
-			let result = numbers.join('');
-			setPrice('$' + result);
-		}
+		setPrice(userInput);
 	};
+
+	// const handlePrice = (e) => {
+	// 	e.preventDefault();
+	// 	let userInput = e.target.value;
+	// 	const arr = userInput.toString().split('');
+	// 	console.log(arr);
+	// 	if (arr[0] !== '0' && arr.length === 6) {
+	// 		return;
+	// 	}
+	// 	if (arr[arr.length - 1] === '.') {
+	// 		setErrors((prevValues) => {
+	// 			return {
+	// 				...prevValues,
+	// 				price: true,
+	// 				priceMsg: 'Only enter numbers',
+	// 			};
+	// 		});
+	// 		return;
+	// 	} else if (errors.price) {
+	// 		setErrors((prevValues) => {
+	// 			return {
+	// 				...prevValues,
+	// 				price: false,
+	// 				priceMsg: '',
+	// 			};
+	// 		});
+	// 	}
+	// 	console.log(userInput.length);
+	// 	if (arr.length === 6) {
+	// 		console.log('6');
+	// 		arr.shift();
+	// 		const numbers = arr.filter((item) => item !== '.');
+	// 		numbers.splice(2, 0, '.');
+	// 		let result = numbers.join('');
+	// 		return setPrice(parseFloat(result));
+	// 	} else if (arr.length === 5) {
+	// 		console.log('5');
+	// 		arr.shift();
+	// 		console.log(arr);
+	// 		const numbers = arr.filter((item) => item !== '.');
+	// 		numbers.splice(2, 0, '.');
+	// 		let result = numbers.join('');
+	// 		console.log('result ', result);
+	// 		return setPrice(parseFloat(result));
+	// 	} else if (arr.length < 4) {
+	// 		console.log('<5');
+	// 		const diff = 4 - arr.length;
+	// 		for (let i = 0; i < diff; i++) {
+	// 			console.log('shifted');
+	// 			arr.unshift('0');
+	// 		}
+	// 		// if (arr.length > 5) {
+	// 		// 	console.log('>5');
+	// 		// 	arr.pop();
+	// 		// }
+	// 		const numbers = arr.filter((item) => item !== '.');
+	// 		numbers.splice(2, 0, '.');
+	// 		let result = numbers.join('');
+	// 		console.log(result);
+	// 		return setPrice(parseFloat(result));
+	// 	}
+	// };
 
 	const handleDate = (value) => {
 		setQuitDate(value);
@@ -133,49 +182,101 @@ const MainApp = () => {
 
 	return (
 		<div className='app-container'>
-			<div className='input-container'>
-				<TextField
-					onChange={handlePacks}
-					value={packs}
-					type='number'
-					variant='outlined'
-					margin='normal'
-					step='0.5'
-					label='Number of packs per day'
-					InputProps={{ inputProps: { min: 0, step: 0.5 } }}
-				/>
-				<TextField
-					onChange={handlePrice}
-					value={price}
-					id='price-input'
-					variant='outlined'
-					margin='normal'
-					label='Price per pack'
-					inputProps={{
-						inputMode: 'decimal',
-						pattern: '[0-9]*',
-					}}
-					error={errors.priceMsg}
-					helperText={errors.priceMsg ? errors.priceMsg : null}
-				/>
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
-					<KeyboardDatePicker
-						onChange={handleDate}
-						value={quitDate}
-						format='MM/dd/yyyy'
-						disableFuture={true}
-						inputVariant='outlined'
-					/>
-				</MuiPickersUtilsProvider>
-				<Button variant='outlined' onClick={calcData}>
-					Calculate
-				</Button>
-			</div>
-			<div className='savings-container'>
-				Quiting for
-				{daysQuit === 1 ? ` ${daysQuit} day` : ` ${daysQuit} days`}{' '}
-				saved you ${calculations.savings}.
-			</div>
+			<Grid
+				container
+				className='input-container'
+				direction='row'
+				justifyContent='center'
+				alignItems='center'
+			>
+				<Grid
+					container
+					className='input-container'
+					direction='column'
+					justifyContent='center'
+					alignItems='center'
+					xs={6}
+					md={1}
+				>
+					<form>
+						<Grid item>
+							<Inputs
+								onChange={handlePacks}
+								value={packs}
+								variant='filled'
+								margin='normal'
+								step='0.5'
+								label='Number of packs per day'
+								inputProps={{
+									inputMode: 'decimal',
+									pattern: '[0-9]+(.[0-9]{2})',
+								}}
+								error={errors.packs ? true : false}
+								helperText={
+									errors.packsMsg ? errors.packsMsg : null
+								}
+							/>
+						</Grid>
+						<Grid item>
+							<Inputs
+								placeholder='$00.00'
+								onChange={handlePrice}
+								value={price}
+								id='price-input'
+								variant='filled'
+								margin='normal'
+								label='Price per pack'
+								inputProps={{
+									inputMode: 'decimal',
+									pattern: '[0-9]+(.[0-9]{2})',
+								}}
+								error={errors.price ? true : false}
+								helperText={
+									errors.priceMsg ? errors.priceMsg : null
+								}
+							/>
+						</Grid>
+						<Grid item>
+							<MuiPickersUtilsProvider utils={DateFnsUtils}>
+								<KeyboardDatePicker
+									onChange={handleDate}
+									value={quitDate}
+									format='MM/dd/yyyy'
+									disableFuture={true}
+									inputVariant='filled'
+									// color='primary'
+								/>
+							</MuiPickersUtilsProvider>
+						</Grid>
+						<Grid item>
+							<Button
+								variant='contained'
+								onClick={calcData}
+								color='secondary'
+							>
+								Calculate
+							</Button>
+						</Grid>
+					</form>
+				</Grid>
+				<Grid
+					container
+					className='input-container'
+					direction='column'
+					justifyContent='center'
+					alignItems='center'
+					sm={6}
+					md={1}
+				>
+					<div className='savings-container'>
+						Quiting for
+						{daysQuit === 1
+							? ` ${daysQuit} day`
+							: ` ${daysQuit} days`}{' '}
+						saved you ${calculations.savings}.
+					</div>
+				</Grid>
+			</Grid>
 			<div className='goal-container'>
 				<p>goal 1: $100.00</p>
 				<p>
