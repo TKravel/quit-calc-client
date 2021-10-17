@@ -1,33 +1,39 @@
 import './App.css';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { cyan } from '@material-ui/core/colors';
+import { cyan, deepPurple, blue } from '@material-ui/core/colors';
 
 const theme = createTheme({
 	palette: {
-		primary: cyan,
-		secondary: {
-			main: '#ffc107',
-		},
-		// text: {
-		// 	primary: '#fff',
-		// 	secondary: '#fff',
-		// },
+		primary: deepPurple,
+		secondary: cyan,
 	},
+	text: {
+		primary: blue[50],
+		secondary: blue[50],
+	},
+
 	overrides: {
 		// Name of the component
 		MuiInputBase: {
 			// Name of the slot
-			// root: {
-			// 	border: '1px solid red',
-			// },
-			// validFocus: {
-			// 	border: '3px solid red',
-			// },
+			root: {
+				color: blue[50],
+			},
 			typography: {
 				// Some CSS
-				color: '#fff',
+				color: blue[50],
 				fontSize: '30px',
+			},
+		},
+		MuiInputLabel: {
+			root: {
+				color: blue[50],
+			},
+		},
+		MuiSvgIcon: {
+			root: {
+				color: cyan[300],
 			},
 		},
 	},

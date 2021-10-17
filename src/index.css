@@ -18,10 +18,18 @@ code {
 
 html {
 	height: 100vh;
-	/* color: #fff;
-	background-color: rgb(22, 21, 21); */
+	color: #fff;
+	background-color: rgb(22, 21, 21);
 }
 
 .app-container {
-	padding: 3em;
+	padding-top: 3em;
+}
+
+.savings-container {
+	padding: 1.5em;
+}
+
+.subButton {
+	margin-top: 1em !important;
 }
