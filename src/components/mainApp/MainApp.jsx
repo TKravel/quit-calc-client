@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Container } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { differenceInCalendarDays } from 'date-fns';
 import '../../index.css';
 import UserInput from './UserInput';
