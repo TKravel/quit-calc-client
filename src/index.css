@@ -23,7 +23,11 @@ html {
 }
 
 .app-container {
-	padding-top: 3em;
+	padding: 0 !important;
+}
+
+#app-header {
+	text-align: center;
 }
 
 .goal-container {

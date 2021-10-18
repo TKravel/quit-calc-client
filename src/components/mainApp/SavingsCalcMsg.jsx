@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		backgroundColor: theme.palette.primary.main,
 		padding: '1em',
+		margin: '1em',
 	},
 }));
 

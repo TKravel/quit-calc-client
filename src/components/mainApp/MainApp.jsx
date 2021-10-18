@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import { differenceInCalendarDays } from 'date-fns';
 import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './GoalTracker';
+import NavBar from '../NavBar';
 
 const MainApp = () => {
 	const date = new Date();
@@ -117,12 +118,13 @@ const MainApp = () => {
 		const amount = parseFloat(packs);
 		const cost = parseFloat(price);
 		moneySaved = amount * cost * daysQuit;
-		console.log('clicked', daysQuit, moneySaved, amount);
 		setCalculations({ savings: moneySaved.toFixed(2) });
 	};
 
 	return (
-		<div className='app-container'>
+		<Container component='main' className='app-container'>
+			<NavBar />
+			<p id='app-header'>Quit smoking by tracking goals!</p>
 			<Grid
 				container
 				className='input-container'
@@ -154,7 +156,7 @@ const MainApp = () => {
 			{calculations.savings !== 0 && (
 				<GoalTracker calculations={calculations} />
 			)}
-		</div>
+		</Container>
 	);
 };
 

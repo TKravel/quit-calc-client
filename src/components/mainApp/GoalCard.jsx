@@ -41,7 +41,7 @@ const GoalCard = ({ goalName, goalAmount, calculations }) => {
 				thickness={10}
 			/>
 
-			<p> Progress: {percent >= 100 ? 'Complete' : percent}%</p>
+			<p> Progress: {percent >= 100 ? 'Complete!' : percent + '%'}</p>
 		</>
 	);
 };

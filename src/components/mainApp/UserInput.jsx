@@ -45,7 +45,6 @@ const UserInput = ({
 						value={packs}
 						onChange={handlePacks}
 						variant='outlined'
-						step='0.5'
 						label='Number of packs per day'
 						autoComplete='off'
 						color='secondary'
