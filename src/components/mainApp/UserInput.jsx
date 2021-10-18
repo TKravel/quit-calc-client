@@ -1,10 +1,23 @@
 import React from 'react';
 import { TextField, Button, Grid, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+
+const useStyles = makeStyles((theme) => ({
+	paper: {
+		backgroundColor: theme.palette.primary.main,
+		textAlign: 'center',
+		margin: '1em',
+	},
+	button: {
+		backgroundColor: theme.palette.secondary.dark,
+		margin: '16px !important',
+	},
+}));
 
 const UserInput = ({
 	packs,
@@ -16,6 +29,7 @@ const UserInput = ({
 	calcData,
 	errors,
 }) => {
+	const classes = useStyles();
 	return (
 		<Grid
 			container
@@ -24,17 +38,17 @@ const UserInput = ({
 			justifyContent='center'
 			alignItems='center'
 		>
-			<Paper elevation={8} component='form' className='form-container'>
+			<Paper elevation={8} component='form' className={classes.paper}>
+				<p>Let's get some info!</p>
 				<Grid item xs={12}>
 					<TextField
 						value={packs}
 						onChange={handlePacks}
 						variant='outlined'
-						margin='normal'
 						step='0.5'
 						label='Number of packs per day'
 						autoComplete='off'
-						color='primary'
+						color='secondary'
 						inputProps={{
 							inputMode: 'decimal',
 							pattern: '[0-9]+(.[0-9]{2})',
@@ -50,9 +64,9 @@ const UserInput = ({
 						value={price}
 						id='price-input'
 						variant='outlined'
-						margin='normal'
 						label='Price per pack'
 						autoComplete='off'
+						color='secondary'
 						inputProps={{
 							inputMode: 'decimal',
 							pattern: '[0-9]+(.[0-9]{2})',
@@ -72,16 +86,17 @@ const UserInput = ({
 							format='MM/dd/yyyy'
 							disableFuture={true}
 							inputVariant='outlined'
-							color='primary'
+							color='secondary'
 						/>
 					</MuiPickersUtilsProvider>
 				</Grid>
 				<Grid item>
 					<Button
-						className='subButton'
+						id='subButton'
+						className={classes.button}
 						variant='contained'
 						onClick={calcData}
-						color='primary'
+						color='secondary'
 					>
 						Calculate
 					</Button>

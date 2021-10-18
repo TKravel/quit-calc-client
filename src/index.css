@@ -26,12 +26,9 @@ html {
 	padding-top: 3em;
 }
 
-.savings-container {
-	padding: 1.5em;
-}
-
-.subButton {
-	margin: 1em !important;
+.goal-container {
+	padding: 0px !important;
+	width: 100%;
 }
 
 #date-picker {
@@ -40,4 +37,14 @@ html {
 
 .form-container {
 	text-align: center;
+}
+
+#progress-circle-BG {
+	position: relative !important;
+	z-index: 10;
+}
+#progress-circle {
+	position: absolute !important;
+	left: calc(50vw - 40px);
+	z-index: 1;
 }

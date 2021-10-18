@@ -1,7 +1,33 @@
 import React, { useState } from 'react';
-import { Container, AppBar, Tab, Tabs } from '@material-ui/core';
+import { Container, AppBar, Grid, Tab, Tabs } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import GoalCard from './GoalCard';
+
+const useStyles = makeStyles((theme) => ({
+	goalContainer: {
+		backgroundColor: theme.palette.primary.main,
+		maxWidth: '800px',
+		margin: 'auto',
+		padding: '0px',
+		boxShadow:
+			'0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
+	},
+	card: {
+		backgroundColor: theme.palette.primary.light,
+		display: 'block',
+		padding: '0px',
+		margin: '5px',
+		alignSelf: 'center',
+		textAlign: 'center',
+		width: '300px',
+		borderRadius: '8px',
+		boxShadow:
+			'0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
+	},
+}));
 
 const GoalTracker = ({ calculations }) => {
+	const classes = useStyles();
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
@@ -13,9 +39,7 @@ const GoalTracker = ({ calculations }) => {
 				aria-labelledby={`full-width-tab-${index}`}
 				{...other}
 			>
-				{value === index && (
-					<Container sx={{ p: 1, width: 1 }}>{children}</Container>
-				)}
+				{value === index && <Container>{children}</Container>}
 			</div>
 		);
 	}
@@ -34,44 +58,54 @@ const GoalTracker = ({ calculations }) => {
 	// }
 
 	const [value, setValue] = useState(0);
+	const defaultGoals = [
+		{
+			goalName: 'Goal #1',
+			goalAmount: 100,
+		},
+		{
+			goalName: 'Goal #2',
+			goalAmount: 500,
+		},
+		{
+			goalName: 'Goal #3',
+			goalAmount: 1000,
+		},
+	];
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
 
 	return (
-		<Container sx={{ width: 1, px: 0 }} className='goal-container'>
+		<Container className={classes.goalContainer}>
 			<AppBar position='static'>
 				<Tabs value={value} variant='fullWidth' onChange={handleChange}>
 					<Tab label='Mile Stones' />
 					<Tab label='Personal goals' />
 				</Tabs>
 			</AppBar>
-			<TabPanel sx={{ width: 1 }} value={value} index={0}>
-				<p>goal 1: $100.00</p>
-				<p>
-					Progress:{' '}
-					{parseFloat((calculations.savings / 100.0) * 100).toFixed(
-						1
-					) + '%'}
-				</p>
-				<p>Goal 2: $500</p>
-				<p>
-					Progress:{' '}
-					{parseFloat((calculations.savings / 500.0) * 100).toFixed(
-						1
-					) + '%'}
-				</p>
-				<p>Goal 3: $1000</p>
-				<p>
-					Progress:{' '}
-					{parseFloat((calculations.savings / 1000.0) * 100).toFixed(
-						1
-					) + '%'}
-				</p>
+			<TabPanel value={value} index={0}>
+				<Grid container={true} direction='column'>
+					{defaultGoals.map((goal, index) => {
+						return (
+							<Grid item className={classes.card} key={index}>
+								<GoalCard
+									goalName={goal.goalName}
+									goalAmount={goal.goalAmount}
+									calculations={calculations}
+								/>
+							</Grid>
+						);
+					})}
+				</Grid>
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				<p>TBD</p>
+				<Grid container={true} direction='column'>
+					<Grid item className={classes.card} key={0}>
+						<p>Sign up to set personal goals!</p>
+					</Grid>
+				</Grid>
 			</TabPanel>
 		</Container>
 	);

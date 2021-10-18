@@ -78,24 +78,6 @@ const MainApp = () => {
 	const calcData = (e) => {
 		e.preventDefault();
 
-		if (price === '' || price === '0') {
-			setErrors((prevValues) => {
-				return {
-					...prevValues,
-					price: true,
-					priceMsg: 'Price Required',
-				};
-			});
-			return;
-		} else if (errors.price) {
-			setErrors((prevValues) => {
-				return {
-					...prevValues,
-					price: false,
-					priceMsg: '',
-				};
-			});
-		}
 		if (packs === '' || packs === '0') {
 			setErrors((prevValues) => {
 				return {
@@ -111,6 +93,24 @@ const MainApp = () => {
 					...prevValues,
 					packs: false,
 					packsMsg: '',
+				};
+			});
+		}
+		if (price === '' || price === '0') {
+			setErrors((prevValues) => {
+				return {
+					...prevValues,
+					price: true,
+					priceMsg: 'Price Required',
+				};
+			});
+			return;
+		} else if (errors.price) {
+			setErrors((prevValues) => {
+				return {
+					...prevValues,
+					price: false,
+					priceMsg: '',
 				};
 			});
 		}
@@ -142,14 +142,18 @@ const MainApp = () => {
 						errors={errors}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={6}>
-					<SavingsCalcMsg
-						daysQuit={daysQuit}
-						calculations={calculations}
-					/>
-				</Grid>
+				{calculations.savings !== 0 && (
+					<Grid item xs={12} sm={6}>
+						<SavingsCalcMsg
+							daysQuit={daysQuit}
+							calculations={calculations}
+						/>
+					</Grid>
+				)}
 			</Grid>
-			<GoalTracker calculations={calculations} />
+			{calculations.savings !== 0 && (
+				<GoalTracker calculations={calculations} />
+			)}
 		</div>
 	);
 };

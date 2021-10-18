@@ -1,7 +1,16 @@
 import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+	paper: {
+		backgroundColor: theme.palette.primary.main,
+		padding: '1em',
+	},
+}));
 
 const SavingsCalcMsg = ({ daysQuit, calculations }) => {
+	const classes = useStyles();
 	return (
 		<Grid
 			container
@@ -12,8 +21,8 @@ const SavingsCalcMsg = ({ daysQuit, calculations }) => {
 		>
 			<Grid item xs={12} sm={6}>
 				<Paper
+					className={classes.paper}
 					elevation={8}
-					className='savings-container'
 					sx={{ style: { margin: '10px' } }}
 				>
 					Quiting for
