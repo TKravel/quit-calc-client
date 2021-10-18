@@ -124,7 +124,18 @@ const MainApp = () => {
 	return (
 		<Container component='main' className='app-container'>
 			<NavBar />
-			<p id='app-header'>Quit smoking by tracking goals!</p>
+			<h1 className='app-header'>Quit smoking savings calculator</h1>
+			<p className='app-header'>
+				Motivate yourself to quit by creating personal goals, tracking
+				progress, and spoiling yourself with gifts bought from the
+				savings!
+			</p>
+			<p className='app-header'>
+				Start by filling out the form below to see your savings.
+			</p>
+			<p className='app-header'>
+				Sign up to customize goals to motivate you!
+			</p>
 			<Grid
 				container
 				className='input-container'

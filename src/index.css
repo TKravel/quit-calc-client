@@ -26,8 +26,10 @@ html {
 	padding: 0 !important;
 }
 
-#app-header {
+.app-header {
 	text-align: center;
+	margin-left: 1em;
+	margin-right: 1em;
 }
 
 .goal-container {

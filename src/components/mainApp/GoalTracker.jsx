@@ -87,7 +87,7 @@ const GoalTracker = ({ calculations }) => {
 		<Container className={classes.goalContainer}>
 			<AppBar position='static'>
 				<Tabs value={value} variant='fullWidth' onChange={handleChange}>
-					<Tab label='Mile Stones' />
+					<Tab label='Milestones' />
 					<Tab label='Personal goals' />
 				</Tabs>
 			</AppBar>

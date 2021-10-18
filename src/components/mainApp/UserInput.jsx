@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.primary.main,
 		textAlign: 'center',
 		margin: '1em',
+		width: '300px',
 	},
 	button: {
 		backgroundColor: theme.palette.secondary.dark,
@@ -39,7 +40,11 @@ const UserInput = ({
 			alignItems='center'
 		>
 			<Paper elevation={8} component='form' className={classes.paper}>
-				<p>Let's get some info!</p>
+				<h2>Let's get some info!</h2>
+				<p>
+					Enter the bellow information along with the date you quit
+					then click calculate to see your progress
+				</p>
 				<Grid item xs={12}>
 					<TextField
 						value={packs}
