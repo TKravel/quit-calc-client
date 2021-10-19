@@ -1,11 +1,11 @@
 import './App.css';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { cyan, blue } from '@material-ui/core/colors';
 
 const theme = createTheme({
 	palette: {
 		primary: {
+			extraLight: '#cccccc',
 			light: '#8e8e8e',
 			main: '#616161',
 			dark: '#373737',
@@ -15,14 +15,11 @@ const theme = createTheme({
 			light: '#73e8ff',
 			main: '#29b6f6',
 			dark: '#0086c3',
+			extraDark: '#00364f',
 		},
 		error: {
 			main: '#d10000',
 		},
-	},
-	text: {
-		primary: blue[50],
-		secondary: blue[50],
 	},
 
 	overrides: {
@@ -35,19 +32,29 @@ const theme = createTheme({
 		MuiInputBase: {
 			// Name of the slot
 			root: {
-				backgroundColor: '#8e8e8e',
+				backgroundColor: '#cccccc',
 				marginTop: '0.5em',
 				marginBottom: '0.5em',
 			},
 		},
 		MuiInputLabel: {
 			root: {
-				color: 'secondary',
+				color: '#00364f',
+			},
+		},
+		MuiFormLabel: {
+			root: {
+				color: '#00364f',
+			},
+		},
+		MuiOutlinedInput: {
+			root: {
+				color: '#00364f',
 			},
 		},
 		MuiSvgIcon: {
 			root: {
-				color: cyan[300],
+				color: '#00364f',
 			},
 		},
 	},

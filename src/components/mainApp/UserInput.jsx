@@ -9,7 +9,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
-		backgroundColor: theme.palette.primary.main,
+		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
 		margin: '1em',
 		width: '300px',
@@ -52,7 +52,7 @@ const UserInput = ({
 						variant='outlined'
 						label='Number of packs per day'
 						autoComplete='off'
-						color='secondary'
+						// color='secondary'
 						inputProps={{
 							inputMode: 'decimal',
 							pattern: '[0-9]+(.[0-9]{2})',
@@ -70,7 +70,7 @@ const UserInput = ({
 						variant='outlined'
 						label='Price per pack'
 						autoComplete='off'
-						color='secondary'
+						// color='secondary'
 						inputProps={{
 							inputMode: 'decimal',
 							pattern: '[0-9]+(.[0-9]{2})',
@@ -90,7 +90,7 @@ const UserInput = ({
 							format='MM/dd/yyyy'
 							disableFuture={true}
 							inputVariant='outlined'
-							color='secondary'
+							// color='secondary'
 						/>
 					</MuiPickersUtilsProvider>
 				</Grid>

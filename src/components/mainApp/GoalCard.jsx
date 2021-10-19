@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.primary.main,
 		zIndex: '1',
 	},
+	text: {
+		color: theme.palette.primary.extraDark,
+	},
 }));
 
 const GoalCard = ({ goalName, goalAmount, calculations }) => {
@@ -23,7 +26,7 @@ const GoalCard = ({ goalName, goalAmount, calculations }) => {
 	percent = parseFloat(percent.toFixed(1));
 	return (
 		<>
-			<p>
+			<p className={classes.text}>
 				{goalName}: ${goalAmount}
 			</p>
 			<CircularProgress
@@ -41,7 +44,10 @@ const GoalCard = ({ goalName, goalAmount, calculations }) => {
 				thickness={10}
 			/>
 
-			<p> Progress: {percent >= 100 ? 'Complete!' : percent + '%'}</p>
+			<p className={classes.text}>
+				{' '}
+				Progress: {percent >= 100 ? 'Complete!' : percent + '%'}
+			</p>
 		</>
 	);
 };

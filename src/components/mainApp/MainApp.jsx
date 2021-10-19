@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Container } from '@material-ui/core';
 import { differenceInCalendarDays } from 'date-fns';
 import '../../index.css';
@@ -121,6 +121,16 @@ const MainApp = () => {
 		setCalculations({ savings: moneySaved.toFixed(2) });
 	};
 
+	useEffect(() => {
+		let progressDisplay = document.getElementById('savings-msg');
+		if (progressDisplay !== null) {
+			progressDisplay.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			});
+		}
+	}, [calculations]);
+
 	return (
 		<Container component='main' className='app-container'>
 			<NavBar />
@@ -156,7 +166,7 @@ const MainApp = () => {
 					/>
 				</Grid>
 				{calculations.savings !== 0 && (
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={6} id='savings-msg'>
 						<SavingsCalcMsg
 							daysQuit={daysQuit}
 							calculations={calculations}

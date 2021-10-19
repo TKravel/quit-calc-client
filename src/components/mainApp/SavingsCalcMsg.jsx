@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
-		backgroundColor: theme.palette.primary.main,
+		backgroundColor: theme.palette.primary.light,
 		padding: '1em',
 		margin: '1em',
 	},
@@ -21,16 +21,12 @@ const SavingsCalcMsg = ({ daysQuit, calculations }) => {
 			alignItems='center'
 		>
 			<Grid item xs={12} sm={6}>
-				<Paper
-					className={classes.paper}
-					elevation={8}
-					sx={{ style: { margin: '10px' } }}
-				>
+				<Paper className={classes.paper} elevation={8}>
 					Quiting for
 					{daysQuit === 1
 						? ` ${daysQuit} day`
 						: ` ${daysQuit} days`}{' '}
-					saved you ${calculations.savings}.
+					saved you ${calculations.savings}!
 				</Paper>
 			</Grid>
 		</Grid>
