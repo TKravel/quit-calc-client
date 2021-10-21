@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { Container, AppBar, Grid, Tab, Tabs } from '@material-ui/core';
+import {
+	Container,
+	AppBar,
+	Grid,
+	Tab,
+	Tabs,
+	Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GoalCard from './GoalCard';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
+		color: '#000',
 		backgroundColor: theme.palette.primary.main,
 		maxWidth: '800px',
 		minHeight: '100vh',
-		margin: 'auto',
+		margin: '1em auto 0 auto',
 		padding: '0px',
 		justifyContent: 'center',
 		boxShadow:
@@ -116,8 +124,10 @@ const GoalTracker = ({ calculations }) => {
 					container={true}
 					direction='column'
 				>
-					<Grid item className={classes.card} key={0}>
-						<p>Sign up to set personal goals!</p>
+					<Grid item className={classes.card}>
+						<Typography variant='h5' paragraph>
+							Sign up to set personal goals!
+						</Typography>
 					</Grid>
 				</Grid>
 			</TabPanel>

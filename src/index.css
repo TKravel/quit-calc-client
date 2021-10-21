@@ -26,12 +26,6 @@ html {
 	padding: 0 !important;
 }
 
-.app-header {
-	text-align: center;
-	margin-left: 1em;
-	margin-right: 1em;
-}
-
 .goal-container {
 	padding: 0px !important;
 	width: 100%;
@@ -39,10 +33,6 @@ html {
 
 #date-picker {
 	width: 195px !important;
-}
-
-.form-container {
-	text-align: center;
 }
 
 #progress-circle-BG {

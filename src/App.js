@@ -39,17 +39,17 @@ const theme = createTheme({
 		},
 		MuiInputLabel: {
 			root: {
-				color: '#00364f',
+				color: '#000',
 			},
 		},
 		MuiFormLabel: {
 			root: {
-				color: '#00364f',
+				color: '#000',
 			},
 		},
 		MuiOutlinedInput: {
 			root: {
-				color: '#00364f',
+				color: '#000',
 			},
 		},
 		MuiSvgIcon: {

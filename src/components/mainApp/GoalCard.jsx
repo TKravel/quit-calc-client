@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.primary.main,
 		zIndex: '1',
 	},
-	text: {
-		color: theme.palette.primary.extraDark,
-	},
 }));
 
 const GoalCard = ({ goalName, goalAmount, calculations }) => {
@@ -26,9 +23,10 @@ const GoalCard = ({ goalName, goalAmount, calculations }) => {
 	percent = parseFloat(percent.toFixed(1));
 	return (
 		<>
-			<p className={classes.text}>
+			<Typography variant='h5' component='h3' gutterBottom={true}>
 				{goalName}: ${goalAmount}
-			</p>
+			</Typography>
+
 			<CircularProgress
 				id='progress-circle-BG'
 				className={classes.progressCircleBG}
@@ -43,11 +41,9 @@ const GoalCard = ({ goalName, goalAmount, calculations }) => {
 				variant='determinate'
 				thickness={10}
 			/>
-
-			<p className={classes.text}>
-				{' '}
+			<Typography variant='body1' paragraph>
 				Progress: {percent >= 100 ? 'Complete!' : percent + '%'}
-			</p>
+			</Typography>
 		</>
 	);
 };

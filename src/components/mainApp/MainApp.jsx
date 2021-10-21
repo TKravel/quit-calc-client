@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Typography } from '@material-ui/core';
 import { differenceInCalendarDays } from 'date-fns';
 import '../../index.css';
 import UserInput from './UserInput';
@@ -134,18 +134,38 @@ const MainApp = () => {
 	return (
 		<Container component='main' className='app-container'>
 			<NavBar />
-			<h1 className='app-header'>Quit smoking savings calculator</h1>
-			<p className='app-header'>
+			{/* <Typography variant='h1'>h1</Typography>
+			<Typography variant='h2'>h2</Typography>
+			<Typography variant='h3'>h3</Typography>
+			<Typography variant='h4'>h4</Typography>
+			<Typography variant='h5'>h5</Typography>
+			<Typography variant='h6'>h6</Typography>
+			<Typography variant='subtitle1'>subtitle1</Typography>
+			<Typography variant='subtitle2'>subtitle2</Typography>
+			<Typography variant='body1'>body1</Typography>
+			<Typography variant='body2'>body2</Typography> */}
+			<Typography
+				variant='h4'
+				component='h1'
+				align='center'
+				gutterBottom={true}
+			>
+				Quit smoking savings calculator
+			</Typography>
+
+			<Typography></Typography>
+			<Typography variant='body1' paragraph align='center'>
 				Motivate yourself to quit by creating personal goals, tracking
 				progress, and spoiling yourself with gifts bought from the
 				savings!
-			</p>
-			<p className='app-header'>
+			</Typography>
+
+			<Typography variant='body1' paragraph align='center'>
 				Start by filling out the form below to see your savings.
-			</p>
-			<p className='app-header'>
+			</Typography>
+			<Typography variant='body1' paragraph align='center'>
 				Sign up to customize goals to motivate you!
-			</p>
+			</Typography>
 			<Grid
 				container
 				className='input-container'

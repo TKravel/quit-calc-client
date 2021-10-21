@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Grid, Paper } from '@material-ui/core';
+import { TextField, Button, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	MuiPickersUtilsProvider,
@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
-		margin: '1em',
+		padding: '1.5em 1em 1em 1em',
+		margin: '1em 0 0 0',
 		width: '300px',
 	},
 	button: {
@@ -40,11 +41,13 @@ const UserInput = ({
 			alignItems='center'
 		>
 			<Paper elevation={8} component='form' className={classes.paper}>
-				<h2>Let's get some info!</h2>
-				<p>
+				<Typography variant='h5' component='h2' gutterBottom={true}>
+					Let's get some info!
+				</Typography>
+				<Typography variant='body1' paragraph>
 					Enter the bellow information along with the date you quit
-					then click calculate to see your progress
-				</p>
+					then click calculate to see your progress.
+				</Typography>
 				<Grid item xs={12}>
 					<TextField
 						value={packs}
