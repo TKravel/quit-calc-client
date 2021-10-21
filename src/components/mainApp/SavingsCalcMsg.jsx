@@ -19,7 +19,7 @@ const SavingsCalcMsg = ({ daysQuit, calculations }) => {
 			<Typography variant='h4' component='h2'>
 				Quiting for
 				{daysQuit === 1 ? ` ${daysQuit} day` : ` ${daysQuit} days`}{' '}
-				saved you <strong>${calculations.savings}</strong>!
+				saved you <strong>${calculations.savings}!</strong>
 			</Typography>
 		</Paper>
 	);

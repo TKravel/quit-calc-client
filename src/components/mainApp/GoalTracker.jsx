@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GoalCard from './GoalCard';
+import GoalInput from './GoalInput';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'space-around',
 	},
 	card: {
+		color: '#000',
 		backgroundColor: theme.palette.primary.light,
 		display: 'block',
 		padding: '0px',
@@ -72,6 +74,19 @@ const GoalTracker = ({ calculations }) => {
 	// }
 
 	const [value, setValue] = useState(0);
+	const [userGoals, setUserGoals] = useState([]);
+	const [isDisabled, setIsDisabled] = useState(false);
+
+	const handleUserGoals = (goal, cost) => {
+		const userGoal = goal;
+		const userCost = parseFloat(cost);
+		setUserGoals([
+			{
+				goal: userGoal,
+				cost: userCost,
+			},
+		]);
+	};
 	const defaultGoals = [
 		{
 			goalName: 'Goal #1',
@@ -125,8 +140,28 @@ const GoalTracker = ({ calculations }) => {
 					direction='column'
 				>
 					<Grid item className={classes.card}>
+						<GoalInput
+							disabled={isDisabled}
+							setDisabled={setIsDisabled}
+							userGoals={userGoals}
+							handleGoals={handleUserGoals}
+						/>
+					</Grid>
+					{userGoals.length !== 0 &&
+						userGoals.map((goal, index) => {
+							return (
+								<Grid item className={classes.card} key={index}>
+									<GoalCard
+										goalName={goal.goal}
+										goalAmount={goal.cost}
+										calculations={calculations}
+									/>
+								</Grid>
+							);
+						})}
+					<Grid item className={classes.card}>
 						<Typography variant='h5' paragraph>
-							Sign up to set personal goals!
+							Sign up to set more personal goals!
 						</Typography>
 					</Grid>
 				</Grid>
