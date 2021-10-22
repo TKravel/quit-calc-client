@@ -1,7 +1,8 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './components/landingPage/Login';
+import Register from './components/landingPage/Register';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
@@ -72,6 +73,9 @@ function App() {
 				<Switch>
 					<Route exact path='/login'>
 						<Login />
+					</Route>
+					<Route exact path='/register'>
+						<Register />
 					</Route>
 					<Route exact path='/'>
 						<MainApp />

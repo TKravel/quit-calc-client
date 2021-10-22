@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	gridContainer: {
 		height: '60vh',
 	},
-	loginForm: {
+	form: {
 		width: '90%',
 		maxWidth: '250px',
 		height: '70%',
@@ -31,17 +31,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Login = () => {
+const Register = () => {
 	const classes = useStyles();
 	return (
 		<Container component='form' className={classes.container}>
-			<Paper elevation={8} className={classes.loginForm}>
+			<Paper elevation={8} className={classes.form}>
 				<Grid
 					container={true}
 					direction='row'
 					justifyContent='space-around'
 					alignContent='center'
-					spacing={2}
 					className={classes.gridContainer}
 				>
 					<Grid item xs={12}>
@@ -50,16 +49,16 @@ const Login = () => {
 							component='h1'
 							gutterBottom={true}
 						>
-							Login
+							Register
 						</Typography>
 						<Typography
 							variant='body1'
 							gutterBottom={true}
 							paragraph
 						>
-							Not registered?
+							Have a account?
 							<br />
-							<Link to='/register'>Sign up here</Link>!
+							<Link to='/login'>Login here</Link>!
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
@@ -74,7 +73,31 @@ const Login = () => {
 						<TextField
 							variant='outlined'
 							size='small'
+							label='Email'
+							placeholder='Email'
+						></TextField>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							variant='outlined'
+							size='small'
+							label='Confirm Email'
+							placeholder='Email'
+						></TextField>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							variant='outlined'
+							size='small'
 							label='Password'
+							placeholder='Password'
+						></TextField>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							variant='outlined'
+							size='small'
+							label='Confirm assword'
 							placeholder='Password'
 						></TextField>
 					</Grid>
@@ -89,4 +112,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Register;
