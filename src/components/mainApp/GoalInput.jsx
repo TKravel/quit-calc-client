@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 const GoalInput = ({ disabled, setDisabled, userGoals, handleGoals }) => {
 	const classes = useStyles();
 	const [goal, setGoal] = useState('');
-	const [goalCost, setGoalCost] = useState();
+	const [goalCost, setGoalCost] = useState('');
 	const [errors, setErrors] = useState({
 		goal: false,
 		goalMsg: '',

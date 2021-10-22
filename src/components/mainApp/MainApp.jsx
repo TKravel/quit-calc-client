@@ -5,7 +5,6 @@ import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './GoalTracker';
-import NavBar from '../NavBar';
 
 const MainApp = () => {
 	const date = new Date();
@@ -133,7 +132,6 @@ const MainApp = () => {
 
 	return (
 		<Container component='main' className='app-container'>
-			<NavBar />
 			{/* <Typography variant='h1'>h1</Typography>
 			<Typography variant='h2'>h2</Typography>
 			<Typography variant='h3'>h3</Typography>

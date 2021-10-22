@@ -1,6 +1,10 @@
 import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Login from './components/landingPage/Login';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import NavBar from './components/NavBar';
 
 const theme = createTheme({
 	palette: {
@@ -62,9 +66,19 @@ const theme = createTheme({
 
 function App() {
 	return (
-		<ThemeProvider theme={theme}>
-			<MainApp />
-		</ThemeProvider>
+		<Router>
+			<ThemeProvider theme={theme}>
+				<NavBar />
+				<Switch>
+					<Route exact path='/login'>
+						<Login />
+					</Route>
+					<Route exact path='/'>
+						<MainApp />
+					</Route>
+				</Switch>
+			</ThemeProvider>
+		</Router>
 	);
 }
 
