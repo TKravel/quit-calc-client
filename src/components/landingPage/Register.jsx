@@ -18,16 +18,18 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	gridContainer: {
-		height: '60vh',
-	},
+	gridContainer: {},
 	form: {
 		width: '90%',
 		maxWidth: '250px',
-		height: '70%',
+
 		paddingTop: '1em',
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
+	},
+	button: {
+		backgroundColor: theme.palette.secondary.dark,
+		marginBottom: '1em',
 	},
 }));
 
@@ -97,12 +99,16 @@ const Register = () => {
 						<TextField
 							variant='outlined'
 							size='small'
-							label='Confirm assword'
+							label='Confirm password'
 							placeholder='Password'
 						></TextField>
 					</Grid>
 					<Grid item xs={12}>
-						<Button variant='contained' color='secondary'>
+						<Button
+							variant='contained'
+							color='secondary'
+							className={classes.button}
+						>
 							Login
 						</Button>
 					</Grid>
