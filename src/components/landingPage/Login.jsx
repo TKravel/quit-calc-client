@@ -93,16 +93,37 @@ const Login = () => {
 									helperText={error ? error.message : null}
 								></TextField>
 							)}
-							rules={{ required: 'Username required' }}
+							rules={{
+								required: 'Username required',
+							}}
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Password'
-							placeholder='Password'
-						></TextField>
+						<Controller
+							name='password'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									variant='outlined'
+									size='small'
+									label='Password'
+									placeholder='Password'
+									name='password'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{
+								required: 'Password required',
+								minLength: { value: 6, message: 'to short' },
+							}}
+						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Button
