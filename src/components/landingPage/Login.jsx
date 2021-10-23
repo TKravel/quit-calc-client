@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { useForm, Controller } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -32,9 +33,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = () => {
+	const { control, handleSubmit } = useForm();
 	const classes = useStyles();
+
+	const onSubmit = (data) => {
+		console.log(data);
+	};
 	return (
-		<Container component='form' className={classes.container}>
+		<Container
+			component='form'
+			className={classes.container}
+			onSubmit={handleSubmit(onSubmit)}
+		>
 			<Paper elevation={8} className={classes.loginForm}>
 				<Grid
 					container={true}
@@ -63,12 +73,28 @@ const Login = () => {
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Username'
-							placeholder='Username'
-						></TextField>
+						<Controller
+							name='username'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									variant='outlined'
+									size='small'
+									label='Username'
+									placeholder='Username'
+									name='username'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{ required: 'Username required' }}
+						/>
 					</Grid>
 					<Grid item xs={12}>
 						<TextField
@@ -79,7 +105,11 @@ const Login = () => {
 						></TextField>
 					</Grid>
 					<Grid item xs={12}>
-						<Button variant='contained' color='secondary'>
+						<Button
+							variant='contained'
+							color='secondary'
+							type='submit'
+						>
 							Login
 						</Button>
 					</Grid>
