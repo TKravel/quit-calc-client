@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { useForm, Controller } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -34,9 +35,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = () => {
+	const { control, handleSubmit } = useForm();
 	const classes = useStyles();
+
+	const onSubmit = (data) => {
+		console.log(data);
+	};
 	return (
-		<Container component='form' className={classes.container}>
+		<Container
+			component='form'
+			className={classes.container}
+			onSubmit={handleSubmit(onSubmit)}
+		>
 			<Paper elevation={8} className={classes.form}>
 				<Grid
 					container={true}
@@ -64,47 +74,142 @@ const Register = () => {
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Username'
-							placeholder='Username'
-						></TextField>
+						<Controller
+							name='username'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									variant='outlined'
+									size='small'
+									label='Username'
+									placeholder='Username'
+									name='username'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{
+								required: 'Username required',
+							}}
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Email'
-							placeholder='Email'
-						></TextField>
+						<Controller
+							name='email'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									type='email'
+									variant='outlined'
+									size='small'
+									label='Email'
+									placeholder='Email'
+									name='email'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{
+								required: 'Email required',
+							}}
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Confirm Email'
-							placeholder='Email'
-						></TextField>
+						<Controller
+							name='email2'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									type='email'
+									variant='outlined'
+									size='small'
+									label='Confirm email'
+									placeholder='Email'
+									name='email2'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{
+								required: 'Email required',
+							}}
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Password'
-							placeholder='Password'
-						></TextField>
+						<Controller
+							name='password'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									name='password'
+									variant='outlined'
+									size='small'
+									label='Create a password'
+									placeholder='Password'
+									name='password'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{
+								required: 'Password required',
+							}}
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							variant='outlined'
-							size='small'
-							label='Confirm password'
-							placeholder='Password'
-						></TextField>
+						<Controller
+							name='password2'
+							control={control}
+							defaultValue=''
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<TextField
+									type='password'
+									variant='outlined'
+									size='small'
+									label='Confirm password'
+									placeholder='Password'
+									name='password2'
+									value={value}
+									onChange={onChange}
+									error={error ? true : false}
+									helperText={error ? error.message : null}
+								></TextField>
+							)}
+							rules={{
+								required: 'Password required',
+							}}
+						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Button
+							type='submit'
 							variant='contained'
 							color='secondary'
 							className={classes.button}
