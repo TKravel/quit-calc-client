@@ -128,33 +128,6 @@ const Register = () => {
 					</Grid>
 					<Grid item xs={12}>
 						<Controller
-							name='email2'
-							control={control}
-							defaultValue=''
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<TextField
-									type='email'
-									variant='outlined'
-									size='small'
-									label='Confirm email'
-									placeholder='Email'
-									name='email2'
-									value={value}
-									onChange={onChange}
-									error={error ? true : false}
-									helperText={error ? error.message : null}
-								></TextField>
-							)}
-							rules={{
-								required: 'Email required',
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
 							name='password'
 							control={control}
 							defaultValue=''
@@ -168,34 +141,6 @@ const Register = () => {
 									size='small'
 									label='Create a password'
 									placeholder='Password'
-									name='password'
-									value={value}
-									onChange={onChange}
-									error={error ? true : false}
-									helperText={error ? error.message : null}
-								></TextField>
-							)}
-							rules={{
-								required: 'Password required',
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
-							name='password2'
-							control={control}
-							defaultValue=''
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<TextField
-									type='password'
-									variant='outlined'
-									size='small'
-									label='Confirm password'
-									placeholder='Password'
-									name='password2'
 									value={value}
 									onChange={onChange}
 									error={error ? true : false}
