@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 	form: {
 		width: '90%',
 		maxWidth: '250px',
-
 		paddingTop: '1em',
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
@@ -53,6 +52,7 @@ const Register = () => {
 					direction='row'
 					justifyContent='space-around'
 					alignContent='center'
+					spacing={2}
 					className={classes.gridContainer}
 				>
 					<Grid item xs={12}>

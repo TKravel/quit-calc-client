@@ -6,6 +6,8 @@ import Register from './components/landingPage/Register';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
+import UserContext from './hooks/UserContext';
+import useAuth from './hooks/useAuth';
 
 const theme = createTheme({
 	palette: {
@@ -39,7 +41,7 @@ const theme = createTheme({
 			root: {
 				backgroundColor: '#cccccc',
 				marginTop: '0.5em',
-				marginBottom: '0.5em',
+				// marginBottom: '0.5em',
 			},
 		},
 		MuiInputLabel: {
@@ -62,27 +64,35 @@ const theme = createTheme({
 				color: '#00364f',
 			},
 		},
+		MuiFormHelperText: {
+			marginDense: {
+				marginTop: '0px',
+			},
+		},
 	},
 });
 
 function App() {
+	const { user } = useAuth();
 	return (
-		<Router>
-			<ThemeProvider theme={theme}>
-				<NavBar />
-				<Switch>
-					<Route exact path='/login'>
-						<Login />
-					</Route>
-					<Route exact path='/register'>
-						<Register />
-					</Route>
-					<Route exact path='/'>
-						<MainApp />
-					</Route>
-				</Switch>
-			</ThemeProvider>
-		</Router>
+		<UserContext.Provider value={user}>
+			<Router>
+				<ThemeProvider theme={theme}>
+					<NavBar />
+					<Switch>
+						<Route exact path='/login'>
+							<Login />
+						</Route>
+						<Route exact path='/register'>
+							<Register />
+						</Route>
+						<Route exact path='/'>
+							<MainApp />
+						</Route>
+					</Switch>
+				</ThemeProvider>
+			</Router>
+		</UserContext.Provider>
 	);
 }
 
