@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useAuth = () => {
-	const [user, setUser] = useState('');
+	const [user, setUser] = useState(true);
 	const getUser = () => {};
 
 	const setCookie = () => {};
@@ -14,4 +14,25 @@ const useAuth = () => {
 			body: JSON.stringify(data),
 		})
 			.then((response) => response.json())
-			.then((re
+			.then((result) => {
+				if (result.cookie) {
+					// setCookie
+				} else if (result.err) {
+					console.log(result.err);
+				}
+			});
+	};
+
+	const register = () => {};
+
+	return {
+		user,
+		getUser,
+		setCookie,
+		logout,
+		login,
+		register,
+	};
+};
+
+export default useAuth;

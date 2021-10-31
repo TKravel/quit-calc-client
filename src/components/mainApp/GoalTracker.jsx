@@ -10,6 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GoalCard from './GoalCard';
 import GoalInput from './GoalInput';
+import useAuth from '../../hooks/useAuth';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const GoalTracker = ({ calculations }) => {
 	const classes = useStyles();
+	const { user } = useAuth();
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
@@ -159,11 +161,13 @@ const GoalTracker = ({ calculations }) => {
 								</Grid>
 							);
 						})}
-					<Grid item className={classes.card}>
-						<Typography variant='h5' paragraph>
-							Sign up to set more personal goals!
-						</Typography>
-					</Grid>
+					{!user && (
+						<Grid item className={classes.card}>
+							<Typography variant='h5' paragraph>
+								Sign up to set more personal goals!
+							</Typography>
+						</Grid>
+					)}
 				</Grid>
 			</TabPanel>
 		</Container>
