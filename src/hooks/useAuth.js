@@ -27,6 +27,7 @@ const useAuth = () => {
 
 	return {
 		user,
+		setUser,
 		getUser,
 		setCookie,
 		logout,

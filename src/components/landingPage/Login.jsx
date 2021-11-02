@@ -38,6 +38,18 @@ const Login = () => {
 
 	const onSubmit = (data) => {
 		console.log(data);
+		fetch('http://localhost:3000', {
+			method: 'POST',
+			body: JSON.stringify(data),
+		})
+			.then((responce) => responce.json())
+			.then((result) => {
+				if (result.msg === 'success') {
+					// Set user
+				} else {
+					// Display error
+				}
+			});
 	};
 	return (
 		<Container
