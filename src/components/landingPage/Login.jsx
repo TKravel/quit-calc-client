@@ -7,7 +7,7 @@ import {
 	Grid,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
@@ -46,6 +46,10 @@ const Login = () => {
 		console.log(data);
 		login(data);
 	};
+
+	// if (user) {
+	// 	return <Redirect to='/' />;
+	// }
 	return (
 		<Container
 			component='form'
