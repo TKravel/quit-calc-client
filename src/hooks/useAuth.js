@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useAuth = () => {
+const useAuth = (setErrors) => {
 	const [user, setUser] = useState(true);
 	const getUser = () => {};
 
@@ -9,18 +9,20 @@ const useAuth = () => {
 	const logout = () => {};
 
 	const login = (data) => {
-		fetch('localhost:3000', {
-			method: 'POST',
-			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.then((result) => {
-				if (result.cookie) {
-					// setCookie
-				} else if (result.err) {
-					console.log(result.err);
-				}
-			});
+		console.log('Test' + JSON.stringify(data));
+		setErrors('errrrros');
+		// fetch('localhost:3000', {
+		// 	method: 'POST',
+		// 	body: JSON.stringify(data),
+		// })
+		// 	.then((response) => response.json())
+		// 	.then((result) => {
+		// 		if (result.cookie) {
+		// 			// setCookie
+		// 		} else if (result.err) {
+		// 			console.log(result.err);
+		// 		}
+		// 	});
 	};
 
 	const register = () => {};

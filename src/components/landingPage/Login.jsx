@@ -6,10 +6,11 @@ import {
 	Typography,
 	Grid,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
+import useAuth from '../../hooks/useAuth';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -30,26 +31,20 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
 	},
+	error: {
+		color: theme.palette.error.main,
+	},
 }));
 
 const Login = () => {
 	const { control, handleSubmit } = useForm();
+	const [errors, setErrors] = useState('');
+	const { user, login } = useAuth(setErrors);
 	const classes = useStyles();
 
 	const onSubmit = (data) => {
 		console.log(data);
-		fetch('http://localhost:3000', {
-			method: 'POST',
-			body: JSON.stringify(data),
-		})
-			.then((responce) => responce.json())
-			.then((result) => {
-				if (result.msg === 'success') {
-					// Set user
-				} else {
-					// Display error
-				}
-			});
+		login(data);
 	};
 	return (
 		<Container
@@ -136,6 +131,17 @@ const Login = () => {
 								minLength: { value: 6, message: 'to short' },
 							}}
 						/>
+					</Grid>
+					<Grid item xs={12}>
+						{errors && (
+							<Typography
+								variant='body2'
+								paragraph
+								className={classes.error}
+							>
+								{errors}
+							</Typography>
+						)}
 					</Grid>
 					<Grid item xs={12}>
 						<Button
