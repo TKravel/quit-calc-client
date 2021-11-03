@@ -2,9 +2,19 @@ import { useState } from 'react';
 
 const useAuth = (setErrors) => {
 	const [user, setUser] = useState(true);
-	const getUser = () => {};
-
-	const setCookie = () => {};
+	const checkUser = () => {
+		fetch('localhost:3000/verify_user', {
+			method: 'POST',
+		})
+			.then((responce) => responce.json())
+			.then((result) => {
+				if (result.status === '200') {
+					setUser(true);
+				} else {
+					setUser(false);
+				}
+			});
+	};
 
 	const logout = () => {};
 
@@ -30,8 +40,7 @@ const useAuth = (setErrors) => {
 	return {
 		user,
 		setUser,
-		getUser,
-		setCookie,
+		checkUser,
 		logout,
 		login,
 		register,
