@@ -21,18 +21,18 @@ const useAuth = (setErrors) => {
 	const login = (data) => {
 		console.log('Test' + JSON.stringify(data));
 		setErrors('errrrros');
-		// fetch('localhost:3000', {
-		// 	method: 'POST',
-		// 	body: JSON.stringify(data),
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((result) => {
-		// 		if (result.cookie) {
-		// 			// setCookie
-		// 		} else if (result.err) {
-		// 			console.log(result.err);
-		// 		}
-		// 	});
+		fetch('/test', {
+			method: 'POST',
+			body: JSON.stringify(data),
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				if (result.cookie) {
+					// setCookie
+				} else if (result.err) {
+					console.log(result.err);
+				}
+			});
 	};
 
 	const register = () => {};
