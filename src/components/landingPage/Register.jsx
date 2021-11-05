@@ -6,10 +6,11 @@ import {
 	Typography,
 	Grid,
 } from '@material-ui/core';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
+import useAuth from '../../hooks/useAuth';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -31,15 +32,25 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.secondary.dark,
 		marginBottom: '1em',
 	},
+	error: {
+		color: theme.palette.error.main,
+	},
 }));
 
 const Register = () => {
 	const { control, handleSubmit } = useForm();
 	const classes = useStyles();
+	const [errors, setErrors] = useState('');
+	const { user, register } = useAuth(errors, setErrors);
 
 	const onSubmit = (data) => {
 		console.log(data);
+		register(data);
 	};
+
+	if (user) {
+		return <Redirect to='/' />;
+	}
 	return (
 		<Container
 			component='form'
@@ -151,6 +162,17 @@ const Register = () => {
 								required: 'Password required',
 							}}
 						/>
+					</Grid>
+					<Grid item xs={12}>
+						{errors && (
+							<Typography
+								variant='body2'
+								paragraph
+								className={classes.error}
+							>
+								{errors}
+							</Typography>
+						)}
 					</Grid>
 					<Grid item xs={12}>
 						<Button
