@@ -1,81 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const useAuth = (errors, setErrors) => {
-	const [user, setUser] = useState('');
-	const checkUser = () => {
-		fetch('localhost:3000/verify_user', {
-			method: 'POST',
+const useAuth = () => {
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		fetch('/user/verify_user', {
+			method: 'GET',
+			credentials: 'include',
 		})
 			.then((responce) => responce.json())
-			.then((result) => {
-				if (result.status === '200') {
+			.then((data) => {
+				if (data.msg === 'granted') {
+					console.log('granted');
 					setUser(true);
-				} else {
+				} else if (data.msg === 'denied') {
+					console.log('false');
 					setUser(false);
 				}
+			})
+			.catch((error) => {
+				console.log('error: ' + error);
 			});
-	};
+	}, []);
 
-	const logout = () => {};
-
-	const login = (data) => {
-		console.log('Test' + JSON.stringify(data));
-		setErrors('errrrros');
-		fetch('/user/test', {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
+	const logout = () => {
+		fetch('/user/logout', {
+			method: 'GET',
 			credentials: 'include',
-			body: JSON.stringify(data),
 		})
 			.then((responce) => responce.json())
 			.then((data) => {
-				if (data) {
-					console.log('Req success');
+				if (data.msg === 'logged out') {
+					console.log('logged out');
+					setUser(false);
 				}
 			})
-			.catch((err) => {
-				console.log('error: ' + err);
-			});
-	};
-
-	const register = (data) => {
-		if (errors) {
-			setErrors('');
-		}
-		console.log('Reg' + JSON.stringify(data));
-
-		fetch('/user/register', {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-			credentials: 'include',
-			body: JSON.stringify(data),
-		})
-			.then((responce) => responce.json())
-			.then((data) => {
-				if (data.error) {
-					setErrors(data.error);
-				} else if (data.msg === 'success') {
-					setUser(true);
-					console.log('user: ' + user);
-				}
-			})
-			.catch((err) => {
-				console.log('error: ' + err);
-				setErrors('500 - Internal server error');
+			.catch((error) => {
+				console.log('Error logging out: ' + error);
 			});
 	};
 
 	return {
 		user,
 		setUser,
-		checkUser,
 		logout,
-		login,
-		register,
 	};
 };
 

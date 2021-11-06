@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import useAuth from '../hooks/useAuth';
+import { UserContext } from '../hooks/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	nav: {
@@ -20,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
 	const classes = useStyles();
+	const { user, logout } = useContext(UserContext);
+
 	return (
 		<>
 			<AppBar />
@@ -27,11 +31,23 @@ const NavBar = () => {
 				<Link to='/' className={classes.link}>
 					Calculator
 				</Link>
-				<Button variant='contained' color='secondary'>
-					<Link to='/login' className={classes.btnLink}>
-						Login
-					</Link>
-				</Button>
+				{user ? (
+					<Button
+						variant='contained'
+						color='secondary'
+						onClick={logout}
+					>
+						<Link to='/login' className={classes.btnLink}>
+							Log out
+						</Link>
+					</Button>
+				) : (
+					<Button variant='contained' color='secondary'>
+						<Link to='/login' className={classes.btnLink}>
+							Login
+						</Link>
+					</Button>
+				)}
 			</Toolbar>
 		</>
 	);

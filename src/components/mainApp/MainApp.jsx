@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Grid, Container, Typography } from '@material-ui/core';
 import { differenceInCalendarDays } from 'date-fns';
 import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './GoalTracker';
+import { UserContext } from '../../hooks/UserContext';
 
 const MainApp = () => {
+	const { user } = useContext(UserContext);
 	const date = new Date();
 	const [packs, setPacks] = useState('');
 	const [price, setPrice] = useState('');

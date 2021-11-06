@@ -6,7 +6,7 @@ import Register from './components/landingPage/Register';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
-import UserContext from './hooks/UserContext';
+import { UserContext } from './hooks/UserContext';
 import useAuth from './hooks/useAuth';
 
 const theme = createTheme({
@@ -73,10 +73,11 @@ const theme = createTheme({
 });
 
 function App() {
-	const { user } = useAuth();
+	const { user, setUser, logout } = useAuth();
+
 	return (
-		<UserContext.Provider value={user}>
-			<Router>
+		<Router>
+			<UserContext.Provider value={{ user, setUser, logout }}>
 				<ThemeProvider theme={theme}>
 					<NavBar />
 					<Switch>
@@ -91,8 +92,8 @@ function App() {
 						</Route>
 					</Switch>
 				</ThemeProvider>
-			</Router>
-		</UserContext.Provider>
+			</UserContext.Provider>
+		</Router>
 	);
 }
 

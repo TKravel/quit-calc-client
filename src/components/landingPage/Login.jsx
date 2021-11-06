@@ -6,11 +6,12 @@ import {
 	Typography,
 	Grid,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
-import useAuth from '../../hooks/useAuth';
+import useLogin from '../../hooks/useLogin';
+import { UserContext } from '../../hooks/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -37,9 +38,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = () => {
+	const { user } = useContext(UserContext);
 	const { control, handleSubmit } = useForm();
 	const [errors, setErrors] = useState('');
-	const { user, login } = useAuth(setErrors);
+	const { login } = useLogin(setErrors);
 	const classes = useStyles();
 
 	const onSubmit = (data) => {
@@ -47,9 +49,9 @@ const Login = () => {
 		login(data);
 	};
 
-	// if (user) {
-	// 	return <Redirect to='/' />;
-	// }
+	if (user) {
+		return <Redirect to='/' />;
+	}
 	return (
 		<Container
 			component='form'

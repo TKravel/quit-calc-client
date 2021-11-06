@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	Container,
 	AppBar,
@@ -10,7 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GoalCard from './GoalCard';
 import GoalInput from './GoalInput';
-import useAuth from '../../hooks/useAuth';
+import { UserContext } from '../../hooks/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const GoalTracker = ({ calculations }) => {
 	const classes = useStyles();
-	const { user } = useAuth();
+	const { user } = useContext(UserContext);
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
