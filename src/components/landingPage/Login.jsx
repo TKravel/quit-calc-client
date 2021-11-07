@@ -41,7 +41,7 @@ const Login = () => {
 	const { user } = useContext(UserContext);
 	const { control, handleSubmit } = useForm();
 	const [errors, setErrors] = useState('');
-	const { login } = useLogin(setErrors);
+	const { login } = useLogin(errors, setErrors);
 	const classes = useStyles();
 
 	const onSubmit = (data) => {

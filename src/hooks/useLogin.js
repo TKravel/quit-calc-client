@@ -6,8 +6,10 @@ const useAuth = (errors, setErrors) => {
 
 	const login = (data) => {
 		console.log('login' + JSON.stringify(data));
-		setErrors('errrrros');
-		fetch('/user/test', {
+		if (errors) {
+			setErrors('');
+		}
+		fetch('/user/login', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -17,8 +19,10 @@ const useAuth = (errors, setErrors) => {
 		})
 			.then((responce) => responce.json())
 			.then((data) => {
-				if (data) {
-					console.log('Req success');
+				if (data.error) {
+					setErrors(data.error);
+				} else if (data.msg === 'granted') {
+					setUser(true);
 				}
 			})
 			.catch((err) => {
@@ -44,10 +48,8 @@ const useAuth = (errors, setErrors) => {
 			.then((data) => {
 				if (data.error) {
 					setErrors(data.error);
-				} else if (data.msg === 'success') {
+				} else if (data.msg === 'granted') {
 					setUser(true);
-					console.log('msg: ' + data.msg);
-					console.log('user: ' + user);
 				}
 			})
 			.catch((err) => {
