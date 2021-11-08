@@ -6,6 +6,7 @@ import {
 	KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { useForm, Controller } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -21,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const onSubmit = (data) => {
+	console.log(data);
+};
+
 const UserInput = ({
 	packs,
 	handlePacks,
@@ -32,6 +37,7 @@ const UserInput = ({
 	errors,
 }) => {
 	const classes = useStyles();
+	const { control, handleSubmit } = useForm();
 	return (
 		<Grid
 			container
@@ -40,7 +46,12 @@ const UserInput = ({
 			justifyContent='center'
 			alignItems='center'
 		>
-			<Paper elevation={8} component='form' className={classes.paper}>
+			<Paper
+				elevation={8}
+				component='form'
+				className={classes.paper}
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<Typography variant='h5' component='h2' gutterBottom={true}>
 					Let's get some info!
 				</Typography>
@@ -49,19 +60,33 @@ const UserInput = ({
 					then click calculate to see your progress.
 				</Typography>
 				<Grid item xs={12}>
-					<TextField
-						value={packs}
-						onChange={handlePacks}
-						variant='outlined'
-						label='Number of packs per day'
-						autoComplete='off'
-						// color='secondary'
-						inputProps={{
-							inputMode: 'decimal',
-							pattern: '[0-9]+(.[0-9]{2})',
+					<Controller
+						name='packs'
+						control={control}
+						defaultValue=''
+						render={({
+							field: { onChange, value },
+							fieldState: { error },
+						}) => (
+							<TextField
+								value={value}
+								onChange={onChange}
+								variant='outlined'
+								label='Number of packs per day'
+								autoComplete='off'
+								// color='secondary'
+								inputProps={{
+									inputMode: 'decimal',
+									pattern: '^[0-9]\\d*(\\.\\d+)?$',
+								}}
+								error={error ? true : false}
+								helperText={error ? error.message : null}
+							/>
+						)}
+						rules={{
+							required: 'Required',
+							pattern: '^[0-9]\\d*(\\.\\d+)?$',
 						}}
-						error={errors.packs ? true : false}
-						helperText={errors.packsMsg ? errors.packsMsg : null}
 					/>
 				</Grid>
 				<Grid item>
@@ -102,7 +127,7 @@ const UserInput = ({
 						id='subButton'
 						className={classes.button}
 						variant='contained'
-						onClick={calcData}
+						type='submit'
 						color='secondary'
 					>
 						Calculate

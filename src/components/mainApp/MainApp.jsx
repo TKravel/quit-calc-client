@@ -7,6 +7,7 @@ import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './GoalTracker';
 import { UserContext } from '../../hooks/UserContext';
+import { CalcDataContext } from '../../context/CalcDataContext';
 
 const MainApp = () => {
 	const { user } = useContext(UserContext);
@@ -134,8 +135,11 @@ const MainApp = () => {
 	}, [calculations]);
 
 	return (
-		<Container component='main' className='app-container'>
-			{/* <Typography variant='h1'>h1</Typography>
+		<CalcDataContext.Provider
+			value={{ packs, price, quitDate, calculations }}
+		>
+			<Container component='main' className='app-container'>
+				{/* <Typography variant='h1'>h1</Typography>
 			<Typography variant='h2'>h2</Typography>
 			<Typography variant='h3'>h3</Typography>
 			<Typography variant='h4'>h4</Typography>
@@ -145,60 +149,61 @@ const MainApp = () => {
 			<Typography variant='subtitle2'>subtitle2</Typography>
 			<Typography variant='body1'>body1</Typography>
 			<Typography variant='body2'>body2</Typography> */}
-			<Typography
-				variant='h4'
-				component='h1'
-				align='center'
-				gutterBottom={true}
-			>
-				Quit smoking savings calculator
-			</Typography>
+				<Typography
+					variant='h4'
+					component='h1'
+					align='center'
+					gutterBottom={true}
+				>
+					Quit smoking savings calculator
+				</Typography>
 
-			<Typography></Typography>
-			<Typography variant='body1' paragraph align='center'>
-				Motivate yourself to quit by creating personal goals, tracking
-				progress, and spoiling yourself with gifts bought from the
-				savings!
-			</Typography>
+				<Typography></Typography>
+				<Typography variant='body1' paragraph align='center'>
+					Motivate yourself to quit by creating personal goals,
+					tracking progress, and spoiling yourself with gifts bought
+					from the savings!
+				</Typography>
 
-			<Typography variant='body1' paragraph align='center'>
-				Start by filling out the form below to see your savings.
-			</Typography>
-			<Typography variant='body1' paragraph align='center'>
-				Sign up to customize goals to motivate you!
-			</Typography>
-			<Grid
-				container
-				className='input-container'
-				direction='row'
-				justifyContent='center'
-				alignItems='center'
-			>
-				<Grid item xs={12} sm={6}>
-					<UserInput
-						packs={packs}
-						handlePacks={handlePacks}
-						price={price}
-						handlePrice={handlePrice}
-						quitDate={quitDate}
-						handleDate={handleDate}
-						calcData={calcData}
-						errors={errors}
-					/>
-				</Grid>
-				{calculations.savings !== 0 && (
-					<Grid item xs={12} sm={6} id='savings-msg'>
-						<SavingsCalcMsg
-							daysQuit={daysQuit}
-							calculations={calculations}
+				<Typography variant='body1' paragraph align='center'>
+					Start by filling out the form below to see your savings.
+				</Typography>
+				<Typography variant='body1' paragraph align='center'>
+					Sign up to customize goals to motivate you!
+				</Typography>
+				<Grid
+					container
+					className='input-container'
+					direction='row'
+					justifyContent='center'
+					alignItems='center'
+				>
+					<Grid item xs={12} sm={6}>
+						<UserInput
+							packs={packs}
+							handlePacks={handlePacks}
+							price={price}
+							handlePrice={handlePrice}
+							quitDate={quitDate}
+							handleDate={handleDate}
+							calcData={calcData}
+							errors={errors}
 						/>
 					</Grid>
+					{calculations.savings !== 0 && (
+						<Grid item xs={12} sm={6} id='savings-msg'>
+							<SavingsCalcMsg
+								daysQuit={daysQuit}
+								calculations={calculations}
+							/>
+						</Grid>
+					)}
+				</Grid>
+				{calculations.savings !== 0 && (
+					<GoalTracker calculations={calculations} />
 				)}
-			</Grid>
-			{calculations.savings !== 0 && (
-				<GoalTracker calculations={calculations} />
-			)}
-		</Container>
+			</Container>
+		</CalcDataContext.Provider>
 	);
 };
 
