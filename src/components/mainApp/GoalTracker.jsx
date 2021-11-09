@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import GoalCard from './GoalCard';
 import GoalInput from './GoalInput';
 import { UserContext } from '../../hooks/UserContext';
+import { CalcDataContext } from '../../context/CalcDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -43,9 +44,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const GoalTracker = ({ calculations }) => {
+const GoalTracker = () => {
 	const classes = useStyles();
 	const { user } = useContext(UserContext);
+	const { calculations } = useContext(CalcDataContext);
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TextField, Button, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -7,6 +7,8 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { useForm, Controller } from 'react-hook-form';
+import { CalcDataContext } from '../../context/CalcDataContext';
+import { differenceInCalendarDays } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -22,22 +24,37 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const onSubmit = (data) => {
-	console.log(data);
-};
-
-const UserInput = ({
-	packs,
-	handlePacks,
-	price,
-	handlePrice,
-	quitDate,
-	handleDate,
-	calcData,
-	errors,
-}) => {
+const UserInput = () => {
 	const classes = useStyles();
+	const { formData, setFormData, setCalculations } =
+		useContext(CalcDataContext);
 	const { control, handleSubmit } = useForm();
+	const date = new Date();
+	const daysQuit = differenceInCalendarDays(date, formData.dateQuit);
+
+	const onSubmit = (data) => {
+		setFormData({
+			packs: data.packs,
+			price: data.price,
+			dateQuit: data.quitDate,
+		});
+
+		calcSavings();
+	};
+
+	const calcSavings = () => {
+		const amount = parseFloat(formData.packs);
+		const cost = parseFloat(formData.price);
+		const moneySaved = amount * cost * daysQuit;
+
+		setCalculations({ savings: moneySaved.toFixed(2) });
+
+		console.log(amount);
+		console.log(cost);
+		console.log(moneySaved);
+		console.log(formData);
+	};
+
 	return (
 		<Grid
 			container
@@ -90,21 +107,35 @@ const UserInput = ({
 					/>
 				</Grid>
 				<Grid item>
-					<TextField
-						placeholder='$00.00'
-						onChange={handlePrice}
-						value={price}
-						id='price-input'
-						variant='outlined'
-						label='Price per pack'
-						autoComplete='off'
-						// color='secondary'
-						inputProps={{
-							inputMode: 'decimal',
-							pattern: '[0-9]+(.[0-9]{2})',
+					<Controller
+						name='price'
+						control={control}
+						defaultValue=''
+						render={({
+							field: { onChange, value },
+							fieldState: { error },
+						}) => (
+							<TextField
+								placeholder='$00.00'
+								onChange={onChange}
+								value={value}
+								id='price-input'
+								variant='outlined'
+								label='Price per pack'
+								autoComplete='off'
+								// color='secondary'
+								inputProps={{
+									inputMode: 'decimal',
+									pattern: '[0-9]+(.[0-9]{2})',
+								}}
+								error={error ? true : false}
+								helperText={error && error.message}
+							/>
+						)}
+						rules={{
+							required: 'Required',
+							pattern: '^[0-9]\\d*(\\.\\d+)?$',
 						}}
-						error={errors.price ? true : false}
-						helperText={errors.priceMsg ? errors.priceMsg : null}
 					/>
 				</Grid>
 				<Grid item>
@@ -112,13 +143,20 @@ const UserInput = ({
 						utils={DateFnsUtils}
 						id='date-picker'
 					>
-						<KeyboardDatePicker
-							onChange={handleDate}
-							value={quitDate}
-							format='MM/dd/yyyy'
-							disableFuture={true}
-							inputVariant='outlined'
-							// color='secondary'
+						<Controller
+							name='quitDate'
+							control={control}
+							defaultValue={date}
+							render={({ field: { onChange, value } }) => (
+								<KeyboardDatePicker
+									onChange={onChange}
+									value={value}
+									format='MM/dd/yyyy'
+									disableFuture={true}
+									inputVariant='outlined'
+									// color='secondary'
+								/>
+							)}
 						/>
 					</MuiPickersUtilsProvider>
 				</Grid>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CalcDataContext } from '../../context/CalcDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	progressCircle: {
@@ -16,8 +17,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const GoalCard = ({ goalName, goalAmount, calculations }) => {
+const GoalCard = ({ goalName, goalAmount }) => {
 	const classes = useStyles();
+	const { calculations } = useContext(CalcDataContext);
 	const savings = parseFloat(calculations.savings);
 	let percent = (savings / goalAmount) * 100;
 	percent = parseFloat(percent.toFixed(1));

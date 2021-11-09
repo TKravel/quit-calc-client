@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CalcDataContext } from '../../context/CalcDataContext';
+import { differenceInCalendarDays } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -12,14 +14,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SavingsCalcMsg = ({ daysQuit, calculations }) => {
+const SavingsCalcMsg = () => {
 	const classes = useStyles();
+	const { formData, calculations } = useContext(CalcDataContext);
+	const date = new Date();
+	const daysQuit = differenceInCalendarDays(date, formData.dateQuit);
+	const savings = parseFloat(calculations.savings);
 	return (
 		<Paper className={classes.paper} elevation={8}>
 			<Typography variant='h4' component='h2'>
 				Quiting for
 				{daysQuit === 1 ? ` ${daysQuit} day` : ` ${daysQuit} days`}{' '}
-				saved you <strong>${calculations.savings}!</strong>
+				saved you <strong>${savings}!</strong>
 			</Typography>
 		</Paper>
 	);
