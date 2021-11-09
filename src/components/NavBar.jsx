@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import useAuth from '../hooks/useAuth';
 import { UserContext } from '../hooks/UserContext';
 
 const useStyles = makeStyles((theme) => ({

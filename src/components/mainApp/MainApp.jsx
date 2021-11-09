@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Grid, Container, Typography } from '@material-ui/core';
 import '../../index.css';
 import UserInput from './UserInput';

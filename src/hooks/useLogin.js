@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserContext } from './UserContext';
 
 const useAuth = (errors, setErrors) => {
-	const { user, setUser } = useContext(UserContext);
+	const { setUser } = useContext(UserContext);
 
 	const login = (data) => {
 		console.log('login' + JSON.stringify(data));

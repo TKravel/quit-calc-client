@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TextField, Button, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -38,22 +38,25 @@ const UserInput = () => {
 			price: data.price,
 			dateQuit: data.quitDate,
 		});
-
-		calcSavings();
 	};
 
-	const calcSavings = () => {
-		const amount = parseFloat(formData.packs);
-		const cost = parseFloat(formData.price);
-		const moneySaved = amount * cost * daysQuit;
+	useEffect(() => {
+		if (formData.packs !== '') {
+			const calcSavings = () => {
+				const amount = parseFloat(formData.packs);
+				const cost = parseFloat(formData.price);
+				const moneySaved = amount * cost * daysQuit;
 
-		setCalculations({ savings: moneySaved.toFixed(2) });
+				setCalculations({ savings: moneySaved.toFixed(2) });
 
-		console.log(amount);
-		console.log(cost);
-		console.log(moneySaved);
-		console.log(formData);
-	};
+				console.log(amount);
+				console.log(cost);
+				console.log(moneySaved);
+				console.log(formData);
+			};
+			calcSavings();
+		}
+	}, [formData]);
 
 	return (
 		<Grid

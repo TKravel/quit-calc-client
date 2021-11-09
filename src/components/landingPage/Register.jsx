@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = () => {
-	const { user, setUser } = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const { control, handleSubmit } = useForm();
 	const classes = useStyles();
 	const [errors, setErrors] = useState('');

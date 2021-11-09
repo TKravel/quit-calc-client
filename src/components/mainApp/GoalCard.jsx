@@ -23,6 +23,8 @@ const GoalCard = ({ goalName, goalAmount }) => {
 	const savings = parseFloat(calculations.savings);
 	let percent = (savings / goalAmount) * 100;
 	percent = parseFloat(percent.toFixed(1));
+	console.log(calculations);
+	console.log(savings);
 	return (
 		<>
 			<Typography variant='h5' component='h3' gutterBottom={true}>
