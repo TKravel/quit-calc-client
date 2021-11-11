@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	Container,
 	AppBar,
@@ -79,7 +79,6 @@ const GoalTracker = () => {
 
 	const [value, setValue] = useState(0);
 	const [userGoals, setUserGoals] = useState([]);
-	const [goalCount, setGoalCount] = useState(0);
 	const [isDisabled, setIsDisabled] = useState(false);
 
 	const handleUserGoals = (goal, cost) => {
@@ -110,34 +109,6 @@ const GoalTracker = () => {
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
-
-	useEffect(() => {
-		if (user) {
-			fetch('/goals/get_goals', {
-				method: 'GET',
-				credentials: 'include',
-			})
-				.then((responce) => responce.json())
-				.then((data) => {
-					if (data.error) {
-						console.log(data.error);
-						//Display error to user
-					}
-					if (data.msg === 'none') {
-						console.log('No goals yet');
-						//Display create goal msg
-					} else if (data.docs) {
-						const count = data.docs.length;
-
-						setGoalCount(count);
-						setUserGoals(data.docs);
-					}
-				})
-				.catch((err) => {
-					console.log('error: ' + err);
-				});
-		}
-	}, []);
 
 	return (
 		<Container className={classes.goalContainer}>
