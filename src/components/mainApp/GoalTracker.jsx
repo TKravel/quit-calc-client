@@ -178,6 +178,7 @@ const GoalTracker = () => {
 							setDisabled={setIsDisabled}
 							userGoals={userGoals}
 							handleGoals={handleUserGoals}
+							handleGoalCount={setGoalCount}
 						/>
 					</Grid>
 					{userGoals.length !== 0 &&

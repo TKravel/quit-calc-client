@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 		color: '#606060',
 	},
 });
-const GoalInput = ({ disabled, setDisabled, userGoals, handleGoals }) => {
+const GoalInput = ({ disabled, setDisabled, userGoals, handleGoals, handleGoalCount }) => {
 	const classes = useStyles();
 	const [goal, setGoal] = useState('');
 	const [goalCost, setGoalCost] = useState('');
@@ -77,9 +77,38 @@ const GoalInput = ({ disabled, setDisabled, userGoals, handleGoals }) => {
 		if (goal === '' || goalCost === 0) {
 			return;
 		}
-		setDisabled(true);
+		// setDisabled(true);
 		console.log(disabled);
 		handleGoals(goal, goalCost);
+		const data = {
+			goal: goal,
+			goalCost: goalCost
+		}
+		fetch('/goals/create_goal', {
+			method: "POST",
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'include',
+			body: JSON.stringify(data),
+		})
+		.then((responce)=> responce.json())
+		.then((data)=>{
+			if(data.error){
+				console.log(data.error)
+				//Display error to user
+			}
+			if(data.count && data.docs){
+				handleGoalCount(data.count)
+				handleGoals(data.docs)
+			}
+		})
+		.catch((err)=>{
+			if(err){
+				console.log(err)
+				//Display error to user
+			}
+		})
 	};
 	return (
 		<Container
