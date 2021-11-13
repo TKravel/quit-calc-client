@@ -111,6 +111,16 @@ const GoalTracker = () => {
 		setValue(newValue);
 	};
 
+	function compare(a, b) {
+		if (parseFloat(a.goalCost) < parseFloat(b.goalCost)) {
+			return -1;
+		}
+		if (parseFloat(a.goalCost) > parseFloat(b.goalCost)) {
+			return 1;
+		}
+		return 0;
+	}
+
 	useEffect(() => {
 		if (user) {
 			fetch('/goals/get_goals', {
@@ -125,12 +135,13 @@ const GoalTracker = () => {
 					}
 					if (data.msg === 'none') {
 						console.log('No goals yet');
+						setGoalCount(0);
 						//Display create goal msg
 					} else if (data.docs) {
-						const count = data.docs.length;
-
-						setGoalCount(count);
-						setUserGoals(data.docs);
+						setGoalCount(data.count);
+						setUserGoals((prevValue) => {
+							return [...prevValue, ...data.docs[0].goals];
+						});
 					}
 				})
 				.catch((err) => {
@@ -138,6 +149,16 @@ const GoalTracker = () => {
 				});
 		}
 	}, []);
+
+	useEffect(() => {
+		if (user && goalCount !== 0) {
+			if (goalCount >= 3) {
+				setIsDisabled(true);
+			} else if (goalCount < 3) {
+				setIsDisabled(false);
+			}
+		}
+	}, [user, goalCount]);
 
 	return (
 		<Container className={classes.goalContainer}>
@@ -178,16 +199,17 @@ const GoalTracker = () => {
 							setDisabled={setIsDisabled}
 							userGoals={userGoals}
 							handleGoals={handleUserGoals}
+							handleUserGoals={setUserGoals}
 							handleGoalCount={setGoalCount}
 						/>
 					</Grid>
 					{userGoals.length !== 0 &&
-						userGoals.map((goal, index) => {
+						userGoals.sort(compare).map((goal, index) => {
 							return (
 								<Grid item className={classes.card} key={index}>
 									<GoalCard
 										goalName={goal.goal}
-										goalAmount={goal.cost}
+										goalAmount={goal.goalCost}
 										calculations={calculations}
 									/>
 								</Grid>

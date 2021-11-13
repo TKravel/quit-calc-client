@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Container, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { UserContext } from '../../hooks/UserContext';
 
 const useStyles = makeStyles({
 	form: {
@@ -11,8 +12,16 @@ const useStyles = makeStyles({
 		color: '#606060',
 	},
 });
-const GoalInput = ({ disabled, setDisabled, userGoals, handleGoals, handleGoalCount }) => {
+const GoalInput = ({
+	disabled,
+	setDisabled,
+	userGoals,
+	handleGoals,
+	handleUserGoals,
+	handleGoalCount,
+}) => {
 	const classes = useStyles();
+	const { user } = useContext(UserContext);
 	const [goal, setGoal] = useState('');
 	const [goalCost, setGoalCost] = useState('');
 	const [errors, setErrors] = useState({
@@ -77,38 +86,52 @@ const GoalInput = ({ disabled, setDisabled, userGoals, handleGoals, handleGoalCo
 		if (goal === '' || goalCost === 0) {
 			return;
 		}
-		// setDisabled(true);
-		console.log(disabled);
-		handleGoals(goal, goalCost);
-		const data = {
-			goal: goal,
-			goalCost: goalCost
+		if (!user) {
+			setDisabled(true);
+			console.log(disabled);
+			handleGoals(goal, goalCost);
+		} else if (user) {
+			console.log('user');
+			const data = {
+				goal: goal,
+				goalCost: goalCost,
+			};
+			fetch('/goals/create_goal', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+				credentials: 'include',
+				body: JSON.stringify(data),
+			})
+				.then((responce) => responce.json())
+				.then((data) => {
+					console.log('data returned');
+					if (data.error) {
+						console.log(data.error);
+						//Display error to user
+					}
+					if (data.count && data.doc) {
+						handleGoalCount(data.count);
+						console.log('test adding');
+						handleUserGoals((prevValue) => {
+							return [
+								...prevValue,
+								{
+									goal: goal,
+									goalCost: goalCost,
+								},
+							];
+						});
+					}
+				})
+				.catch((err) => {
+					if (err) {
+						console.log(err);
+						//Display error to user
+					}
+				});
 		}
-		fetch('/goals/create_goal', {
-			method: "POST",
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-			credentials: 'include',
-			body: JSON.stringify(data),
-		})
-		.then((responce)=> responce.json())
-		.then((data)=>{
-			if(data.error){
-				console.log(data.error)
-				//Display error to user
-			}
-			if(data.count && data.docs){
-				handleGoalCount(data.count)
-				handleGoals(data.docs)
-			}
-		})
-		.catch((err)=>{
-			if(err){
-				console.log(err)
-				//Display error to user
-			}
-		})
 	};
 	return (
 		<Container
