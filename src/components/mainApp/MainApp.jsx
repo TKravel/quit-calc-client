@@ -6,18 +6,59 @@ import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './GoalTracker';
 import { UserContext } from '../../hooks/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
+import { differenceInCalendarDays, parseISO } from 'date-fns';
 
 const MainApp = () => {
 	const { user } = useContext(UserContext);
+	const date = new Date();
 
 	const [formData, setFormData] = useState({
 		packs: '',
 		price: '',
-		quitDate: '',
+		quitDate: null,
 	});
 	const [calculations, setCalculations] = useState({
 		savings: 0,
 	});
+
+	useEffect(() => {
+		if (user) {
+			fetch('/form/get_form', {
+				method: 'GET',
+				credentials: 'include',
+			})
+				.then((responce) => responce.json())
+				.then((data) => {
+					if (data.error) {
+						console.log(data.error);
+						//Display error to user
+					}
+					if (data.msg) {
+						console.log('No data saved yet');
+					} else if (data.formData) {
+						const fetchedDate = data.formData.quitDate;
+						console.log(fetchedDate);
+						const daysQuit = differenceInCalendarDays(
+							date,
+							parseISO(fetchedDate)
+						);
+						setFormData({
+							packs: parseInt(data.formData.packs),
+							price: parseFloat(data.formData.price),
+							quitDate: parseISO(fetchedDate),
+						});
+						// setCalculations(
+						// 	parseInt(data.formData.packs) *
+						// 		parseFloat(data.formData.price) *
+						// 		daysQuit
+						// );
+					}
+				})
+				.catch((err) => {
+					console.log('Error fetching form: ' + err);
+				});
+		}
+	}, [user]);
 
 	useEffect(() => {
 		let progressDisplay = document.getElementById('savings-msg');

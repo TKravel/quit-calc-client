@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const useAuth = () => {
+	const history = useHistory();
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
@@ -11,10 +13,8 @@ const useAuth = () => {
 			.then((responce) => responce.json())
 			.then((data) => {
 				if (data.msg === 'granted') {
-					console.log('granted');
 					setUser(true);
 				} else if (data.msg === 'denied') {
-					console.log('false');
 					setUser(false);
 				}
 			})
@@ -23,8 +23,8 @@ const useAuth = () => {
 			});
 	}, []);
 
-	const logout = () => {
-		fetch('/user/logout', {
+	const logout = async () => {
+		await fetch('/user/logout', {
 			method: 'GET',
 			credentials: 'include',
 		})
@@ -32,6 +32,7 @@ const useAuth = () => {
 			.then((data) => {
 				if (data.msg === 'logged out') {
 					console.log('logged out');
+					setTimeout(() => 1000);
 					setUser(false);
 				}
 			})

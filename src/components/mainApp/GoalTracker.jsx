@@ -148,7 +148,7 @@ const GoalTracker = () => {
 					console.log('error: ' + err);
 				});
 		}
-	}, []);
+	}, [user]);
 
 	useEffect(() => {
 		if (user && goalCount !== 0) {

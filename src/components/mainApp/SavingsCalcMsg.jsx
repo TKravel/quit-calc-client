@@ -18,7 +18,7 @@ const SavingsCalcMsg = () => {
 	const classes = useStyles();
 	const { formData, calculations } = useContext(CalcDataContext);
 	const date = new Date();
-	const daysQuit = differenceInCalendarDays(date, formData.dateQuit);
+	const daysQuit = differenceInCalendarDays(date, formData.quitDate);
 	const savings = parseFloat(calculations.savings);
 	return (
 		<Paper className={classes.paper} elevation={8}>

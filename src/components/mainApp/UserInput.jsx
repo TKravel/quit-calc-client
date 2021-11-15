@@ -9,6 +9,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { useForm, Controller } from 'react-hook-form';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { differenceInCalendarDays } from 'date-fns';
+import { UserContext } from '../../hooks/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -24,37 +25,80 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const date = new Date();
+
 const UserInput = () => {
 	const classes = useStyles();
+	const { user } = useContext(UserContext);
 	const { formData, setFormData, setCalculations } =
 		useContext(CalcDataContext);
-	const { control, handleSubmit } = useForm();
-	const date = new Date();
-	const daysQuit = differenceInCalendarDays(date, formData.dateQuit);
+	const { control, handleSubmit, reset } = useForm({
+		defaultValues: {
+			packs: '',
+			price: '',
+			quitDate: date,
+		},
+	});
+
+	const daysQuit = differenceInCalendarDays(date, formData.quitDate);
+
+	const calcSavings = () => {
+		const amount = parseFloat(formData.packs);
+		const cost = parseFloat(formData.price);
+		const moneySaved = amount * cost * daysQuit;
+
+		setCalculations({ savings: moneySaved.toFixed(2) });
+	};
 
 	const onSubmit = (data) => {
-		setFormData({
-			packs: data.packs,
-			price: data.price,
-			dateQuit: data.quitDate,
-		});
+		console.log(data);
+		if (!user) {
+			setFormData({
+				packs: data.packs,
+				price: data.price,
+				quitDate: new Date(data.quitDate),
+			});
+			console.log(data);
+		} else if (user) {
+			if (JSON.stringify(data) === JSON.stringify(formData)) {
+				console.log('No changes');
+				return;
+			}
+			fetch('/form/save_input', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+				credentials: 'include',
+				body: JSON.stringify(data),
+			})
+				.then((responce) => responce.json())
+				.then((data) => {
+					if (data.error) {
+						console.log('Server error saving data: ' + data.error);
+						//Display error
+					}
+					if (data.msg === 'Success') {
+						console.log('data saved');
+						calcSavings();
+						setFormData({
+							packs: formData.packs,
+							price: formData.price,
+							quitDate: formData.quitDate,
+						});
+					}
+				})
+				.catch((err) => {
+					console.log('Error saving data: ' + err);
+				});
+		}
 	};
 
 	useEffect(() => {
 		if (formData.packs !== '') {
-			const calcSavings = () => {
-				const amount = parseFloat(formData.packs);
-				const cost = parseFloat(formData.price);
-				const moneySaved = amount * cost * daysQuit;
-
-				setCalculations({ savings: moneySaved.toFixed(2) });
-
-				console.log(amount);
-				console.log(cost);
-				console.log(moneySaved);
-				console.log(formData);
-			};
+			reset(formData);
 			calcSavings();
+			console.log('useEffect ran');
 		}
 	}, [formData]);
 
@@ -83,7 +127,6 @@ const UserInput = () => {
 					<Controller
 						name='packs'
 						control={control}
-						defaultValue=''
 						render={({
 							field: { onChange, value },
 							fieldState: { error },
@@ -94,7 +137,6 @@ const UserInput = () => {
 								variant='outlined'
 								label='Number of packs per day'
 								autoComplete='off'
-								// color='secondary'
 								inputProps={{
 									inputMode: 'decimal',
 									pattern: '^[0-9]\\d*(\\.\\d+)?$',
@@ -113,7 +155,6 @@ const UserInput = () => {
 					<Controller
 						name='price'
 						control={control}
-						defaultValue=''
 						render={({
 							field: { onChange, value },
 							fieldState: { error },
@@ -126,7 +167,6 @@ const UserInput = () => {
 								variant='outlined'
 								label='Price per pack'
 								autoComplete='off'
-								// color='secondary'
 								inputProps={{
 									inputMode: 'decimal',
 									pattern: '[0-9]+(.[0-9]{2})',
@@ -149,7 +189,6 @@ const UserInput = () => {
 						<Controller
 							name='quitDate'
 							control={control}
-							defaultValue={date}
 							render={({ field: { onChange, value } }) => (
 								<KeyboardDatePicker
 									onChange={onChange}
@@ -157,7 +196,6 @@ const UserInput = () => {
 									format='MM/dd/yyyy'
 									disableFuture={true}
 									inputVariant='outlined'
-									// color='secondary'
 								/>
 							)}
 						/>
