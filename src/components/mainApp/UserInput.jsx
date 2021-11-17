@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
 		padding: '1.5em 1em 1em 1em',
-		margin: '1em 0 0 0',
+		margin: '1em 0 1em 0',
 		width: '300px',
 	},
 	button: {

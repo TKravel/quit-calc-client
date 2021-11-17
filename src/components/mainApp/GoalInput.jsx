@@ -3,7 +3,7 @@ import { Button, Container, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from '../../hooks/UserContext';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
 	form: {
 		padding: '1.5em 0.5em',
 	},
@@ -11,7 +11,11 @@ const useStyles = makeStyles({
 		padding: '1.5em 0.5em',
 		color: '#606060',
 	},
-});
+	button: {
+		backgroundColor: theme.palette.secondary.dark,
+		margin: '10px !important',
+	},
+}));
 const GoalInput = ({
 	disabled,
 	setDisabled,
@@ -170,6 +174,7 @@ const GoalInput = ({
 				}}
 			/>
 			<Button
+				className={classes.button}
 				variant='contained'
 				color='secondary'
 				onClick={saveGoal}
