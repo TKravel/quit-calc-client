@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const useAuth = () => {
-	const history = useHistory();
+	let history = useHistory();
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
@@ -33,7 +33,11 @@ const useAuth = () => {
 				if (data.msg === 'logged out') {
 					console.log('logged out');
 					setTimeout(() => 1000);
-					setUser(false);
+
+					return () => {
+						setUser(false);
+						history.push('/login');
+					};
 				}
 			})
 			.catch((error) => {

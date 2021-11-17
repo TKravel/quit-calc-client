@@ -40,7 +40,8 @@ const theme = createTheme({
 			// Name of the slot
 			root: {
 				backgroundColor: '#cccccc',
-				marginTop: '0.5em',
+				marginTop: '0em',
+				marginBottom: '1em',
 				// marginBottom: '0.5em',
 			},
 		},
