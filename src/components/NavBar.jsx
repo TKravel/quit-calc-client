@@ -32,19 +32,22 @@ const NavBar = () => {
 				</Link>
 				{user ? (
 					<Button
+						component={Link}
+						to='/login'
 						variant='contained'
 						color='secondary'
 						onClick={logout}
 					>
-						<Link to='/login' className={classes.btnLink}>
-							Log out
-						</Link>
+						Log out
 					</Button>
 				) : (
-					<Button variant='contained' color='secondary'>
-						<Link to='/login' className={classes.btnLink}>
-							Login
-						</Link>
+					<Button
+						component={Link}
+						to='login'
+						variant='contained'
+						color='secondary'
+					>
+						Login
 					</Button>
 				)}
 			</Toolbar>
