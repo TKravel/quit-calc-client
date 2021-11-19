@@ -12,6 +12,7 @@ import GoalCard from './GoalCard';
 import GoalInput from './GoalInput';
 import { UserContext } from '../../hooks/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
+import TrashIcon from './goalTracker/TrashIcon';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -208,10 +209,12 @@ const GoalTracker = () => {
 							return (
 								<Grid item className={classes.card} key={index}>
 									<GoalCard
+										index={index}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
 										calculations={calculations}
 									/>
+									<TrashIcon index={index} />
 								</Grid>
 							);
 						})}
