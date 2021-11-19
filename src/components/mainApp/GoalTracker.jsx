@@ -83,15 +83,16 @@ const GoalTracker = () => {
 	const [goalCount, setGoalCount] = useState(0);
 	const [isDisabled, setIsDisabled] = useState(false);
 
-	const handleUserGoals = (goal, cost) => {
+	const handleFreeGoals = (goal, cost) => {
 		const userGoal = goal;
 		const userCost = parseFloat(cost);
 		setUserGoals([
 			{
 				goal: userGoal,
-				cost: userCost,
+				goalCost: userCost,
 			},
 		]);
+		setGoalCount(1);
 	};
 	const defaultGoals = [
 		{
@@ -197,9 +198,7 @@ const GoalTracker = () => {
 					<Grid item className={classes.card}>
 						<GoalInput
 							disabled={isDisabled}
-							setDisabled={setIsDisabled}
-							userGoals={userGoals}
-							handleGoals={handleUserGoals}
+							handleFreeGoal={handleFreeGoals}
 							handleUserGoals={setUserGoals}
 							handleGoalCount={setGoalCount}
 						/>
@@ -209,7 +208,6 @@ const GoalTracker = () => {
 							return (
 								<Grid item className={classes.card} key={index}>
 									<GoalCard
-										index={index}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
 										calculations={calculations}
@@ -222,13 +220,13 @@ const GoalTracker = () => {
 								</Grid>
 							);
 						})}
-					{!user && (
+					{!user && goalCount > 0 ? (
 						<Grid item className={classes.card}>
 							<Typography variant='h5' paragraph>
 								Sign up to set more personal goals!
 							</Typography>
 						</Grid>
-					)}
+					) : null}
 				</Grid>
 			</TabPanel>
 		</Container>

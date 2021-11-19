@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { UserContext } from '../../hooks/UserContext';
 import { useForm, Controller } from 'react-hook-form';
+import { UserContext } from '../../hooks/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -17,24 +17,15 @@ const useStyles = makeStyles((theme) => ({
 		margin: '10px !important',
 	},
 }));
+
 const GoalInput = ({
 	disabled,
-	setDisabled,
-	userGoals,
-	handleGoals,
+	handleFreeGoal,
 	handleUserGoals,
 	handleGoalCount,
 }) => {
 	const classes = useStyles();
 	const { user } = useContext(UserContext);
-	const [goal, setGoal] = useState('');
-	const [goalCost, setGoalCost] = useState('');
-	const [errors, setErrors] = useState({
-		goal: false,
-		goalMsg: '',
-		cost: false,
-		costMsg: '',
-	});
 	const { control, handleSubmit } = useForm({
 		defaultValues: {
 			goal: '',
@@ -42,107 +33,46 @@ const GoalInput = ({
 		},
 	});
 
-	const handleCost = (e) => {
-		const userInput = e.target.value;
-		console.log(userInput);
-		console.log(typeof goalCost);
-		if (isNaN(userInput)) {
-			setErrors((prevValues) => {
-				return {
-					...prevValues,
-					cost: true,
-					costMsg: 'Only enter numbers',
-				};
-			});
-			return;
-		} else if (errors.cost) {
-			setErrors((prevValues) => {
-				return {
-					...prevValues,
-					cost: false,
-					costMsg: '',
-				};
-			});
-		}
-		setGoalCost(userInput);
-	};
-	const handleGoal = (e) => {
-		const userInput = e.target.value;
-		if (userInput === '') {
-			setErrors((prevValues) => {
-				return {
-					...prevValues,
-					goal: true,
-					goalMsg: 'Required',
-				};
-			});
-			return;
-		} else if (errors.goal) {
-			setErrors((prevValues) => {
-				return {
-					...prevValues,
-					goal: false,
-					goalMsg: '',
-				};
-			});
-		}
-		setGoal(userInput);
-	};
 	const saveGoal = (goal) => {
-		// e.preventDefault();
-		// console.log('clicked');
-		// if (errors.goal === true || errors.cost === true) {
-		// 	return;
-		// }
-		// if (goal === '' || goalCost === 0) {
-		// 	return;
-		// }
-		// if (!user) {
-		// 	setDisabled(true);
-		// 	console.log(disabled);
-		// 	handleGoals(goal, goalCost);
-		// } else if (user) {
-		// 	console.log('user');
-		// 	const data = {
-		// 		goal: goal,
-		// 		goalCost: goalCost,
-		// 	};
-		fetch('/goals/create_goal', {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-			credentials: 'include',
-			body: JSON.stringify(goal),
-		})
-			.then((responce) => responce.json())
-			.then((data) => {
-				console.log('data returned');
-				if (data.error) {
-					console.log(data.error);
-					//Display error to user
-				}
-				if (data.count && data.doc) {
-					handleGoalCount(data.count);
-					console.log('test adding');
-					handleUserGoals((prevValue) => {
-						return [
-							...prevValue,
-							{
-								goal: goal.goal,
-								goalCost: goal.goalCost,
-							},
-						];
-					});
-				}
+		if (!user) {
+			handleFreeGoal(goal.goal, goal.goalCost);
+		} else {
+			fetch('/goals/create_goal', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+				credentials: 'include',
+				body: JSON.stringify(goal),
 			})
-			.catch((err) => {
-				if (err) {
-					console.log(err);
-					//Display error to user
-				}
-			});
-		// }
+				.then((responce) => responce.json())
+				.then((data) => {
+					console.log('data returned');
+					if (data.error) {
+						console.log(data.error);
+						//Display error to user
+					}
+					if (data.count && data.doc) {
+						handleGoalCount(data.count);
+						console.log('test adding');
+						handleUserGoals((prevValue) => {
+							return [
+								...prevValue,
+								{
+									goal: goal.goal,
+									goalCost: goal.goalCost,
+								},
+							];
+						});
+					}
+				})
+				.catch((err) => {
+					if (err) {
+						console.log(err);
+						//Display error to user
+					}
+				});
+		}
 	};
 
 	const onSubmit = (goal) => {
