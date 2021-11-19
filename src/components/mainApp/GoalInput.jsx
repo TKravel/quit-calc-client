@@ -35,6 +35,12 @@ const GoalInput = ({
 		cost: false,
 		costMsg: '',
 	});
+	const { control, handleSubmit } = useForm({
+		defaultValues: {
+			goal: '',
+			goalCost: '',
+		},
+	});
 
 	const handleCost = (e) => {
 		const userInput = e.target.value;
@@ -82,103 +88,135 @@ const GoalInput = ({
 		}
 		setGoal(userInput);
 	};
-	const saveGoal = (e) => {
-		e.preventDefault();
-		console.log('clicked');
-		if (errors.goal === true || errors.cost === true) {
-			return;
-		}
-		if (goal === '' || goalCost === 0) {
-			return;
-		}
-		if (!user) {
-			setDisabled(true);
-			console.log(disabled);
-			handleGoals(goal, goalCost);
-		} else if (user) {
-			console.log('user');
-			const data = {
-				goal: goal,
-				goalCost: goalCost,
-			};
-			fetch('/goals/create_goal', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
+	const saveGoal = (goal) => {
+		// e.preventDefault();
+		// console.log('clicked');
+		// if (errors.goal === true || errors.cost === true) {
+		// 	return;
+		// }
+		// if (goal === '' || goalCost === 0) {
+		// 	return;
+		// }
+		// if (!user) {
+		// 	setDisabled(true);
+		// 	console.log(disabled);
+		// 	handleGoals(goal, goalCost);
+		// } else if (user) {
+		// 	console.log('user');
+		// 	const data = {
+		// 		goal: goal,
+		// 		goalCost: goalCost,
+		// 	};
+		fetch('/goals/create_goal', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'include',
+			body: JSON.stringify(goal),
+		})
+			.then((responce) => responce.json())
+			.then((data) => {
+				console.log('data returned');
+				if (data.error) {
+					console.log(data.error);
+					//Display error to user
+				}
+				if (data.count && data.doc) {
+					handleGoalCount(data.count);
+					console.log('test adding');
+					handleUserGoals((prevValue) => {
+						return [
+							...prevValue,
+							{
+								goal: goal.goal,
+								goalCost: goal.goalCost,
+							},
+						];
+					});
+				}
 			})
-				.then((responce) => responce.json())
-				.then((data) => {
-					console.log('data returned');
-					if (data.error) {
-						console.log(data.error);
-						//Display error to user
-					}
-					if (data.count && data.doc) {
-						handleGoalCount(data.count);
-						console.log('test adding');
-						handleUserGoals((prevValue) => {
-							return [
-								...prevValue,
-								{
-									goal: goal,
-									goalCost: goalCost,
-								},
-							];
-						});
-					}
-				})
-				.catch((err) => {
-					if (err) {
-						console.log(err);
-						//Display error to user
-					}
-				});
-		}
+			.catch((err) => {
+				if (err) {
+					console.log(err);
+					//Display error to user
+				}
+			});
+		// }
+	};
+
+	const onSubmit = (goal) => {
+		console.log(goal);
+		saveGoal(goal);
 	};
 	return (
 		<Container
 			component='form'
 			className={disabled ? classes.disabled : classes.form}
+			onSubmit={handleSubmit(onSubmit)}
 		>
 			<Typography variant='h5' component='h3' gutterBottom={true}>
 				Create a personal goal
 			</Typography>
-			<TextField
+			<Controller
 				name='goal'
-				value={goal}
-				onChange={handleGoal}
-				variant='outlined'
-				tpye='text'
-				autoComplete='false'
-				label='Goal name'
-				placeholder='Cool stuff'
-				disabled={disabled}
-				error={errors.goal ? true : false}
-				helperText={errors.goalMsg ? errors.goalMsg : null}
+				control={control}
+				render={({
+					field: { onChange, value },
+					fieldState: { error },
+				}) => (
+					<TextField
+						name='goal'
+						value={value}
+						onChange={onChange}
+						variant='outlined'
+						tpye='text'
+						autoComplete='false'
+						label='Goal name'
+						placeholder='Cool stuff'
+						disabled={disabled}
+						error={error ? true : false}
+						helperText={error ? error.message : null}
+					/>
+				)}
+				rules={{
+					required: 'Required',
+					pattern: '^[0-9]\\d*(\\.\\d+)?$',
+				}}
 			/>
-			<TextField
+			<Controller
 				name='goalCost'
-				value={goalCost}
-				onChange={handleCost}
-				variant='outlined'
-				label='Goal cost'
-				placeholder='$00.00'
-				disabled={disabled}
-				error={errors.cost ? true : false}
-				helperText={errors.costMsg ? errors.costMsg : null}
-				inputProps={{
-					inputMode: 'decimal',
-					pattern: '[0-9]+(.[0-9]{2})',
+				control={control}
+				render={({
+					field: { onChange, value },
+					fieldState: { error },
+				}) => (
+					<TextField
+						name='goalCost'
+						value={value}
+						onChange={onChange}
+						variant='outlined'
+						label='Goal cost'
+						placeholder='$00.00'
+						disabled={disabled}
+						error={error ? true : false}
+						helperText={error ? error.message : null}
+						inputProps={{
+							inputMode: 'decimal',
+							pattern: '[0-9]+(.[0-9]{2})',
+						}}
+					/>
+				)}
+				rules={{
+					required: 'Required',
+					pattern: '^[0-9]\\d*(\\.\\d+)?$',
 				}}
 			/>
 			<Button
 				className={classes.button}
+				type='submit'
 				variant='contained'
 				color='secondary'
-				onClick={saveGoal}
 				disabled={disabled}
 			>
 				Submit
