@@ -214,7 +214,11 @@ const GoalTracker = () => {
 										goalAmount={goal.goalCost}
 										calculations={calculations}
 									/>
-									<TrashIcon index={index} />
+									<TrashIcon
+										item={goal.goal}
+										handleGoals={setUserGoals}
+										handleCount={setGoalCount}
+									/>
 								</Grid>
 							);
 						})}
