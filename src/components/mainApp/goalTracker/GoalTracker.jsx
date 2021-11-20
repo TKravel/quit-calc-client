@@ -8,11 +8,11 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import GoalCard from './GoalCard';
-import GoalInput from './GoalInput';
-import { UserContext } from '../../context/UserContext';
-import { CalcDataContext } from '../../context/CalcDataContext';
-import TrashIcon from './goalTracker/TrashIcon';
+import GoalCard from '../goalTracker/GoalCard';
+import GoalInput from '../goalTracker/GoalInput';
+import { UserContext } from '../../../context/UserContext';
+import { CalcDataContext } from '../../../context/CalcDataContext';
+import TrashIcon from '../goalTracker/TrashIcon';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {

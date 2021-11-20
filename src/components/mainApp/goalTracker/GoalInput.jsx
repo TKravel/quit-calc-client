@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button, Container, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	form: {

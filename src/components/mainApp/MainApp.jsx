@@ -3,7 +3,7 @@ import { Grid, Container, Typography } from '@material-ui/core';
 import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
-import GoalTracker from './GoalTracker';
+import GoalTracker from './goalTracker/GoalTracker';
 import { UserContext } from '../../context/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { parseISO } from 'date-fns';
