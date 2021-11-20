@@ -32,7 +32,7 @@ const useAuth = () => {
 			.then((data) => {
 				if (data.msg === 'logged out') {
 					console.log('logged out');
-
+					setTimeout(() => 2000);
 					setUser(false);
 					return () => {
 						history.push('/login');
