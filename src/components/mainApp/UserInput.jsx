@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		width: '300px',
 	},
 	button: {
-		backgroundColor: theme.palette.secondary.dark,
+		backgroundColor: theme.palette.secondary,
 		margin: '16px !important',
 	},
 }));

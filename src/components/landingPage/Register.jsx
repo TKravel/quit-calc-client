@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 	},
 	button: {
-		backgroundColor: theme.palette.secondary.dark,
+		backgroundColor: theme.palette.secondary,
 		marginBottom: '1em',
 	},
 	error: {
@@ -183,7 +183,7 @@ const Register = () => {
 							color='secondary'
 							className={classes.button}
 						>
-							Login
+							Register
 						</Button>
 					</Grid>
 				</Grid>

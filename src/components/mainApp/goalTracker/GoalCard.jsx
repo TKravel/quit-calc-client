@@ -45,7 +45,7 @@ const GoalCard = ({ goalName, goalAmount }) => {
 				thickness={10}
 			/>
 			<Typography variant='body1' paragraph>
-				Progress: {percent >= 100 ? 'Complete!' : percent + '%'}
+				{percent >= 100 ? 'Complete!' : `Progress: ${percent}%`}
 			</Typography>
 		</>
 	);
