@@ -169,6 +169,7 @@ const GoalTracker = () => {
 				<Tabs value={value} variant='fullWidth' onChange={handleChange}>
 					<Tab label='Milestones' />
 					<Tab label='Personal goals' />
+					<Tab label='Completed goals' />
 				</Tabs>
 			</AppBar>
 			<TabPanel value={value} index={0}>
@@ -225,6 +226,21 @@ const GoalTracker = () => {
 						<Grid item className={classes.card}>
 							<Typography variant='h5' paragraph>
 								Sign up to set more personal goals!
+							</Typography>
+						</Grid>
+					) : null}
+				</Grid>
+			</TabPanel>
+			<TabPanel value={value} index={2}>
+				<Grid
+					className={classes.grid}
+					container={true}
+					direction='column'
+				>
+					{!user ? (
+						<Grid item className={classes.card}>
+							<Typography variant='h5' paragraph>
+								Sign up to collect completed goals!
 							</Typography>
 						</Grid>
 					) : null}
