@@ -4,13 +4,12 @@ import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './GoalTracker';
-import { UserContext } from '../../hooks/UserContext';
+import { UserContext } from '../../context/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
-import { differenceInCalendarDays, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 const MainApp = () => {
 	const { user } = useContext(UserContext);
-	const date = new Date();
 
 	const [formData, setFormData] = useState({
 		packs: '',
@@ -38,20 +37,11 @@ const MainApp = () => {
 					} else if (data.formData) {
 						const fetchedDate = data.formData.quitDate;
 						console.log(fetchedDate);
-						const daysQuit = differenceInCalendarDays(
-							date,
-							parseISO(fetchedDate)
-						);
 						setFormData({
 							packs: parseInt(data.formData.packs),
 							price: parseFloat(data.formData.price),
 							quitDate: parseISO(fetchedDate),
 						});
-						// setCalculations(
-						// 	parseInt(data.formData.packs) *
-						// 		parseFloat(data.formData.price) *
-						// 		daysQuit
-						// );
 					}
 				})
 				.catch((err) => {

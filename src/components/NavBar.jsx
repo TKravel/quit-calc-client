@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { UserContext } from '../hooks/UserContext';
+import { UserContext } from '../context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	nav: {

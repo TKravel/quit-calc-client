@@ -10,7 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GoalCard from './GoalCard';
 import GoalInput from './GoalInput';
-import { UserContext } from '../../hooks/UserContext';
+import { UserContext } from '../../context/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import TrashIcon from './goalTracker/TrashIcon';
 
@@ -93,6 +93,7 @@ const GoalTracker = () => {
 			},
 		]);
 		setGoalCount(1);
+		setIsDisabled(true);
 	};
 	const defaultGoals = [
 		{

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { SvgIcon } from '@material-ui/core';
-import { UserContext } from '../../../hooks/UserContext';
+import { UserContext } from '../../../context/UserContext';
 
 const TrashIcon = ({ item, handleGoals, handleCount }) => {
 	const { user } = useContext(UserContext);

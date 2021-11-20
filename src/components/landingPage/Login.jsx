@@ -11,7 +11,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import useLogin from '../../hooks/useLogin';
-import { UserContext } from '../../hooks/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {

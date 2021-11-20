@@ -6,7 +6,7 @@ import Register from './components/landingPage/Register';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
-import { UserContext } from './hooks/UserContext';
+import { UserContext } from './context/UserContext';
 import useAuth from './hooks/useAuth';
 
 const theme = createTheme({
