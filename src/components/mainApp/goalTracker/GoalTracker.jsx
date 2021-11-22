@@ -80,6 +80,7 @@ const GoalTracker = () => {
 
 	const [value, setValue] = useState(0);
 	const [userGoals, setUserGoals] = useState([]);
+	const [completedGoals, setCompletedGoals] = useState([]);
 	const [goalCount, setGoalCount] = useState(0);
 	const [isDisabled, setIsDisabled] = useState(false);
 
@@ -144,6 +145,12 @@ const GoalTracker = () => {
 						setGoalCount(data.count);
 						setUserGoals((prevValue) => {
 							return [...prevValue, ...data.docs[0].goals];
+						});
+						setCompletedGoals((prevValue) => {
+							return [
+								...prevValue,
+								...data.docs[0].completedGoals,
+							];
 						});
 					}
 				})
@@ -244,6 +251,18 @@ const GoalTracker = () => {
 							</Typography>
 						</Grid>
 					) : null}
+					{completedGoals.length !== 0 &&
+						completedGoals.sort(compare).map((goal, index) => {
+							return (
+								<Grid item className={classes.card} key={index}>
+									<GoalCard
+										goalName={goal.goal}
+										goalAmount={goal.goalCost}
+										calculations={calculations}
+									/>
+								</Grid>
+							);
+						})}
 				</Grid>
 			</TabPanel>
 		</Container>
