@@ -5,7 +5,6 @@ const useAuth = (errors, setErrors) => {
 	const { setUser } = useContext(UserContext);
 
 	const login = (data) => {
-		console.log('login' + JSON.stringify(data));
 		if (errors) {
 			setErrors('');
 		}

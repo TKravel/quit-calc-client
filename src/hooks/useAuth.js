@@ -31,7 +31,6 @@ const useAuth = () => {
 			.then((responce) => responce.json())
 			.then((data) => {
 				if (data.msg === 'logged out') {
-					console.log('logged out');
 					setTimeout(() => 2000);
 					setUser(false);
 					return () => {

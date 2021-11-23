@@ -47,14 +47,12 @@ const GoalInput = ({
 			})
 				.then((responce) => responce.json())
 				.then((data) => {
-					console.log('data returned');
 					if (data.error) {
 						console.log(data.error);
 						//Display error to user
 					}
 					if (data.count && data.doc) {
 						handleGoalCount(data.count);
-						console.log('test adding');
 						handleUserGoals((prevValue) => {
 							return [
 								...prevValue,
@@ -76,7 +74,6 @@ const GoalInput = ({
 	};
 
 	const onSubmit = (goal) => {
-		console.log(goal);
 		saveGoal(goal);
 	};
 	return (

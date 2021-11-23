@@ -116,7 +116,6 @@ const GoalTracker = () => {
 					//Display error
 				}
 				if (data.msg === 'success') {
-					console.log('success');
 					setGoalCount(data.count);
 					setUserGoals(() => {
 						return [...data.doc.goals];

@@ -51,14 +51,12 @@ const UserInput = () => {
 	};
 
 	const onSubmit = (userData) => {
-		console.log(userData);
 		if (!user) {
 			setFormData({
 				packs: userData.packs,
 				price: userData.price,
 				quitDate: new Date(userData.quitDate),
 			});
-			console.log(userData);
 		} else if (user) {
 			if (JSON.stringify(userData) === JSON.stringify(formData)) {
 				console.log('No changes');
@@ -99,7 +97,6 @@ const UserInput = () => {
 		if (formData.packs !== '') {
 			reset(formData);
 			calcSavings();
-			console.log('useEffect ran');
 		}
 	}, [formData]);
 

@@ -36,7 +36,6 @@ const MainApp = () => {
 						console.log('No data saved yet');
 					} else if (data.formData) {
 						const fetchedDate = data.formData.quitDate;
-						console.log(fetchedDate);
 						setFormData({
 							packs: parseInt(data.formData.packs),
 							price: parseFloat(data.formData.price),

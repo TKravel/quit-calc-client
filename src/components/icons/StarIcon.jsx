@@ -18,7 +18,6 @@ const StarIcon = ({ goalName, goalAmount, handleCompletion }) => {
 	const { user } = useContext(UserContext);
 	const classes = useStyles();
 	const handleDelete = () => {
-		console.log(goalName, goalAmount);
 		handleCompletion(goalName, goalAmount);
 	};
 
