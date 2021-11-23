@@ -50,17 +50,17 @@ const UserInput = () => {
 		setCalculations({ savings: moneySaved.toFixed(2) });
 	};
 
-	const onSubmit = (data) => {
-		console.log(data);
+	const onSubmit = (userData) => {
+		console.log(userData);
 		if (!user) {
 			setFormData({
-				packs: data.packs,
-				price: data.price,
-				quitDate: new Date(data.quitDate),
+				packs: userData.packs,
+				price: userData.price,
+				quitDate: new Date(userData.quitDate),
 			});
-			console.log(data);
+			console.log(userData);
 		} else if (user) {
-			if (JSON.stringify(data) === JSON.stringify(formData)) {
+			if (JSON.stringify(userData) === JSON.stringify(formData)) {
 				console.log('No changes');
 				return;
 			}
@@ -70,7 +70,7 @@ const UserInput = () => {
 					'Content-type': 'application/json; charset=UTF-8',
 				},
 				credentials: 'include',
-				body: JSON.stringify(data),
+				body: JSON.stringify(userData),
 			})
 				.then((responce) => responce.json())
 				.then((data) => {
@@ -80,12 +80,13 @@ const UserInput = () => {
 					}
 					if (data.msg === 'Success') {
 						console.log('data saved');
-						calcSavings();
+
 						setFormData({
-							packs: formData.packs,
-							price: formData.price,
-							quitDate: formData.quitDate,
+							packs: userData.packs,
+							price: userData.price,
+							quitDate: userData.quitDate,
 						});
+						calcSavings();
 					}
 				})
 				.catch((err) => {
