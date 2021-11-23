@@ -12,7 +12,7 @@ import GoalCard from '../goalTracker/GoalCard';
 import GoalInput from '../goalTracker/GoalInput';
 import { UserContext } from '../../../context/UserContext';
 import { CalcDataContext } from '../../../context/CalcDataContext';
-import TrashIcon from '../goalTracker/TrashIcon';
+import TrashIcon from '../../icons/TrashIcon';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	grid: {
 		minHeight: '100vh',
-		justifyContent: 'space-around',
+		justifyContent: 'start',
 	},
 	card: {
 		color: '#000',
@@ -95,6 +95,43 @@ const GoalTracker = () => {
 		]);
 		setGoalCount(1);
 		setIsDisabled(true);
+	};
+
+	const handleGoalCompletion = (goal, cost) => {
+		const data = {
+			goal: goal,
+			cost: cost,
+		};
+		fetch('/goals/completed_goal', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'include',
+			body: JSON.stringify(data),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.error) {
+					console.log('error: ' + data.error);
+					//Display error
+				}
+				if (data.msg === 'success') {
+					console.log('success');
+					setGoalCount(data.count);
+					setUserGoals(() => {
+						return [...data.doc.goals];
+					});
+					setCompletedGoals(() => {
+						return [...data.doc.completedGoals];
+					});
+				}
+			})
+			.catch((err) => {
+				if (err) {
+					console.log(err);
+				}
+			});
 	};
 	const defaultGoals = [
 		{
@@ -189,9 +226,9 @@ const GoalTracker = () => {
 						return (
 							<Grid item className={classes.card} key={index}>
 								<GoalCard
+									tabValue={value}
 									goalName={goal.goalName}
 									goalAmount={goal.goalAmount}
-									calculations={calculations}
 								/>
 							</Grid>
 						);
@@ -217,9 +254,10 @@ const GoalTracker = () => {
 							return (
 								<Grid item className={classes.card} key={index}>
 									<GoalCard
+										tabValue={value}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
-										calculations={calculations}
+										handleCompletion={handleGoalCompletion}
 									/>
 									<TrashIcon
 										item={goal.goal}
@@ -256,9 +294,9 @@ const GoalTracker = () => {
 							return (
 								<Grid item className={classes.card} key={index}>
 									<GoalCard
+										tabValue={value}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
-										calculations={calculations}
 									/>
 								</Grid>
 							);

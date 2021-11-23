@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { SvgIcon } from '@material-ui/core';
-import { UserContext } from '../../../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({

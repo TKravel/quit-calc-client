@@ -14,36 +14,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const StarIcon = () => {
+const StarIcon = ({ goalName, goalAmount, handleCompletion }) => {
 	const { user } = useContext(UserContext);
 	const classes = useStyles();
 	const handleDelete = () => {
-		// const data = {
-		// 	item: item,
-		// };
-
-		// fetch('/goals/delete_goal', {
-		// 	method: 'POST',
-		// 	credentials: 'include',
-		// 	headers: {
-		// 		'Content-type': 'application/json; charset=UTF-8',
-		// 	},
-		// 	body: JSON.stringify(data),
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((data) => {
-		// 		if (data.error) {
-		// 			console.log(data.error);
-		// 			// Display error to user
-		// 		}
-		// 		if (data.msg === 'success') {
-		// 			console.log('Item removed from goal array');
-		// 			handleGoals(data.goalArr.goals);
-		// 			handleCount(data.count);
-		// 		}
-		// 	});
-
-		console.log('item');
+		console.log(goalName, goalAmount);
+		handleCompletion(goalName, goalAmount);
 	};
 
 	if (user) {

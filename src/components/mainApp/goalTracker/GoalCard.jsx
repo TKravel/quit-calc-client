@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const GoalCard = ({ goalName, goalAmount }) => {
+const GoalCard = ({ tabValue, goalName, goalAmount, handleCompletion }) => {
 	const classes = useStyles();
 	const { calculations } = useContext(CalcDataContext);
 	const savings = parseFloat(calculations.savings);
@@ -31,11 +31,18 @@ const GoalCard = ({ goalName, goalAmount }) => {
 				<Typography variant='h5' component='h3' gutterBottom={true}>
 					{goalName}: ${goalAmount}
 				</Typography>
-
-				<StarIcon />
-				<Typography variant='body1' paragraph>
-					{percent >= 100 ? 'Complete!' : `Progress: ${percent}%`}
-				</Typography>
+				{tabValue === 1 && (
+					<StarIcon
+						goalName={goalName}
+						goalAmount={goalAmount}
+						handleCompletion={handleCompletion}
+					/>
+				)}
+				{tabValue !== 2 && (
+					<Typography variant='body1' paragraph>
+						{percent >= 100 ? 'Complete!' : `Progress: ${percent}%`}
+					</Typography>
+				)}
 			</>
 		);
 	} else {
