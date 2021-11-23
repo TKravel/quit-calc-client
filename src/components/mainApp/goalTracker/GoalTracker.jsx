@@ -13,7 +13,6 @@ import GoalCard from './GoalCard';
 import CompletedCard from './CompletedCard';
 import GoalInput from '../goalTracker/GoalInput';
 import { UserContext } from '../../../context/UserContext';
-import { CalcDataContext } from '../../../context/CalcDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -49,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 const GoalTracker = () => {
 	const classes = useStyles();
 	const { user } = useContext(UserContext);
-	const { calculations } = useContext(CalcDataContext);
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
@@ -284,18 +282,14 @@ const GoalTracker = () => {
 								Sign up to collect completed goals!
 							</Typography>
 						</Grid>
-					) : null}
-					{completedGoals.length !== 0 &&
-						completedGoals.sort(compare).map((goal, index) => {
-							return (
-								<Grid item className={classes.card} key={index}>
-									<CompletedCard
-										goalName={goal.goal}
-										goalAmount={goal.goalCost}
-									/>
-								</Grid>
-							);
-						})}
+					) : (
+						<Grid item className={classes.card}>
+							<CompletedCard
+								completed={completedGoals}
+								sortFunc={compare}
+							/>
+						</Grid>
+					)}
 				</Grid>
 			</TabPanel>
 		</Container>

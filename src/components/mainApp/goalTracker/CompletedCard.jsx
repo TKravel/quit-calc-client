@@ -1,31 +1,51 @@
 import React, { useContext } from 'react';
-import { Typography } from '@material-ui/core';
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CheckMarkIcon from '../../icons/CheckMarkIcon';
 const useStyles = makeStyles((theme) => ({
 	paragraph: {
 		justifyContent: 'center',
 	},
-	checkMark: {
-		fontSize: '1em',
+	list: {
+		maxHeight: '40vh',
+		overflowY: 'scroll',
+	},
+	listItem: {
+		textAlign: 'center',
 	},
 }));
 
-const CompletedCard = ({ goalName, goalAmount }) => {
+const CompletedCard = ({ completed, sortFunc }) => {
 	const classes = useStyles();
 
-	return (
-		<>
-			<Typography
-				className={classes.paragraph}
-				variant='h5'
-				component='h3'
-			>
-				<CheckMarkIcon className={classes.checkMark} /> {'   '}
-				{goalName}: ${goalAmount}
+	if (completed.length === 0) {
+		return (
+			<Typography variant='h5' paragraph>
+				Keep going, collected goals will be displayed here.
 			</Typography>
-		</>
-	);
+		);
+	} else {
+		return (
+			<>
+				<Typography variant='h5' paragraph>
+					Congradulations on your achievements!
+				</Typography>
+				<List className={classes.list}>
+					{completed.sort(sortFunc).map((goal, index) => {
+						return (
+							<ListItem key={index} className={classes.listItem}>
+								<ListItemText
+									primary={`${goal.goal} ${goal.goalCost}`}
+								/>
+							</ListItem>
+						);
+					})}
+				</List>
+				<Typography variant='h5' paragraph>
+					Keep going to collect more goals!
+				</Typography>
+			</>
+		);
+	}
 };
 
 export default CompletedCard;
