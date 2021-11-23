@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CalcDataContext } from '../../../context/CalcDataContext';
-import StarIcon from '../../icons/StarIcon';
-import TrashIcon from '../../icons/TrashIcon';
+import CheckMarkIcon from '../../icons/CheckMarkIcon';
 
 const useStyles = makeStyles((theme) => ({
 	progressCircle: {
@@ -19,13 +18,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const GoalCard = ({
-	goalName,
-	goalAmount,
-	handleGoals,
-	handleCount,
-	handleCompletion,
-}) => {
+const GoalCard = ({ goalName, goalAmount }) => {
 	const classes = useStyles();
 	const { calculations } = useContext(CalcDataContext);
 	const savings = parseFloat(calculations.savings);
@@ -38,13 +31,9 @@ const GoalCard = ({
 				<Typography variant='h5' component='h3' gutterBottom={true}>
 					{goalName}: ${goalAmount}
 				</Typography>
-				<StarIcon
-					goalName={goalName}
-					goalAmount={goalAmount}
-					handleCompletion={handleCompletion}
-				/>
+				<CheckMarkIcon />
 				<Typography variant='body1' paragraph>
-					Complete!
+					{percent >= 100 ? 'Complete!' : `Progress: ${percent}%`}
 				</Typography>
 			</>
 		);
@@ -70,13 +59,8 @@ const GoalCard = ({
 					thickness={10}
 				/>
 				<Typography variant='body1' paragraph>
-					Progress: ${percent}%
+					{percent >= 100 ? 'Complete!' : `Progress: ${percent}%`}
 				</Typography>
-				<TrashIcon
-					item={goalName}
-					handleGoals={handleGoals}
-					handleCount={handleCount}
-				/>
 			</>
 		);
 	}

@@ -8,11 +8,12 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import GoalCard from '../goalTracker/GoalCard';
+import MilestoneCard from './MilestoneCard';
+import GoalCard from './GoalCard';
+import CompletedCard from './CompletedCard';
 import GoalInput from '../goalTracker/GoalInput';
 import { UserContext } from '../../../context/UserContext';
 import { CalcDataContext } from '../../../context/CalcDataContext';
-import TrashIcon from '../../icons/TrashIcon';
 
 const useStyles = makeStyles((theme) => ({
 	goalContainer: {
@@ -225,8 +226,7 @@ const GoalTracker = () => {
 					{defaultGoals.map((goal, index) => {
 						return (
 							<Grid item className={classes.card} key={index}>
-								<GoalCard
-									tabValue={value}
+								<MilestoneCard
 									goalName={goal.goalName}
 									goalAmount={goal.goalAmount}
 								/>
@@ -254,15 +254,11 @@ const GoalTracker = () => {
 							return (
 								<Grid item className={classes.card} key={index}>
 									<GoalCard
-										tabValue={value}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
-										handleCompletion={handleGoalCompletion}
-									/>
-									<TrashIcon
-										item={goal.goal}
 										handleGoals={setUserGoals}
 										handleCount={setGoalCount}
+										handleCompletion={handleGoalCompletion}
 									/>
 								</Grid>
 							);
@@ -293,8 +289,7 @@ const GoalTracker = () => {
 						completedGoals.sort(compare).map((goal, index) => {
 							return (
 								<Grid item className={classes.card} key={index}>
-									<GoalCard
-										tabValue={value}
+									<CompletedCard
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
 									/>
