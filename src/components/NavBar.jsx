@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from '../context/UserContext';
@@ -21,7 +21,13 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
 	const classes = useStyles();
+	const history = useHistory();
 	const { user, logout } = useContext(UserContext);
+
+	const handleClick = async () => {
+		await logout();
+		history.push('/login');
+	};
 
 	return (
 		<>
@@ -36,7 +42,7 @@ const NavBar = () => {
 						to='/login'
 						variant='contained'
 						color='secondary'
-						onClick={logout}
+						onClick={handleClick}
 					>
 						Log out
 					</Button>

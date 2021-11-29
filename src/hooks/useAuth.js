@@ -23,19 +23,34 @@ const useAuth = () => {
 			});
 	}, []);
 
-	const logout = async () => {
-		await fetch('/user/logout', {
+	const verifyUser = () => {
+		fetch('/user/verify_user', {
 			method: 'GET',
 			credentials: 'include',
 		})
 			.then((responce) => responce.json())
 			.then((data) => {
-				if (data.msg === 'logged out') {
-					setTimeout(() => 2000);
+				if (data.msg === 'granted') {
+					setUser(true);
+				} else if (data.msg === 'denied') {
 					setUser(false);
-					return () => {
-						history.push('/login');
-					};
+				}
+			})
+			.catch((error) => {
+				console.log('error: ' + error);
+			});
+	};
+
+	const logout = async () => {
+		await fetch('/user/logout', {
+			method: 'GET',
+			credentials: 'include',
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.msg === 'logged out') {
+					setUser(false);
+					console.log('logged out');
 				}
 			})
 			.catch((error) => {
@@ -46,6 +61,7 @@ const useAuth = () => {
 	return {
 		user,
 		setUser,
+		verifyUser,
 		logout,
 	};
 };

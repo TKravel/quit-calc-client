@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 		color: '#000',
 		backgroundColor: theme.palette.primary.main,
 		maxWidth: '800px',
-		minHeight: '100vh',
-		margin: '1em auto 0 auto',
+		minHeight: '600px',
+		margin: '1em auto 1em auto',
 		padding: '0px',
 		justifyContent: 'center',
 		boxShadow:

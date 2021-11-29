@@ -26,7 +26,7 @@ const MainApp = () => {
 				method: 'GET',
 				credentials: 'include',
 			})
-				.then((responce) => responce.json())
+				.then((response) => response.json())
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
@@ -47,7 +47,7 @@ const MainApp = () => {
 					console.log('Error fetching form: ' + err);
 				});
 		}
-	}, [user]);
+	}, []);
 
 	useEffect(() => {
 		let progressDisplay = document.getElementById('savings-msg');

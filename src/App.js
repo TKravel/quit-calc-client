@@ -6,6 +6,7 @@ import Register from './components/landingPage/Register';
 import MainApp from './components/mainApp/MainApp';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import { UserContext } from './context/UserContext';
 import useAuth from './hooks/useAuth';
 
@@ -92,6 +93,7 @@ function App() {
 							<MainApp />
 						</Route>
 					</Switch>
+					<Footer />
 				</ThemeProvider>
 			</UserContext.Provider>
 		</Router>

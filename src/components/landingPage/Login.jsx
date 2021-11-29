@@ -50,6 +50,7 @@ const Login = () => {
 	};
 
 	if (user) {
+		console.log('redirected');
 		return <Redirect to='/' />;
 	}
 	return (
