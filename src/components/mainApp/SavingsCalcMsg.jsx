@@ -23,13 +23,14 @@ const SavingsCalcMsg = () => {
 	return (
 		<Paper className={classes.paper} elevation={8}>
 			<Grid
+				id='savings-msg'
 				container
 				className='input-container'
 				direction='row'
 				justifyContent='center'
 				alignItems='center'
 			>
-				<Grid item>
+				<Grid item xs={12} sm={6}>
 					<Typography variant='h4' component='h2'>
 						Quiting for
 						{daysQuit === 1
@@ -37,6 +38,15 @@ const SavingsCalcMsg = () => {
 							: ` ${daysQuit} days`}{' '}
 						saved you <strong>${savings}!</strong>
 					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<Typography variant='h6' component='h4'>
+						Here's some things you probably never thought about
+						buying you can now afford!
+					</Typography>
+					<Typography variant='body1'>Test 1</Typography>
+					<Typography variant='body1'>Test 2</Typography>
+					<Typography variant='body1'>Test 3</Typography>
 				</Grid>
 			</Grid>
 		</Paper>

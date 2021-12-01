@@ -44,3 +44,7 @@ html {
 	left: calc(50vw - 40px);
 	z-index: 1;
 }
+
+#savings-msg {
+	scroll-margin: 3em;
+}

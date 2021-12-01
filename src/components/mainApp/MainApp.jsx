@@ -52,7 +52,7 @@ const MainApp = () => {
 	useEffect(() => {
 		let progressDisplay = document.getElementById('savings-msg');
 		if (progressDisplay !== null) {
-			progressDisplay.scrollIntoView({
+			progressDisplay.scrollIntoView(true, {
 				behavior: 'smooth',
 				block: 'start',
 			});
