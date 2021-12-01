@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { differenceInCalendarDays } from 'date-fns';
@@ -22,11 +22,23 @@ const SavingsCalcMsg = () => {
 	const savings = parseFloat(calculations.savings).toFixed(2);
 	return (
 		<Paper className={classes.paper} elevation={8}>
-			<Typography variant='h4' component='h2'>
-				Quiting for
-				{daysQuit === 1 ? ` ${daysQuit} day` : ` ${daysQuit} days`}{' '}
-				saved you <strong>${savings}!</strong>
-			</Typography>
+			<Grid
+				container
+				className='input-container'
+				direction='row'
+				justifyContent='center'
+				alignItems='center'
+			>
+				<Grid item>
+					<Typography variant='h4' component='h2'>
+						Quiting for
+						{daysQuit === 1
+							? ` ${daysQuit} day`
+							: ` ${daysQuit} days`}{' '}
+						saved you <strong>${savings}!</strong>
+					</Typography>
+				</Grid>
+			</Grid>
 		</Paper>
 	);
 };

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Container, Typography } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
@@ -47,7 +47,7 @@ const MainApp = () => {
 					console.log('Error fetching form: ' + err);
 				});
 		}
-	}, []);
+	}, [user]);
 
 	useEffect(() => {
 		let progressDisplay = document.getElementById('savings-msg');
@@ -96,23 +96,15 @@ const MainApp = () => {
 				<Typography variant='body1' paragraph align='center'>
 					Sign up to customize goals to motivate you!
 				</Typography>
-				<Grid
-					container
-					className='input-container'
-					direction='row'
-					justifyContent='center'
-					alignItems='center'
-				>
-					<Grid item xs={12} sm={6}>
-						<UserInput />
-					</Grid>
-					{calculations.savings !== 0 && (
-						<Grid item xs={12} sm={6} id='savings-msg'>
-							<SavingsCalcMsg />
-						</Grid>
-					)}
-				</Grid>
-				{calculations.savings !== 0 && <GoalTracker />}
+
+				<UserInput />
+
+				{calculations.savings !== 0 && (
+					<>
+						<SavingsCalcMsg />
+						<GoalTracker />
+					</>
+				)}
 			</Container>
 		</CalcDataContext.Provider>
 	);
