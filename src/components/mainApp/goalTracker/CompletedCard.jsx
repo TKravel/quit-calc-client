@@ -27,7 +27,7 @@ const CompletedCard = ({ completed, sortFunc }) => {
 		return (
 			<>
 				<Typography variant='h5' paragraph>
-					Congradulations on your achievements!
+					Congratulations on your achievements!
 				</Typography>
 				<List className={classes.list}>
 					{completed.sort(sortFunc).map((goal, index) => {
