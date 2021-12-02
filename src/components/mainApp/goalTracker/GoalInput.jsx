@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.secondary.dark,
 		margin: '10px !important',
 	},
+	error: {
+		color: theme.palette.error.main,
+	},
 }));
 
 const GoalInput = ({
@@ -32,8 +35,12 @@ const GoalInput = ({
 			goalCost: '',
 		},
 	});
+	const [errors, setErrors] = useState('');
 
 	const saveGoal = (goal) => {
+		if (errors !== '') {
+			setErrors('');
+		}
 		if (!user) {
 			handleFreeGoal(goal.goal, goal.goalCost);
 		} else {
@@ -49,7 +56,7 @@ const GoalInput = ({
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
-						//Display error to user
+						setErrors(data.error);
 					}
 					if (data.count && data.doc) {
 						handleGoalCount(data.count);
@@ -67,7 +74,7 @@ const GoalInput = ({
 				.catch((err) => {
 					if (err) {
 						console.log(err);
-						//Display error to user
+						setErrors('Server error. Please try again later');
 					}
 				});
 		}
@@ -139,6 +146,11 @@ const GoalInput = ({
 					pattern: '^[0-9]\\d*(\\.\\d+)?$',
 				}}
 			/>
+			{errors && (
+				<Typography className={classes.error} variant='body1' paragraph>
+					{errors}
+				</Typography>
+			)}
 			<Button
 				className={classes.button}
 				type='submit'

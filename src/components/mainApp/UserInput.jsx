@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Button, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.secondary,
 		margin: '16px !important',
 	},
+	error: {
+		color: theme.palette.error.main,
+	},
 }));
 
 const date = new Date();
@@ -39,6 +42,7 @@ const UserInput = () => {
 			quitDate: date,
 		},
 	});
+	const [errors, setErrors] = useState('');
 
 	const daysQuit = differenceInCalendarDays(date, formData.quitDate);
 
@@ -51,6 +55,9 @@ const UserInput = () => {
 	};
 
 	const onSubmit = (userData) => {
+		if (errors !== '') {
+			setErrors('');
+		}
 		if (!user) {
 			setFormData({
 				packs: userData.packs,
@@ -74,7 +81,7 @@ const UserInput = () => {
 				.then((data) => {
 					if (data.error) {
 						console.log('Server error saving data: ' + data.error);
-						//Display error
+						setErrors(data.error);
 					}
 					if (data.msg === 'Success') {
 						console.log('data saved');
@@ -89,6 +96,7 @@ const UserInput = () => {
 				})
 				.catch((err) => {
 					console.log('Error saving data: ' + err);
+					setErrors('Server error, Please try again later.');
 				});
 		}
 	};
@@ -209,6 +217,13 @@ const UserInput = () => {
 					>
 						Calculate
 					</Button>
+					<Typography
+						className={classes.error}
+						variant='body1'
+						paragraph
+					>
+						{errors && errors}
+					</Typography>
 				</Grid>
 			</Paper>
 		</Grid>

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import '../../index.css';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
@@ -8,8 +9,15 @@ import { UserContext } from '../../context/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { parseISO } from 'date-fns';
 
+const useStyles = makeStyles((theme) => ({
+	error: {
+		color: theme.palette.error.main,
+	},
+}));
+
 const MainApp = () => {
 	const { user } = useContext(UserContext);
+	const classes = useStyles();
 
 	const [formData, setFormData] = useState({
 		packs: '',
@@ -19,8 +27,12 @@ const MainApp = () => {
 	const [calculations, setCalculations] = useState({
 		savings: 0,
 	});
+	const [errors, setErrors] = useState('');
 
 	useEffect(() => {
+		if (errors !== '') {
+			setErrors('');
+		}
 		if (user) {
 			fetch('/form/get_form', {
 				method: 'GET',
@@ -30,7 +42,7 @@ const MainApp = () => {
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
-						//Display error to user
+						setErrors(data.error);
 					}
 					if (data.msg) {
 						console.log('No data saved yet');
@@ -45,6 +57,7 @@ const MainApp = () => {
 				})
 				.catch((err) => {
 					console.log('Error fetching form: ' + err);
+					setErrors('Server Error, please try again later.');
 				});
 		}
 	}, [user]);
@@ -95,6 +108,15 @@ const MainApp = () => {
 				</Typography>
 				<Typography variant='body1' paragraph align='center'>
 					Sign up to customize goals to motivate you!
+				</Typography>
+
+				<Typography
+					className={classes.error}
+					variant='body1'
+					paragraph
+					align='center'
+				>
+					{errors && errors}
 				</Typography>
 
 				<UserInput />

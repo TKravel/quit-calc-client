@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
-const useAuth = (errors, setErrors) => {
+const useLogin = (errors, setErrors) => {
 	const { setUser } = useContext(UserContext);
 
 	const login = (data) => {
@@ -16,7 +16,7 @@ const useAuth = (errors, setErrors) => {
 			credentials: 'include',
 			body: JSON.stringify(data),
 		})
-			.then((responce) => responce.json())
+			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {
 					setErrors(data.error);
@@ -26,6 +26,7 @@ const useAuth = (errors, setErrors) => {
 			})
 			.catch((err) => {
 				console.log('error: ' + err);
+				setErrors('Server error, Please try again later.');
 			});
 	};
 
@@ -53,7 +54,7 @@ const useAuth = (errors, setErrors) => {
 			})
 			.catch((err) => {
 				console.log('error: ' + err);
-				setErrors('500 - Internal server error');
+				setErrors('Server error, Please try again later.');
 			});
 	};
 
@@ -63,4 +64,4 @@ const useAuth = (errors, setErrors) => {
 	};
 };
 
-export default useAuth;
+export default useLogin;
