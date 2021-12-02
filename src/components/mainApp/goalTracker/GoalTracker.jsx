@@ -22,13 +22,14 @@ const useStyles = makeStyles((theme) => ({
 		minHeight: '600px',
 		margin: '1em auto 1em auto',
 		padding: '0px',
+		alignContent: 'center',
 		justifyContent: 'center',
 		boxShadow:
 			'0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
 	},
 	grid: {
 		minHeight: '100vh',
-		justifyContent: 'start',
+		justifyContent: 'center',
 	},
 	card: {
 		color: '#000',
