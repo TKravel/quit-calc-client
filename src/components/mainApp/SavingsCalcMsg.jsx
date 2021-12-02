@@ -1,5 +1,12 @@
 import React, { useContext } from 'react';
-import { Paper, Typography, Grid } from '@material-ui/core';
+import {
+	Paper,
+	Typography,
+	Grid,
+	List,
+	ListItem,
+	ListItemText,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { differenceInCalendarDays } from 'date-fns';
@@ -12,7 +19,25 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: '80%',
 		textAlign: 'center',
 	},
+	listItem: {
+		textAlign: 'center',
+	},
 }));
+
+const monthlySavings = [
+	{
+		item: 'cellular service',
+		cost: 128,
+	},
+	{
+		item: 'food',
+		cost: 275,
+	},
+	{
+		item: 'rent',
+		cost: 1220,
+	},
+];
 
 const SavingsCalcMsg = () => {
 	const classes = useStyles();
@@ -41,12 +66,34 @@ const SavingsCalcMsg = () => {
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Typography variant='h6' component='h4'>
-						Here's some things you probably never thought about
-						buying but you now have extra money for!
+						Lets break that down and visualize how it helps you
+						monthly.
 					</Typography>
-					<Typography variant='body1'>Test 1</Typography>
-					<Typography variant='body1'>Test 2</Typography>
-					<Typography variant='body1'>Test 3</Typography>
+					<Typography variant='body1'>
+						So far your savings have helped with the following
+						bills:
+					</Typography>
+					<List>
+						{monthlySavings.map((arrItem, index) => {
+							console.log('Test');
+							const thirdOfSavings = calculations.savings / 3;
+							const numOfItems = thirdOfSavings / arrItem.cost;
+							const item = arrItem.item;
+							const monthForm =
+								numOfItems <= 1 ? 'months' : "months'";
+
+							return (
+								<ListItem key={index}>
+									<ListItemText
+										className={classes.listItem}
+										primary={`${numOfItems.toFixed(
+											2
+										)} ${monthForm} of ${item}`}
+									/>
+								</ListItem>
+							);
+						})}
+					</List>
 				</Grid>
 			</Grid>
 		</Paper>
