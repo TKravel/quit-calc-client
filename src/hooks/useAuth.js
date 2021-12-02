@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 const useAuth = () => {
-	let history = useHistory();
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {

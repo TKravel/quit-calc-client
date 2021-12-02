@@ -42,7 +42,7 @@ const SavingsCalcMsg = () => {
 				<Grid item xs={12} sm={6}>
 					<Typography variant='h6' component='h4'>
 						Here's some things you probably never thought about
-						buying you can now afford!
+						buying but you now have extra money for!
 					</Typography>
 					<Typography variant='body1'>Test 1</Typography>
 					<Typography variant='body1'>Test 2</Typography>
