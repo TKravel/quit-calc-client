@@ -83,6 +83,7 @@ const GoalTracker = () => {
 	const [completedGoals, setCompletedGoals] = useState([]);
 	const [goalCount, setGoalCount] = useState(0);
 	const [isDisabled, setIsDisabled] = useState(false);
+	const [errors, setErrors] = useState('');
 
 	const handleFreeGoals = (goal, cost) => {
 		const userGoal = goal;
@@ -98,6 +99,9 @@ const GoalTracker = () => {
 	};
 
 	const handleGoalCompletion = (goal, cost) => {
+		if (errors !== '') {
+			setErrors('');
+		}
 		const data = {
 			goal: goal,
 			cost: cost,
@@ -114,7 +118,7 @@ const GoalTracker = () => {
 			.then((data) => {
 				if (data.error) {
 					console.log('error: ' + data.error);
-					//Display error
+					setErrors(data.error);
 				}
 				if (data.msg === 'success') {
 					setGoalCount(data.count);
@@ -129,6 +133,7 @@ const GoalTracker = () => {
 			.catch((err) => {
 				if (err) {
 					console.log(err);
+					setErrors('Server error, please try again later.');
 				}
 			});
 	};
@@ -257,6 +262,8 @@ const GoalTracker = () => {
 										handleGoals={setUserGoals}
 										handleCount={setGoalCount}
 										handleCompletion={handleGoalCompletion}
+										errors={errors}
+										setErrors={setErrors}
 									/>
 								</Grid>
 							);

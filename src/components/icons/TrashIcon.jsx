@@ -16,10 +16,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TrashIcon = ({ item, handleGoals, handleCount }) => {
+const TrashIcon = ({ item, handleGoals, handleCount, errors, setErrors }) => {
 	const { user } = useContext(UserContext);
 	const classes = useStyles();
 	const handleDelete = () => {
+		if (errors !== '') {
+			setErrors('');
+		}
 		const data = {
 			item: item,
 		};
@@ -36,13 +39,17 @@ const TrashIcon = ({ item, handleGoals, handleCount }) => {
 			.then((data) => {
 				if (data.error) {
 					console.log(data.error);
-					// Display error to user
+					setErrors(data.error);
 				}
 				if (data.msg === 'success') {
 					console.log('Item removed from goal array');
 					handleGoals(data.goalArr.goals);
 					handleCount(data.count);
 				}
+			})
+			.catch((err) => {
+				console.log('Error: ' + err);
+				setErrors('Server error, please try again later.');
 			});
 
 		console.log(item);

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CalcDataContext } from '../../../context/CalcDataContext';
@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.primary.main,
 		zIndex: '1',
 	},
+	error: {
+		color: theme.palette.error.main,
+	},
 }));
 
 const GoalCard = ({
@@ -25,9 +28,12 @@ const GoalCard = ({
 	handleGoals,
 	handleCount,
 	handleCompletion,
+	errors,
+	setErrors,
 }) => {
 	const classes = useStyles();
 	const { calculations } = useContext(CalcDataContext);
+
 	const savings = parseFloat(calculations.savings);
 	let percent = (savings / goalAmount) * 100;
 	percent = parseFloat(percent.toFixed(1));
@@ -42,10 +48,21 @@ const GoalCard = ({
 					goalName={goalName}
 					goalAmount={goalAmount}
 					handleCompletion={handleCompletion}
+					errors={errors}
+					setErrors={setErrors}
 				/>
 				<Typography variant='body1' paragraph>
 					Complete!
 				</Typography>
+				{errors && (
+					<Typography
+						className={classes.error}
+						variant='body1'
+						paragraph
+					>
+						{errors}
+					</Typography>
+				)}
 			</>
 		);
 	} else {
@@ -76,7 +93,18 @@ const GoalCard = ({
 					item={goalName}
 					handleGoals={handleGoals}
 					handleCount={handleCount}
+					errors={errors}
+					setErrors={setErrors}
 				/>
+				{errors && (
+					<Typography
+						className={classes.error}
+						variant='body1'
+						paragraph
+					>
+						{errors}
+					</Typography>
+				)}
 			</>
 		);
 	}

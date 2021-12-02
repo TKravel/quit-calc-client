@@ -14,10 +14,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const StarIcon = ({ goalName, goalAmount, handleCompletion }) => {
+const StarIcon = ({
+	goalName,
+	goalAmount,
+	handleCompletion,
+	errors,
+	setErrors,
+}) => {
 	const { user } = useContext(UserContext);
 	const classes = useStyles();
 	const handleDelete = () => {
+		if (errors !== '') {
+			setErrors('');
+		}
 		handleCompletion(goalName, goalAmount);
 	};
 
