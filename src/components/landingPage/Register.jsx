@@ -12,12 +12,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import useLogin from '../../hooks/useLogin';
 import { UserContext } from '../../context/UserContext';
+import DemoMsg from '../demoComponents/DemoMsg';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
 		display: 'flex',
-		height: 'calc(100vh - 65px)',
-		padding: '0px',
+		// height: 'calc(100vh - 65px)',
+		padding: '2em 0em 2em 0em',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -54,141 +55,150 @@ const Register = () => {
 		return <Redirect to='/' />;
 	}
 	return (
-		<Container
-			component='form'
-			className={classes.container}
-			onSubmit={handleSubmit(onSubmit)}
-		>
-			<Paper elevation={8} className={classes.form}>
-				<Grid
-					container={true}
-					direction='row'
-					justifyContent='space-around'
-					alignContent='center'
-					spacing={2}
-					className={classes.gridContainer}
-				>
-					<Grid item xs={12}>
-						<Typography
-							variant='h4'
-							component='h1'
-							gutterBottom={true}
-						>
-							Register
-						</Typography>
-						<Typography
-							variant='body1'
-							gutterBottom={true}
-							paragraph
-						>
-							Have a account?
-							<br />
-							<Link to='/login'>Login here</Link>!
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
-							name='username'
-							control={control}
-							defaultValue=''
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<TextField
-									variant='outlined'
-									size='small'
-									label='Username'
-									placeholder='Username'
-									name='username'
-									value={value}
-									onChange={onChange}
-									error={error ? true : false}
-									helperText={error ? error.message : null}
-								></TextField>
-							)}
-							rules={{
-								required: 'Username required',
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
-							name='email'
-							control={control}
-							defaultValue=''
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<TextField
-									type='email'
-									variant='outlined'
-									size='small'
-									label='Email'
-									placeholder='Email'
-									name='email'
-									value={value}
-									onChange={onChange}
-									error={error ? true : false}
-									helperText={error ? error.message : null}
-								></TextField>
-							)}
-							rules={{
-								required: 'Email required',
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
-							name='password'
-							control={control}
-							defaultValue=''
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<TextField
-									name='password'
-									variant='outlined'
-									size='small'
-									label='Create a password'
-									placeholder='Password'
-									value={value}
-									onChange={onChange}
-									error={error ? true : false}
-									helperText={error ? error.message : null}
-								></TextField>
-							)}
-							rules={{
-								required: 'Password required',
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						{errors && (
+		<>
+			<DemoMsg />
+			<Container
+				component='form'
+				className={classes.container}
+				onSubmit={handleSubmit(onSubmit)}
+			>
+				<Paper elevation={8} className={classes.form}>
+					<Grid
+						container={true}
+						direction='row'
+						justifyContent='space-around'
+						alignContent='center'
+						spacing={2}
+						className={classes.gridContainer}
+					>
+						<Grid item xs={12}>
 							<Typography
-								variant='body2'
-								paragraph
-								className={classes.error}
+								variant='h4'
+								component='h1'
+								gutterBottom={true}
 							>
-								{errors}
+								Register
 							</Typography>
-						)}
+							<Typography
+								variant='body1'
+								gutterBottom={true}
+								paragraph
+							>
+								Have a account?
+								<br />
+								<Link to='/login'>Login here</Link>!
+							</Typography>
+						</Grid>
+						<Grid item xs={12}>
+							<Controller
+								name='username'
+								control={control}
+								defaultValue=''
+								render={({
+									field: { onChange, value },
+									fieldState: { error },
+								}) => (
+									<TextField
+										variant='outlined'
+										size='small'
+										label='Username'
+										placeholder='Username'
+										name='username'
+										value={value}
+										onChange={onChange}
+										error={error ? true : false}
+										helperText={
+											error ? error.message : null
+										}
+									></TextField>
+								)}
+								rules={{
+									required: 'Username required',
+								}}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Controller
+								name='email'
+								control={control}
+								defaultValue=''
+								render={({
+									field: { onChange, value },
+									fieldState: { error },
+								}) => (
+									<TextField
+										type='email'
+										variant='outlined'
+										size='small'
+										label='Email'
+										placeholder='Email'
+										name='email'
+										value={value}
+										onChange={onChange}
+										error={error ? true : false}
+										helperText={
+											error ? error.message : null
+										}
+									></TextField>
+								)}
+								rules={{
+									required: 'Email required',
+								}}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Controller
+								name='password'
+								control={control}
+								defaultValue=''
+								render={({
+									field: { onChange, value },
+									fieldState: { error },
+								}) => (
+									<TextField
+										name='password'
+										variant='outlined'
+										size='small'
+										label='Create a password'
+										placeholder='Password'
+										value={value}
+										onChange={onChange}
+										error={error ? true : false}
+										helperText={
+											error ? error.message : null
+										}
+									></TextField>
+								)}
+								rules={{
+									required: 'Password required',
+								}}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							{errors && (
+								<Typography
+									variant='body2'
+									paragraph
+									className={classes.error}
+								>
+									{errors}
+								</Typography>
+							)}
+						</Grid>
+						<Grid item xs={12}>
+							<Button
+								type='submit'
+								variant='contained'
+								color='secondary'
+								className={classes.button}
+							>
+								Register
+							</Button>
+						</Grid>
 					</Grid>
-					<Grid item xs={12}>
-						<Button
-							type='submit'
-							variant='contained'
-							color='secondary'
-							className={classes.button}
-						>
-							Register
-						</Button>
-					</Grid>
-				</Grid>
-			</Paper>
-		</Container>
+				</Paper>
+			</Container>
+		</>
 	);
 };
 
