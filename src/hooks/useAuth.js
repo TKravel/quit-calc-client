@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 const useAuth = () => {
 	const [user, setUser] = useState(null);
 
+	const demoUser = localStorage.getItem('demoUser');
+
 	useEffect(() => {
 		fetch('/user/verify_user', {
 			method: 'GET',
@@ -49,6 +51,9 @@ const useAuth = () => {
 				if (data.msg === 'logged out') {
 					setUser(false);
 					console.log('logged out');
+				}
+				if (demoUser === 'true') {
+					localStorage.removeItem('demoUser');
 				}
 			})
 			.catch((error) => {

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../index.css';
+import DemoMsg from '../demoComponents/DemoMsg';
+import DemoWarning from '../demoComponents/DemoWarning';
 import UserInput from './UserInput';
 import SavingsCalcMsg from './SavingsCalcMsg';
 import GoalTracker from './goalTracker/GoalTracker';
@@ -28,6 +30,8 @@ const MainApp = () => {
 		savings: 0,
 	});
 	const [errors, setErrors] = useState('');
+
+	const demoUser = localStorage.getItem('demoUser');
 
 	useEffect(() => {
 		if (errors !== '') {
@@ -77,16 +81,8 @@ const MainApp = () => {
 			value={{ formData, setFormData, calculations, setCalculations }}
 		>
 			<Container component='main' className='app-container'>
-				{/* <Typography variant='h1'>h1</Typography>
-			<Typography variant='h2'>h2</Typography>
-			<Typography variant='h3'>h3</Typography>
-			<Typography variant='h4'>h4</Typography>
-			<Typography variant='h5'>h5</Typography>
-			<Typography variant='h6'>h6</Typography>
-			<Typography variant='subtitle1'>subtitle1</Typography>
-			<Typography variant='subtitle2'>subtitle2</Typography>
-			<Typography variant='body1'>body1</Typography>
-			<Typography variant='body2'>body2</Typography> */}
+				{demoUser === 'true' ? <DemoWarning /> : <DemoMsg />}
+
 				<Typography
 					variant='h4'
 					component='h1'
