@@ -8,7 +8,7 @@ const useLogin = (errors, setErrors) => {
 		if (errors) {
 			setErrors('');
 		}
-		fetch('/user/login', {
+		fetch('https://protected-badlands-62393.herokuapp.com/user/login', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -36,7 +36,7 @@ const useLogin = (errors, setErrors) => {
 		}
 		console.log('Reg' + JSON.stringify(data));
 
-		fetch('/user/register', {
+		fetch('https://protected-badlands-62393.herokuapp.com/user/register', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',

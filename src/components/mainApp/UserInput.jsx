@@ -69,14 +69,17 @@ const UserInput = () => {
 				console.log('No changes');
 				return;
 			}
-			fetch('/form/save_input', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8',
-				},
-				credentials: 'include',
-				body: JSON.stringify(userData),
-			})
+			fetch(
+				'https://protected-badlands-62393.herokuapp.com/form/save_input',
+				{
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json; charset=UTF-8',
+					},
+					credentials: 'include',
+					body: JSON.stringify(userData),
+				}
+			)
 				.then((responce) => responce.json())
 				.then((data) => {
 					if (data.error) {

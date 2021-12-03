@@ -38,10 +38,13 @@ const MainApp = () => {
 			setErrors('');
 		}
 		if (user) {
-			fetch('/form/get_form', {
-				method: 'GET',
-				credentials: 'include',
-			})
+			fetch(
+				'https://protected-badlands-62393.herokuapp.com/form/get_form',
+				{
+					method: 'GET',
+					credentials: 'include',
+				}
+			)
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.error) {

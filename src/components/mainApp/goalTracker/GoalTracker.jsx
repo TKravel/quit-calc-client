@@ -106,14 +106,17 @@ const GoalTracker = () => {
 			goal: goal,
 			cost: cost,
 		};
-		fetch('/goals/completed_goal', {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-			credentials: 'include',
-			body: JSON.stringify(data),
-		})
+		fetch(
+			'https://protected-badlands-62393.herokuapp.com/goals/completed_goal',
+			{
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+				credentials: 'include',
+				body: JSON.stringify(data),
+			}
+		)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {
@@ -168,10 +171,13 @@ const GoalTracker = () => {
 
 	useEffect(() => {
 		if (user) {
-			fetch('/goals/get_goals', {
-				method: 'GET',
-				credentials: 'include',
-			})
+			fetch(
+				'https://protected-badlands-62393.herokuapp.com/goals/get_goals',
+				{
+					method: 'GET',
+					credentials: 'include',
+				}
+			)
 				.then((responce) => responce.json())
 				.then((data) => {
 					if (data.error) {
