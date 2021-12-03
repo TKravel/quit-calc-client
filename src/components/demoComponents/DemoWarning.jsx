@@ -29,19 +29,18 @@ const DemoWarning = () => {
 		isOpen ? setIsOpen(false) : setIsOpen(true);
 	};
 
-	const handleClick = (e) => {
-		console.log('demo btn clicked');
-	};
-
 	if (isOpen) {
 		return (
 			<Paper className={classes.paper} elevation={8}>
-				{!demoUser && (
-					<CloseIcon
-						className={classes.closeIcon}
-						handleMsg={toggleMsg}
-					/>
-				)}
+				{/* {!demoUser && ( */}
+				<CloseIcon
+					className={classes.closeIcon}
+					handleMsg={toggleMsg}
+				/>
+				{/* )} */}
+				<Typography variant='h6' paragraph>
+					Demo User and data created.
+				</Typography>
 				<Typography variant='h6' paragraph>
 					Demo data will be lost upon logout. Please register if you
 					wish to persist data in future sessions.
