@@ -34,7 +34,9 @@ const CompletedCard = ({ completed, sortFunc }) => {
 						return (
 							<ListItem key={index} className={classes.listItem}>
 								<ListItemText
-									primary={`${goal.goal} ${goal.goalCost}`}
+									primary={`${goal.goal}: $${parseFloat(
+										goal.goalCost
+									).toFixed(2)}`}
 								/>
 							</ListItem>
 						);
