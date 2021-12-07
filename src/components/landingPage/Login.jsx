@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	gridContainer: {
-		height: '60vh',
-	},
+
 	loginForm: {
 		width: '90%',
 		maxWidth: '250px',
