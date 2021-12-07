@@ -21,6 +21,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const capitalizeFirstLetter = (string) => {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+const localString = (num) => {
+	return parseFloat(num).toFixed(2).toLocaleString('en-EN');
+};
+
 const GoalInput = ({
 	disabled,
 	handleFreeGoal,
@@ -38,20 +46,27 @@ const GoalInput = ({
 	const [errors, setErrors] = useState('');
 
 	const saveGoal = (goal) => {
+		const goalData = {
+			goal: capitalizeFirstLetter(goal.goal),
+			goalCost: localString(goal.goalCost),
+		};
 		if (errors !== '') {
 			setErrors('');
 		}
 		if (!user) {
-			handleFreeGoal(goal.goal, goal.goalCost);
+			handleFreeGoal(goalData.goal, goalData.goalCost);
 		} else {
-			fetch('/goals/create_goal', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8',
-				},
-				credentials: 'include',
-				body: JSON.stringify(goal),
-			})
+			fetch(
+				'https://protected-badlands-62393.herokuapp.com/goals/create_goal',
+				{
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json; charset=UTF-8',
+					},
+					credentials: 'include',
+					body: JSON.stringify(goalData),
+				}
+			)
 				.then((responce) => responce.json())
 				.then((data) => {
 					if (data.error) {
@@ -64,8 +79,8 @@ const GoalInput = ({
 							return [
 								...prevValue,
 								{
-									goal: goal.goal,
-									goalCost: goal.goalCost,
+									goal: goalData.goal,
+									goalCost: goalData.goalCost,
 								},
 							];
 						});
