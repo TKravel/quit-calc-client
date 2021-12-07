@@ -16,7 +16,7 @@ const Footer = () => {
 
 	return (
 		<Typography className={classes.footer}>
-			TKDev.com &copy; {currentYear}
+			TKDevDesign.com &copy; {currentYear}
 		</Typography>
 	);
 };
