@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 	loginForm: {
 		width: '90%',
 		maxWidth: '250px',
-		height: '70%',
+		minHeight: '360px',
 		paddingTop: '1em',
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',

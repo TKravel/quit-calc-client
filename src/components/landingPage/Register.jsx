@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 	form: {
 		width: '90%',
 		maxWidth: '250px',
+		minHeight: '360px',
 		paddingTop: '1em',
 		backgroundColor: theme.palette.primary.light,
 		textAlign: 'center',
