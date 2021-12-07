@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-
 	loginForm: {
 		width: '90%',
 		maxWidth: '250px',
