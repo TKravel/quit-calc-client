@@ -17,7 +17,6 @@ import DemoMsg from '../demoComponents/DemoMsg';
 const useStyles = makeStyles((theme) => ({
 	container: {
 		display: 'flex',
-		// height: 'calc(100vh - 65px)',
 		padding: '2em 0em 2em 0em',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -47,7 +46,6 @@ const Register = () => {
 	const { register } = useLogin(errors, setErrors);
 
 	const onSubmit = (data) => {
-		console.log(data);
 		register(data);
 	};
 

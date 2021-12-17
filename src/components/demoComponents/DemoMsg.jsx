@@ -24,12 +24,10 @@ const DemoMsg = () => {
 	const { createDemoUser } = useDemo();
 	const [isOpen, setIsOpen] = useState(true);
 	const toggleMsg = (e) => {
-		console.log('clicked');
 		isOpen ? setIsOpen(false) : setIsOpen(true);
 	};
 
 	const handleClick = (e) => {
-		console.log('demo btn clicked');
 		createDemoUser();
 	};
 

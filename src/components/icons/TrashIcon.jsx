@@ -45,7 +45,6 @@ const TrashIcon = ({ item, handleGoals, handleCount, errors, setErrors }) => {
 					setErrors(data.error);
 				}
 				if (data.msg === 'success') {
-					console.log('Item removed from goal array');
 					handleGoals(data.goalArr.goals);
 					handleCount(data.count);
 				}
@@ -54,8 +53,6 @@ const TrashIcon = ({ item, handleGoals, handleCount, errors, setErrors }) => {
 				console.log('Error: ' + err);
 				setErrors('Server error, please try again later.');
 			});
-
-		console.log(item);
 	};
 
 	if (user) {

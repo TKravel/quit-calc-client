@@ -66,7 +66,6 @@ const UserInput = () => {
 			});
 		} else if (user) {
 			if (JSON.stringify(userData) === JSON.stringify(formData)) {
-				console.log('No changes');
 				return;
 			}
 			fetch(
@@ -87,8 +86,6 @@ const UserInput = () => {
 						setErrors(data.error);
 					}
 					if (data.msg === 'Success') {
-						console.log('data saved');
-
 						setFormData({
 							packs: userData.packs,
 							price: userData.price,

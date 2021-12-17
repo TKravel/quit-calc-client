@@ -17,7 +17,6 @@ const useDemo = () => {
 					console.log(data.error);
 				}
 				if (data.msg === 'Success') {
-					console.log('Demo user created');
 					localStorage.setItem('demoUser', 'true');
 					setUser(true);
 				}

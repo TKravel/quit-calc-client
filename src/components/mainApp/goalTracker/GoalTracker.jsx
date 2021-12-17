@@ -182,12 +182,9 @@ const GoalTracker = () => {
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
-						//Display error to user
 					}
 					if (data.msg === 'none') {
-						console.log('No goals yet');
 						setGoalCount(0);
-						//Display create goal msg
 					} else if (data.docs) {
 						setGoalCount(data.count);
 						setUserGoals((prevValue) => {

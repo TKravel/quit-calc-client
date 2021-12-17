@@ -34,7 +34,6 @@ const useLogin = (errors, setErrors) => {
 		if (errors) {
 			setErrors('');
 		}
-		console.log('Reg' + JSON.stringify(data));
 
 		fetch('https://protected-badlands-62393.herokuapp.com/user/register', {
 			method: 'POST',

@@ -31,19 +31,16 @@ const theme = createTheme({
 	},
 
 	overrides: {
-		// Name of the component
 		MuiFormControl: {
 			root: {
 				maxWidth: '80%',
 			},
 		},
 		MuiInputBase: {
-			// Name of the slot
 			root: {
 				backgroundColor: '#cccccc',
 				marginTop: '0em',
 				marginBottom: '1em',
-				// marginBottom: '0.5em',
 			},
 		},
 		MuiInputLabel: {

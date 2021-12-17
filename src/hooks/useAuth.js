@@ -59,7 +59,6 @@ const useAuth = () => {
 			.then((data) => {
 				if (data.msg === 'logged out') {
 					setUser(false);
-					console.log('logged out');
 				}
 				if (demoUser === 'true') {
 					localStorage.removeItem('demoUser');

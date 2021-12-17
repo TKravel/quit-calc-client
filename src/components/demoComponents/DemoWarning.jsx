@@ -25,19 +25,16 @@ const DemoWarning = () => {
 	const demoUser = localStorage.getItem('demoUser');
 
 	const toggleMsg = (e) => {
-		console.log('clicked');
 		isOpen ? setIsOpen(false) : setIsOpen(true);
 	};
 
 	if (isOpen) {
 		return (
 			<Paper className={classes.paper} elevation={8}>
-				{/* {!demoUser && ( */}
 				<CloseIcon
 					className={classes.closeIcon}
 					handleMsg={toggleMsg}
 				/>
-				{/* )} */}
 				<Typography variant='h6' paragraph>
 					Demo User and data created.
 				</Typography>

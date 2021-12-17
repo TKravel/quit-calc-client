@@ -17,7 +17,6 @@ import DemoMsg from '../demoComponents/DemoMsg';
 const useStyles = makeStyles((theme) => ({
 	container: {
 		display: 'flex',
-		// height: 'calc(100vh - 65px)',
 		padding: '2em 0em 2em 0em',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -43,12 +42,10 @@ const Login = () => {
 	const classes = useStyles();
 
 	const onSubmit = (data) => {
-		console.log(data);
 		login(data);
 	};
 
 	if (user) {
-		console.log('redirected');
 		return <Redirect to='/' />;
 	}
 	return (
