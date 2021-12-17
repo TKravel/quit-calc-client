@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Paper, Typography, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '../icons/CloseIcon';
 import ExpandIcon from '../icons/ExpandIcon';
-import { UserContext } from '../../context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -19,10 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DemoWarning = () => {
 	const classes = useStyles();
-	const { user } = useContext(UserContext);
 	const [isOpen, setIsOpen] = useState(true);
-
-	const demoUser = localStorage.getItem('demoUser');
 
 	const toggleMsg = (e) => {
 		isOpen ? setIsOpen(false) : setIsOpen(true);
