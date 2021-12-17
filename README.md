@@ -39,6 +39,7 @@ DBUSER = 'Your Mongo Atlas clusters username';
 DBPASS = 'The users password';
 DBNAME = 'The database name';
 JWT_SECRET = "A unique secret for signing and decoding JWT's";
+ORIGIN_SITE = 'Address client is hosted at';
 ```
 
 ## Demo
