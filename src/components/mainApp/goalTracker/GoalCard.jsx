@@ -87,7 +87,7 @@ const GoalCard = ({
 					thickness={10}
 				/>
 				<Typography variant='body1' paragraph>
-					Progress: ${percent}%
+					Progress: {percent}%
 				</Typography>
 				<TrashIcon
 					item={goalName}
