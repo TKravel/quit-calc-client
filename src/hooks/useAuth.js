@@ -6,14 +6,14 @@ const useAuth = () => {
 	const demoUser = localStorage.getItem('demoUser');
 
 	useEffect(() => {
-		fetch(
-			'https://protected-badlands-62393.herokuapp.com/user/verify_user',
-			{
-				method: 'GET',
-				credentials: 'include',
-			}
-		)
-			.then((responce) => responce.json())
+		fetch(`${REACT_APP_SERVER}/user/verify_user`, {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'include',
+		})
+			.then((response) => response.json())
 			.then((data) => {
 				if (data.msg === 'granted') {
 					setUser(true);
@@ -27,14 +27,14 @@ const useAuth = () => {
 	}, []);
 
 	const verifyUser = () => {
-		fetch(
-			'https://protected-badlands-62393.herokuapp.com/user/verify_user',
-			{
-				method: 'GET',
-				credentials: 'include',
-			}
-		)
-			.then((responce) => responce.json())
+		fetch(`${REACT_APP_SERVER}/user/verify_user`, {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'include',
+		})
+			.then((response) => response.json())
 			.then((data) => {
 				if (data.msg === 'granted') {
 					setUser(true);
@@ -48,13 +48,10 @@ const useAuth = () => {
 	};
 
 	const logout = async () => {
-		await fetch(
-			'https://protected-badlands-62393.herokuapp.com/user/logout',
-			{
-				method: 'GET',
-				credentials: 'include',
-			}
-		)
+		await fetch(`${REACT_APP_SERVER}/user/logout`, {
+			method: 'GET',
+			credentials: 'include',
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.msg === 'logged out') {

@@ -4,13 +4,10 @@ import { UserContext } from '../context/UserContext';
 const useDemo = () => {
 	const { setUser } = useContext(UserContext);
 	const createDemoUser = async () => {
-		await fetch(
-			'https://protected-badlands-62393.herokuapp.com/demo/createDemoUser',
-			{
-				method: 'GET',
-				credentials: 'include',
-			}
-		)
+		await fetch(`${REACT_APP_SERVER}/demo/createDemoUser`, {
+			method: 'GET',
+			credentials: 'include',
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {

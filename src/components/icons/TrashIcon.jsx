@@ -27,17 +27,14 @@ const TrashIcon = ({ item, handleGoals, handleCount, errors, setErrors }) => {
 			item: item,
 		};
 
-		fetch(
-			'https://protected-badlands-62393.herokuapp.com/goals/delete_goal',
-			{
-				method: 'POST',
-				credentials: 'include',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8',
-				},
-				body: JSON.stringify(data),
-			}
-		)
+		fetch(`${REACT_APP_SERVER}/goals/delete_goal`, {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			body: JSON.stringify(data),
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {

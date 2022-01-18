@@ -59,27 +59,27 @@ const UserInput = () => {
 			setErrors('');
 		}
 		if (!user) {
+			console.log('no user');
 			setFormData({
 				packs: userData.packs,
 				price: userData.price,
 				quitDate: new Date(userData.quitDate),
 			});
 		} else if (user) {
+			console.log('user found');
 			if (JSON.stringify(userData) === JSON.stringify(formData)) {
+				console.log('user data the same');
 				return;
 			}
-			fetch(
-				'https://protected-badlands-62393.herokuapp.com/form/save_input',
-				{
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json; charset=UTF-8',
-					},
-					credentials: 'include',
-					body: JSON.stringify(userData),
-				}
-			)
-				.then((responce) => responce.json())
+			fetch(`${REACT_APP_SERVER}/form/save_input`, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+				credentials: 'include',
+				body: JSON.stringify(userData),
+			})
+				.then((response) => response.json())
 				.then((data) => {
 					if (data.error) {
 						console.log('Server error saving data: ' + data.error);

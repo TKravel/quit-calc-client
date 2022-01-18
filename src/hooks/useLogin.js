@@ -8,7 +8,7 @@ const useLogin = (errors, setErrors) => {
 		if (errors) {
 			setErrors('');
 		}
-		fetch('https://protected-badlands-62393.herokuapp.com/user/login', {
+		fetch(`${REACT_APP_SERVER}/user/login`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -34,8 +34,7 @@ const useLogin = (errors, setErrors) => {
 		if (errors) {
 			setErrors('');
 		}
-
-		fetch('https://protected-badlands-62393.herokuapp.com/user/register', {
+		fetch(`${REACT_APP_SERVER}/user/register`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -43,7 +42,7 @@ const useLogin = (errors, setErrors) => {
 			credentials: 'include',
 			body: JSON.stringify(data),
 		})
-			.then((responce) => responce.json())
+			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {
 					setErrors(data.error);

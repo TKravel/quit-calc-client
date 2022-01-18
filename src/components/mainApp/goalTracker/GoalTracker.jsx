@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	grid: {
 		minHeight: '100vh',
 		justifyContent: 'center',
+		textAlign: 'center',
 	},
 	card: {
 		color: '#000',
@@ -106,17 +107,14 @@ const GoalTracker = () => {
 			goal: goal,
 			cost: cost,
 		};
-		fetch(
-			'https://protected-badlands-62393.herokuapp.com/goals/completed_goal',
-			{
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			}
-		)
+		fetch(`${REACT_APP_SERVER}/goals/completed_goal`, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'include',
+			body: JSON.stringify(data),
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {
@@ -171,14 +169,11 @@ const GoalTracker = () => {
 
 	useEffect(() => {
 		if (user) {
-			fetch(
-				'https://protected-badlands-62393.herokuapp.com/goals/get_goals',
-				{
-					method: 'GET',
-					credentials: 'include',
-				}
-			)
-				.then((responce) => responce.json())
+			fetch(`${REACT_APP_SERVER}/goals/get_goals`, {
+				method: 'GET',
+				credentials: 'include',
+			})
+				.then((response) => response.json())
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
@@ -247,6 +242,13 @@ const GoalTracker = () => {
 					container={true}
 					direction='column'
 				>
+					<Typography
+						className={classes.error}
+						variant='body1'
+						paragraph
+					>
+						Collect completed goals by clicking on the star icon
+					</Typography>
 					<Grid item className={classes.card}>
 						<GoalInput
 							disabled={isDisabled}

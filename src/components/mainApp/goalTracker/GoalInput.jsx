@@ -56,18 +56,15 @@ const GoalInput = ({
 		if (!user) {
 			handleFreeGoal(goalData.goal, goalData.goalCost);
 		} else {
-			fetch(
-				'https://protected-badlands-62393.herokuapp.com/goals/create_goal',
-				{
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json; charset=UTF-8',
-					},
-					credentials: 'include',
-					body: JSON.stringify(goalData),
-				}
-			)
-				.then((responce) => responce.json())
+			fetch(`${REACT_APP_SERVER}/goals/create_goal`, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+				credentials: 'include',
+				body: JSON.stringify(goalData),
+			})
+				.then((response) => response.json())
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
