@@ -107,7 +107,7 @@ const GoalTracker = () => {
 			goal: goal,
 			cost: cost,
 		};
-		fetch(`${REACT_APP_SERVER}/goals/completed_goal`, {
+		fetch(`${process.env.REACT_APP_SERVER}/goals/completed_goal`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -169,7 +169,7 @@ const GoalTracker = () => {
 
 	useEffect(() => {
 		if (user) {
-			fetch(`${REACT_APP_SERVER}/goals/get_goals`, {
+			fetch(`${process.env.REACT_APP_SERVER}/goals/get_goals`, {
 				method: 'GET',
 				credentials: 'include',
 			})

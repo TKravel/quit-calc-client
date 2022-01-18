@@ -71,7 +71,7 @@ const UserInput = () => {
 				console.log('user data the same');
 				return;
 			}
-			fetch(`${REACT_APP_SERVER}/form/save_input`, {
+			fetch(`${process.env.REACT_APP_SERVER}/form/save_input`, {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8',

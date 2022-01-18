@@ -75,7 +75,6 @@ const SavingsCalcMsg = () => {
 					</Typography>
 					<List>
 						{monthlySavings.map((arrItem, index) => {
-							console.log('Test');
 							const thirdOfSavings = calculations.savings / 3;
 							const numOfItems = thirdOfSavings / arrItem.cost;
 							const item = arrItem.item;

@@ -27,7 +27,7 @@ const TrashIcon = ({ item, handleGoals, handleCount, errors, setErrors }) => {
 			item: item,
 		};
 
-		fetch(`${REACT_APP_SERVER}/goals/delete_goal`, {
+		fetch(`${process.env.REACT_APP_SERVER}/goals/delete_goal`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {

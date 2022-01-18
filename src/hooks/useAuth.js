@@ -6,7 +6,7 @@ const useAuth = () => {
 	const demoUser = localStorage.getItem('demoUser');
 
 	useEffect(() => {
-		fetch(`${REACT_APP_SERVER}/user/verify_user`, {
+		fetch(`${process.env.REACT_APP_SERVER}/user/verify_user`, {
 			method: 'GET',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -27,7 +27,7 @@ const useAuth = () => {
 	}, []);
 
 	const verifyUser = () => {
-		fetch(`${REACT_APP_SERVER}/user/verify_user`, {
+		fetch(`${process.env.REACT_APP_SERVER}/user/verify_user`, {
 			method: 'GET',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8',
@@ -48,7 +48,7 @@ const useAuth = () => {
 	};
 
 	const logout = async () => {
-		await fetch(`${REACT_APP_SERVER}/user/logout`, {
+		await fetch(`${process.env.REACT_APP_SERVER}/user/logout`, {
 			method: 'GET',
 			credentials: 'include',
 		})

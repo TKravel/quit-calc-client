@@ -56,7 +56,7 @@ const GoalInput = ({
 		if (!user) {
 			handleFreeGoal(goalData.goal, goalData.goalCost);
 		} else {
-			fetch(`${REACT_APP_SERVER}/goals/create_goal`, {
+			fetch(`${process.env.REACT_APP_SERVER}/goals/create_goal`, {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8',

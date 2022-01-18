@@ -38,7 +38,7 @@ const MainApp = () => {
 			setErrors('');
 		}
 		if (user) {
-			fetch(`${REACT_APP_SERVER}/form/get_form`, {
+			fetch(`${process.env.REACT_APP_SERVER}/form/get_form`, {
 				method: 'GET',
 				credentials: 'include',
 			})

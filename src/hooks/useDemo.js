@@ -4,7 +4,7 @@ import { UserContext } from '../context/UserContext';
 const useDemo = () => {
 	const { setUser } = useContext(UserContext);
 	const createDemoUser = async () => {
-		await fetch(`${REACT_APP_SERVER}/demo/createDemoUser`, {
+		await fetch(`${process.env.REACT_APP_SERVER}/demo/createDemoUser`, {
 			method: 'GET',
 			credentials: 'include',
 		})
