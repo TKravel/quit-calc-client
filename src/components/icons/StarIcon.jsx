@@ -1,18 +1,5 @@
 import React, { useContext } from 'react';
-import { SvgIcon } from '@material-ui/core';
 import { UserContext } from '../../context/UserContext';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-	icon: {
-		color: theme.palette.secondary.main,
-		fontSize: '2.5em',
-		'&:hover': {
-			fontSize: '2.6em',
-			color: theme.palette.secondary.dark,
-		},
-	},
-}));
 
 const StarIcon = ({
 	goalName,
@@ -22,7 +9,6 @@ const StarIcon = ({
 	setErrors,
 }) => {
 	const { user } = useContext(UserContext);
-	const classes = useStyles();
 	const handleDelete = () => {
 		if (errors !== '') {
 			setErrors('');
@@ -32,9 +18,9 @@ const StarIcon = ({
 
 	if (user) {
 		return (
-			<SvgIcon onClick={handleDelete} className={classes.icon}>
+			<svg onClick={handleDelete}>
 				<path d='M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z' />
-			</SvgIcon>
+			</svg>
 		);
 	} else {
 		return null;

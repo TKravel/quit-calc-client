@@ -1,3 +1,47 @@
-.App {
-	text-align: center;
+/* reset */
+
+html {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body,
+div,
+section,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+/* end reset */
+
+.tracker-container {
+	display: grid;
+	grid-template-columns: 30vw 40vw 30vw;
+	grid-template-rows: 100%;
+	grid-template-areas: 'nav display info';
+}
+
+.tracker-nav-container {
+	grid-area: nav;
 }

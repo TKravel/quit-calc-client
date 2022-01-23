@@ -1,26 +1,7 @@
 import React, { useContext } from 'react';
-import { CircularProgress, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { CalcDataContext } from '../../../context/CalcDataContext';
 import StarIcon from '../../icons/StarIcon';
 import TrashIcon from '../../icons/TrashIcon';
-
-const useStyles = makeStyles((theme) => ({
-	progressCircle: {
-		position: 'absolute',
-		left: 'calc(50% - 20px)',
-		color: theme.palette.secondary.dark,
-		zIndex: '10',
-	},
-	progressCircleBG: {
-		position: 'relative',
-		color: theme.palette.primary.main,
-		zIndex: '1',
-	},
-	error: {
-		color: theme.palette.error.main,
-	},
-}));
 
 const GoalCard = ({
 	goalName,
@@ -31,7 +12,6 @@ const GoalCard = ({
 	errors,
 	setErrors,
 }) => {
-	const classes = useStyles();
 	const { calculations } = useContext(CalcDataContext);
 
 	const savings = parseFloat(calculations.savings);
@@ -41,9 +21,9 @@ const GoalCard = ({
 	if (percent >= 100) {
 		return (
 			<>
-				<Typography variant='h5' component='h3' gutterBottom={true}>
+				<p>
 					{goalName}: ${goalAmount}
-				</Typography>
+				</p>
 				<StarIcon
 					goalName={goalName}
 					goalAmount={goalAmount}
@@ -51,44 +31,18 @@ const GoalCard = ({
 					errors={errors}
 					setErrors={setErrors}
 				/>
-				<Typography variant='body1' paragraph>
-					Complete!
-				</Typography>
-				{errors && (
-					<Typography
-						className={classes.error}
-						variant='body1'
-						paragraph
-					>
-						{errors}
-					</Typography>
-				)}
+				<p>Complete!</p>
+				{errors && <p>{errors}</p>}
 			</>
 		);
 	} else {
 		return (
 			<>
-				<Typography variant='h5' component='h3' gutterBottom={true}>
+				<p>
 					{goalName}: ${goalAmount}
-				</Typography>
+				</p>
 
-				<CircularProgress
-					id='progress-circle-BG'
-					className={classes.progressCircleBG}
-					value={100}
-					variant='determinate'
-					thickness={10}
-				/>
-				<CircularProgress
-					id='progress-cricle'
-					className={classes.progressCircle}
-					value={percent >= 100 ? 100 : percent}
-					variant='determinate'
-					thickness={10}
-				/>
-				<Typography variant='body1' paragraph>
-					Progress: {percent}%
-				</Typography>
+				<p>Progress: {percent}%</p>
 				<TrashIcon
 					item={goalName}
 					handleGoals={handleGoals}
@@ -96,15 +50,7 @@ const GoalCard = ({
 					errors={errors}
 					setErrors={setErrors}
 				/>
-				{errors && (
-					<Typography
-						className={classes.error}
-						variant='body1'
-						paragraph
-					>
-						{errors}
-					</Typography>
-				)}
+				{errors && <p>{errors}</p>}
 			</>
 		);
 	}
