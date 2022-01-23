@@ -22,19 +22,21 @@ const DemoMsg = () => {
 
 	if (isOpen) {
 		return (
-			<div>
-				<CloseIcon handleMsg={toggleMsg} />
+			<div className='demo-msg-container'>
+				<CloseIcon style='close-demo-btn' onClick={toggleMsg} />
 				<p>
 					To view as a user click the button below to create a demo
 					user account
 				</p>
-				<button onClick={handleClick}>Demo</button>
+				<button className='demo-btn' onClick={handleClick}>
+					Demo
+				</button>
 			</div>
 		);
 	} else {
 		return (
-			<div>
-				<ExpandIcon handleMsg={toggleMsg} />
+			<div className='demo-msg-container'>
+				<ExpandIcon style='open-demo-btn' onClick={toggleMsg} />
 				<p>Important demo message</p>
 			</div>
 		);

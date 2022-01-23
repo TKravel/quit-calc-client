@@ -4,6 +4,10 @@ import {
 	KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import DatePicker from '@mui/lab/DatePicker';
+import { TextField } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { useForm, Controller } from 'react-hook-form';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { differenceInCalendarDays } from 'date-fns';
@@ -89,7 +93,7 @@ const UserInput = () => {
 	}, [formData]);
 
 	return (
-		<div>
+		<form onSubmit={handleSubmit(onSubmit)}>
 			<Controller
 				name='packs'
 				control={control}
@@ -147,7 +151,7 @@ const UserInput = () => {
 				}}
 			/>
 
-			<MuiPickersUtilsProvider utils={DateFnsUtils} id='date-picker'>
+			{/* <MuiPickersUtilsProvider utils={DateFnsUtils} id='date-picker'>
 				<Controller
 					name='quitDate'
 					control={control}
@@ -161,13 +165,27 @@ const UserInput = () => {
 						/>
 					)}
 				/>
-			</MuiPickersUtilsProvider>
+			</MuiPickersUtilsProvider> */}
+			<LocalizationProvider dateAdapter={AdapterDateFns}>
+				<Controller
+					name='quitDate'
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<DatePicker
+							label='Basic example'
+							value={value}
+							onChange={onChange}
+							renderInput={(params) => <TextField {...params} />}
+						/>
+					)}
+				/>
+			</LocalizationProvider>
 
 			<button id='subButton' type='submit'>
 				Calculate
 			</button>
 			<p>{errors && errors}</p>
-		</div>
+		</form>
 	);
 };
 

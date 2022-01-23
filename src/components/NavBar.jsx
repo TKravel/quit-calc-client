@@ -13,14 +13,16 @@ const NavBar = () => {
 
 	return (
 		<>
-			<nav>
+			<nav className='nav'>
 				<Link to='/'>Calculator</Link>
 				{user ? (
 					<button to='/login' onClick={handleClick}>
 						Log out
 					</button>
 				) : (
-					<button to='login'>Login</button>
+					<button to='/login' onClick={handleClick}>
+						Login
+					</button>
 				)}
 			</nav>
 		</>

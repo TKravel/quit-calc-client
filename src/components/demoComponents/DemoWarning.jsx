@@ -12,8 +12,8 @@ const DemoWarning = () => {
 
 	if (isOpen) {
 		return (
-			<div>
-				<CloseIcon handleMsg={toggleMsg} />
+			<div className='demo-msg-container'>
+				<CloseIcon style='close-demo-btn' handleMsg={toggleMsg} />
 				<p>Demo User and data created.</p>
 				<p>
 					Demo data will be lost upon logout. Please register if you
@@ -23,8 +23,8 @@ const DemoWarning = () => {
 		);
 	} else {
 		return (
-			<div>
-				<ExpandIcon handleMsg={toggleMsg} />
+			<div className='demo-msg-container'>
+				<ExpandIcon style='open-demo-btn' handleMsg={toggleMsg} />
 				<p>Important demo warning</p>
 			</div>
 		);
