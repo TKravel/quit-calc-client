@@ -19,10 +19,10 @@ export const Quote = () => {
 		<div className='motivational-quote'>
 			<figure>
 				<blockquote cite='RapidAPI Inspiring quotes'>
-					<p>{quote.quote}</p>
+					<p>"{quote.quote}"</p>
 				</blockquote>
 				<figcaption>
-					{quote.auther} <cite>Brave New World</cite>
+					-{quote.auther} <cite>Brave New World</cite>
 				</figcaption>
 			</figure>
 		</div>
