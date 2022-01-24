@@ -21,12 +21,12 @@ const Register = () => {
 	return (
 		<>
 			<DemoMsg />
-			<form>
-				<p>Register</p>
+			<form className='user-forms' onSubmit={handleSubmit(onSubmit)}>
+				<h1>Register</h1>
 				<p>
 					Have a account?
 					<br />
-					<Link to='/login'>Login here</Link>!
+					<Link to='/login'>Login here!</Link>
 				</p>
 
 				<Controller
@@ -46,7 +46,9 @@ const Register = () => {
 								value={value}
 								onChange={onChange}
 							></input>
-							<p>{error ? error.message : null}</p>
+							<p className='error-msg'>
+								{error ? error.message : null}
+							</p>
 						</>
 					)}
 					rules={{
@@ -71,7 +73,9 @@ const Register = () => {
 								value={value}
 								onChange={onChange}
 							></input>
-							<p>{error ? error.message : null}</p>
+							<p className='error-msg'>
+								{error ? error.message : null}
+							</p>
 						</>
 					)}
 					rules={{
@@ -96,7 +100,9 @@ const Register = () => {
 								value={value}
 								onChange={onChange}
 							></input>
-							<p>{error ? error.message : null}</p>
+							<p className='error-msg'>
+								{error ? error.message : null}
+							</p>
 						</>
 					)}
 					rules={{
@@ -104,9 +110,11 @@ const Register = () => {
 					}}
 				/>
 
-				{errors && <p>{errors}</p>}
+				{errors && <p className='error-msg'>{errors}</p>}
 
-				<button type='submit'>Register</button>
+				<button className='button' type='submit'>
+					Register
+				</button>
 			</form>
 		</>
 	);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CompletedCard = ({ completed, sortFunc }) => {
+export const CompletedCard = ({ completed, sortFunc }) => {
 	if (completed.length === 0) {
 		return <p>Keep going, collected goals will be displayed here.</p>;
 	} else {
@@ -11,8 +11,9 @@ const CompletedCard = ({ completed, sortFunc }) => {
 					{completed.sort(sortFunc).map((goal, index) => {
 						return (
 							<li key={index}>
-								{`${goal.goal}: $$
-								{parseFloat(goal.goalCost).toFixed(2)}`}
+								{`${goal.goal}: $${parseFloat(
+									goal.goalCost
+								).toFixed(2)}`}
 							</li>
 						);
 					})}
@@ -22,5 +23,3 @@ const CompletedCard = ({ completed, sortFunc }) => {
 		);
 	}
 };
-
-export default CompletedCard;

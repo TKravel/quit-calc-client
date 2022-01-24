@@ -18,6 +18,7 @@ const MainApp = () => {
 	});
 	const [calculations, setCalculations] = useState({
 		savings: 0,
+		spent: 0,
 	});
 	const [errors, setErrors] = useState('');
 
@@ -56,52 +57,53 @@ const MainApp = () => {
 		}
 	}, [user]);
 
-	// useEffect(() => {
-	// 	let progressDisplay = document.getElementById('savings-msg');
-	// 	const scroll = () => {
-	// 		progressDisplay.scrollIntoView(true, {
-	// 			behavior: 'smooth',
-	// 			block: 'start',
-	// 		});
-	// 	};
-
-	// 	if (progressDisplay !== null) {
-	// 		if (demoUser === 'true') {
-	// 			return;
-	// 		} else {
-	// 			scroll();
-	// 		}
-	// 	}
-	// }, [calculations]);
-
 	return (
 		<CalcDataContext.Provider
 			value={{ formData, setFormData, calculations, setCalculations }}
 		>
-			<div className='app-container'>
-				{demoUser === 'true' ? <DemoWarning /> : <DemoMsg />}
+			<>
+				{demoUser === 'true' ? null : <DemoMsg />}
 
-				<h1>Quit smoking savings calculator</h1>
+				{calculations.savings === 0 && (
+					<>
+						<div className='landing-msg'>
+							<h1>
+								QUIT SMOKING
+								<br />
+								SET GOALS
+								<br />
+								TRACK SAVINGS
+							</h1>
+							<p>
+								Create goals as motivation. Vizualize progress
+								and savings. Stay on track.
+							</p>
+						</div>
 
-				<p>
-					Motivate yourself to quit by creating personal goals,
-					tracking progress, and spoiling yourself with gifts bought
-					from the savings!
-				</p>
+						<p className='start-instructions'>
+							Start by filling out the form below to see your
+							savings.
+						</p>
+						<p className='start-instructions'>
+							Sign up to customize goals to motivate you!
+						</p>
 
-				<p>Start by filling out the form below to see your savings.</p>
-				<p>Sign up to customize goals to motivate you!</p>
+						<p>{errors && errors}</p>
 
-				<p>{errors && errors}</p>
-
-				<UserInput />
+						<UserInput
+							styles='landing-form'
+							headerText={`Let's get some info!`}
+							buttonText='Calculate'
+						/>
+					</>
+				)}
 
 				{calculations.savings !== 0 && (
 					<>
 						<GoalTracker1 />
 					</>
 				)}
-			</div>
+			</>
 		</CalcDataContext.Provider>
 	);
 };

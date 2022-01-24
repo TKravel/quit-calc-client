@@ -2,8 +2,14 @@ import React, { useContext } from 'react';
 import { CalcDataContext } from '../../../context/CalcDataContext';
 import StarIcon from '../../icons/StarIcon';
 import TrashIcon from '../../icons/TrashIcon';
+import {
+	CircularProgressbarWithChildren,
+	buildStyles,
+} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
-const GoalCard = ({
+export const GoalCard = ({
+	key,
 	goalName,
 	goalAmount,
 	handleGoals,
@@ -20,10 +26,7 @@ const GoalCard = ({
 
 	if (percent >= 100) {
 		return (
-			<>
-				<p>
-					{goalName}: ${goalAmount}
-				</p>
+			<div key={key} className='goal-card'>
 				<StarIcon
 					goalName={goalName}
 					goalAmount={goalAmount}
@@ -31,18 +34,37 @@ const GoalCard = ({
 					errors={errors}
 					setErrors={setErrors}
 				/>
-				<p>Complete!</p>
+				<div>
+					<p>
+						{goalName}: ${goalAmount}
+					</p>
+
+					<p>Complete!</p>
+				</div>
 				{errors && <p>{errors}</p>}
-			</>
+			</div>
 		);
 	} else {
 		return (
-			<>
-				<p>
-					{goalName}: ${goalAmount}
-				</p>
+			<div key={key} className='goal-card'>
+				<CircularProgressbarWithChildren
+					className='progress-circle'
+					value={percent}
+					text={`${percent}%`}
+					styles={buildStyles({
+						pathColor: `#0ab377`,
+						textColor: '#0ab377',
+						trailColor: '#6e6d6e',
+						backgroundColor: '#0ab377',
+					})}
+				/>
+				<div>
+					<p>
+						{goalName}: ${goalAmount}
+					</p>
 
-				<p>Progress: {percent}%</p>
+					<p>Progress: {percent}%</p>
+				</div>
 				<TrashIcon
 					item={goalName}
 					handleGoals={handleGoals}
@@ -51,9 +73,7 @@ const GoalCard = ({
 					setErrors={setErrors}
 				/>
 				{errors && <p>{errors}</p>}
-			</>
+			</div>
 		);
 	}
 };
-
-export default GoalCard;

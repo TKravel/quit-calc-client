@@ -15,19 +15,21 @@ function App() {
 	return (
 		<Router>
 			<UserContext.Provider value={{ user, setUser, logout }}>
-				<NavBar />
-				<Switch>
-					<Route exact path='/login'>
-						<Login />
-					</Route>
-					<Route exact path='/register'>
-						<Register />
-					</Route>
-					<Route exact path='/'>
-						<MainApp />
-					</Route>
-				</Switch>
-				<Footer />
+				<div className='app-container'>
+					<NavBar />
+					<Switch>
+						<Route exact path='/login'>
+							<Login />
+						</Route>
+						<Route exact path='/register'>
+							<Register />
+						</Route>
+						<Route exact path='/'>
+							<MainApp />
+						</Route>
+					</Switch>
+					{/* <Footer /> */}
+				</div>
 			</UserContext.Provider>
 		</Router>
 	);

@@ -21,12 +21,12 @@ const Login = () => {
 	return (
 		<>
 			<DemoMsg />
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<p>Login</p>
+			<form className='user-forms' onSubmit={handleSubmit(onSubmit)}>
+				<h1>Login</h1>
 				<p>
 					Not registered?
 					<br />
-					<Link to='/register'>Sign up here</Link>!
+					<Link to='/register'>Sign up here!</Link>
 				</p>
 
 				<Controller
@@ -46,7 +46,9 @@ const Login = () => {
 								value={value}
 								onChange={onChange}
 							></input>
-							<p>{error ? error.message : null}</p>
+							<p className='error-msg'>
+								{error ? error.message : null}
+							</p>
 						</>
 					)}
 					rules={{
@@ -71,7 +73,9 @@ const Login = () => {
 								value={value}
 								onChange={onChange}
 							></input>
-							<p>{error ? error.message : null}</p>
+							<p className='error-msg'>
+								{error ? error.message : null}
+							</p>
 						</>
 					)}
 					rules={{
@@ -83,9 +87,11 @@ const Login = () => {
 					}}
 				/>
 
-				{errors && <p>{errors}</p>}
+				{errors && <p className='error-msg'>{errors}</p>}
 
-				<button type='submit'>Login</button>
+				<button className='button' type='submit'>
+					Login
+				</button>
 			</form>
 		</>
 	);

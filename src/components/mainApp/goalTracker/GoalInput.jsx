@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { TextField } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { UserContext } from '../../../context/UserContext';
 
@@ -17,7 +18,7 @@ const GoalInput = ({
 	handleGoalCount,
 }) => {
 	const { user } = useContext(UserContext);
-	const { control, handleSubmit } = useForm({
+	const { control, handleSubmit, reset } = useForm({
 		defaultValues: {
 			goal: '',
 			goalCost: '',
@@ -36,6 +37,7 @@ const GoalInput = ({
 		if (!user) {
 			handleFreeGoal(goalData.goal, goalData.goalCost);
 		} else {
+			console.log(goalData);
 			fetch(`${process.env.REACT_APP_SERVER}/goals/create_goal`, {
 				method: 'POST',
 				headers: {
@@ -61,6 +63,10 @@ const GoalInput = ({
 								},
 							];
 						});
+						reset({
+							goal: '',
+							goalCost: '',
+						});
 					}
 				})
 				.catch((err) => {
@@ -76,7 +82,7 @@ const GoalInput = ({
 		saveGoal(goal);
 	};
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form className='goal-form' onSubmit={handleSubmit(onSubmit)}>
 			<p>Create a personal goal</p>
 			<Controller
 				name='goal'
@@ -86,7 +92,7 @@ const GoalInput = ({
 					fieldState: { error },
 				}) => (
 					<>
-						<input
+						<TextField
 							name='goal'
 							value={value}
 							onChange={onChange}
@@ -95,8 +101,41 @@ const GoalInput = ({
 							label='Goal name'
 							placeholder='Cool stuff'
 							disabled={disabled}
+							margin='normal'
+							size='small'
+							error={error ? true : false}
+							helperText={error ? error.message : null}
+							InputLabelProps={{
+								style: { color: '#999c98' },
+							}}
+							sx={{
+								input: {
+									color: '#cdd1cc',
+									width: '100% !important',
+								},
+								'& label.Mui-focused': {
+									color: 'white',
+								},
+								'& .MuiInput-underline:after': {
+									borderBottomColor: 'yellow',
+								},
+								'& .MuiOutlinedInput-root': {
+									'& fieldset': {
+										color: 'white',
+										border: 'none',
+										borderBottom: '1px solid',
+										borderBottomColor: 'white',
+										borderRadius: '0',
+									},
+									'&:hover fieldset': {
+										borderColor: 'white',
+									},
+									'&.Mui-focused fieldset': {
+										borderColor: '#0ab377',
+									},
+								},
+							}}
 						/>
-						<p>{error ? error.message : null}</p>
 					</>
 				)}
 				rules={{
@@ -112,7 +151,7 @@ const GoalInput = ({
 					fieldState: { error },
 				}) => (
 					<>
-						<input
+						<TextField
 							type='number'
 							name='goalCost'
 							value={value}
@@ -121,12 +160,50 @@ const GoalInput = ({
 							label='Goal cost'
 							placeholder='$00.00'
 							disabled={disabled}
+							margin='normal'
+							size='small'
+							error={error ? true : false}
+							helperText={error ? error.message : null}
 							inputProps={{
-								inputMode: 'decimal',
-								pattern: '[0-9]+(.[0-9]{2})',
+								type: 'number',
+								pattern: '^[0-9]\\d*(\\.\\d+)?$',
+							}}
+							InputLabelProps={{
+								style: { color: '#999c98' },
+							}}
+							sx={{
+								input: {
+									'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button':
+										{
+											'-webkit-appearance': 'none',
+											display: 'none',
+										},
+									color: '#cdd1cc',
+									width: '100% !important',
+								},
+								'& label.Mui-focused': {
+									color: 'white',
+								},
+								'& .MuiInput-underline:after': {
+									borderBottomColor: 'yellow',
+								},
+								'& .MuiOutlinedInput-root': {
+									'& fieldset': {
+										color: 'white',
+										border: 'none',
+										borderBottom: '1px solid',
+										borderBottomColor: 'white',
+										borderRadius: '0',
+									},
+									'&:hover fieldset': {
+										borderColor: 'white',
+									},
+									'&.Mui-focused fieldset': {
+										borderColor: '#0ab377',
+									},
+								},
 							}}
 						/>
-						<p>{error ? error.message : null}</p>
 					</>
 				)}
 				rules={{
@@ -135,7 +212,7 @@ const GoalInput = ({
 				}}
 			/>
 			{errors && <p>{errors}</p>}
-			<button type='submit' disabled={disabled}>
+			<button className='button' type='submit' disabled={disabled}>
 				Submit
 			</button>
 		</form>

@@ -1,9 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-	MuiPickersUtilsProvider,
-	KeyboardDatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import DatePicker from '@mui/lab/DatePicker';
 import { TextField } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -12,10 +7,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { differenceInCalendarDays } from 'date-fns';
 import { UserContext } from '../../context/UserContext';
-
 const date = new Date();
 
-const UserInput = () => {
+const UserInput = ({ styles, headerText, buttonText }) => {
 	const { user } = useContext(UserContext);
 	const { formData, setFormData, setCalculations } =
 		useContext(CalcDataContext);
@@ -23,7 +17,7 @@ const UserInput = () => {
 		defaultValues: {
 			packs: '',
 			price: '',
-			quitDate: date,
+			quitDate: null,
 		},
 	});
 	const [errors, setErrors] = useState('');
@@ -35,7 +29,9 @@ const UserInput = () => {
 		const cost = parseFloat(formData.price);
 		const moneySaved = amount * cost * daysQuit;
 
-		setCalculations({ savings: moneySaved.toFixed(2) });
+		setCalculations((prevValues) => {
+			return { ...prevValues, savings: moneySaved.toFixed(2) };
+		});
 	};
 
 	const onSubmit = (userData) => {
@@ -93,96 +89,190 @@ const UserInput = () => {
 	}, [formData]);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Controller
-				name='packs'
-				control={control}
-				render={({
-					field: { onChange, value },
-					fieldState: { error },
-				}) => (
-					<>
-						<input
-							type='number'
-							value={value}
-							onChange={onChange}
-							label='Number of packs per day'
-							autoComplete='off'
-							inputprops={{
-								inputMode: 'decimal',
-								pattern: '^[0-9]\\d*(\\.\\d+)?$',
-							}}
-						/>
-						<p>{error ? error.message : null}</p>
-					</>
-				)}
-				rules={{
-					required: 'Required',
-					pattern: '^[0-9]\\d*(\\.\\d+)?$',
-				}}
-			/>
-
-			<Controller
-				name='price'
-				control={control}
-				render={({
-					field: { onChange, value },
-					fieldState: { error },
-				}) => (
-					<>
-						<input
-							placeholder='$00.00'
-							onChange={onChange}
-							value={value}
-							id='price-input'
-							label='Price per pack'
-							autoComplete='off'
-							inputprops={{
-								inputMode: 'decimal',
-								pattern: '[0-9]+(.[0-9]{2})',
-							}}
-						/>
-						<p>{error && error.message}</p>
-					</>
-				)}
-				rules={{
-					required: 'Required',
-					pattern: '^[0-9]\\d*(\\.\\d+)?$',
-				}}
-			/>
-
-			{/* <MuiPickersUtilsProvider utils={DateFnsUtils} id='date-picker'>
+		<form className={styles} onSubmit={handleSubmit(onSubmit)}>
+			<h2>{headerText}</h2>
+			<div className='landing-input-container'>
 				<Controller
-					name='quitDate'
+					name='packs'
 					control={control}
-					render={({ field: { onChange, value } }) => (
-						<KeyboardDatePicker
-							onChange={onChange}
-							value={value}
-							format='MM/dd/yyyy'
-							disableFuture={true}
-							inputVariant='outlined'
-						/>
+					render={({
+						field: { onChange, value },
+						fieldState: { error },
+					}) => (
+						<>
+							<TextField
+								value={value}
+								onChange={onChange}
+								placeholder='1'
+								label='Number of packs per day'
+								autoComplete='off'
+								size='small'
+								margin='normal'
+								error={error ? true : false}
+								helperText={error ? error.message : null}
+								inputProps={{
+									type: 'number',
+									pattern: '^[0-9]\\d*(\\.\\d+)?$',
+								}}
+								InputLabelProps={{
+									style: { color: '#999c98' },
+								}}
+								sx={{
+									input: {
+										'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button':
+											{
+												WebkitAppearance: 'none',
+												display: 'none',
+											},
+										color: '#cdd1cc',
+										width: '100% !important',
+									},
+									'& label.Mui-focused': {
+										color: 'white',
+									},
+									'& .MuiInput-underline:after': {
+										borderBottomColor: 'yellow',
+									},
+									'& .MuiOutlinedInput-root': {
+										'& fieldset': {
+											color: 'white',
+											border: 'none',
+											borderBottom: '1px solid',
+											borderBottomColor: 'white',
+											borderRadius: '0',
+										},
+										'&:hover fieldset': {
+											borderColor: 'white',
+										},
+										'&.Mui-focused fieldset': {
+											borderColor: '#0ab377',
+										},
+									},
+								}}
+							/>
+						</>
 					)}
+					rules={{
+						required: 'Required',
+						pattern: '^[0-9]\\d*(\\.\\d+)?$',
+					}}
 				/>
-			</MuiPickersUtilsProvider> */}
-			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<Controller
-					name='quitDate'
-					control={control}
-					render={({ field: { onChange, value } }) => (
-						<DatePicker
-							label='Basic example'
-							value={value}
-							onChange={onChange}
-							renderInput={(params) => <TextField {...params} />}
-						/>
-					)}
-				/>
-			</LocalizationProvider>
 
-			<button id='subButton' type='submit'>
-				Calculate
+				<Controller
+					name='price'
+					control={control}
+					render={({
+						field: { onChange, value },
+						fieldState: { error },
+					}) => (
+						<>
+							<TextField
+								onChange={onChange}
+								value={value}
+								placeholder='$00.00'
+								id='price-input'
+								label='Price per pack'
+								autoComplete='off'
+								margin='normal'
+								size='small'
+								error={error ? true : false}
+								helperText={error ? error.message : null}
+								inputProps={{
+									type: 'number',
+									pattern: '^[0-9]\\d*(\\.\\d+)?$',
+								}}
+								InputLabelProps={{
+									style: { color: '#999c98' },
+								}}
+								sx={{
+									input: {
+										'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button':
+											{
+												WebkitAppearance: 'none',
+												display: 'none',
+											},
+										color: '#cdd1cc',
+									},
+									'& label.Mui-focused': {
+										color: 'white',
+									},
+									'& .MuiInput-underline:after': {
+										borderBottomColor: 'yellow',
+									},
+									'& .MuiOutlinedInput-root': {
+										'& fieldset': {
+											color: 'white',
+											border: 'none',
+											borderBottom: '1px solid',
+											borderBottomColor: 'white',
+											borderRadius: '0',
+										},
+										'&:hover fieldset': {
+											borderColor: 'white',
+										},
+										'&.Mui-focused fieldset': {
+											borderColor: '#0ab377',
+										},
+									},
+								}}
+							/>
+						</>
+					)}
+					rules={{
+						required: 'Required',
+						pattern: '^[0-9]\\d*(\\.\\d+)?$',
+					}}
+				/>
+				<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<Controller
+						name='quitDate'
+						control={control}
+						render={({ field: { onChange, value } }) => (
+							<DatePicker
+								label='Quit date'
+								value={value}
+								onChange={onChange}
+								renderInput={(params) => (
+									<TextField
+										{...params}
+										InputLabelProps={{
+											style: { color: '#999c98' },
+										}}
+										sx={{
+											svg: { color: '#0ab377' },
+											input: { color: '#cdd1cc' },
+											label: { color: '#cdd1cc' },
+											'& label.Mui-focused': {
+												color: 'white',
+											},
+											'& .MuiInput-underline:after': {
+												borderBottomColor: 'yellow',
+											},
+											'& .MuiOutlinedInput-root': {
+												'& fieldset': {
+													color: 'white',
+													border: 'none',
+													borderBottom: '1px solid',
+													borderBottomColor: 'white',
+													borderRadius: '0',
+												},
+												'&:hover fieldset': {
+													borderColor: 'white',
+												},
+												'&.Mui-focused fieldset': {
+													borderColor: '#0ab377',
+												},
+											},
+										}}
+									/>
+								)}
+							/>
+						)}
+					/>
+				</LocalizationProvider>
+			</div>
+			<button className='button' id='subButton' type='submit'>
+				{buttonText}
 			</button>
 			<p>{errors && errors}</p>
 		</form>
