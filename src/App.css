@@ -29,7 +29,10 @@ h5,
 h6,
 p,
 ol,
-ul {
+ul,
+blockquote,
+figure,
+figcaption {
 	margin: 0;
 	padding: 0;
 }
@@ -202,10 +205,13 @@ a:active {
 .user-forms {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
 	background-color: #222626;
 	border-radius: 0.5em;
 	color: #cdd1cc;
+	min-height: 350px;
 	padding: 2rem 1.5rem;
+	margin-bottom: calc((100vh / 2) - 175px);
 }
 
 .user-forms h1,
@@ -270,11 +276,9 @@ a:active {
 }
 
 @media screen and (max-width: 500px) {
-	.user-forms {
-		justify-content: space-between;
-		margin: 5rem auto;
-		min-height: 350px;
-	}
+	/* .user-forms {
+
+	} */
 
 	.landing-msg {
 		flex-direction: column;
@@ -292,7 +296,7 @@ a:active {
 
 .tracker-container {
 	display: grid;
-	grid-template-columns: 30vw 40vw 30vw;
+	grid-template-columns: fit-content(250px) 1fr fit-content(250px);
 	grid-template-rows: 100%;
 	grid-template-areas: 'nav display info';
 	height: calc(100vh - 2rem);
@@ -364,7 +368,10 @@ a:active {
 	margin: 3rem 1rem;
 }
 
-.motivational-quote blockquote,
+.motivational-quote blockquote {
+	width: 100%;
+	margin: 0;
+}
 .motivational-quote p {
 	margin: 0;
 }
@@ -403,7 +410,8 @@ a:active {
 	justify-content: space-around;
 	align-items: center;
 	height: 100%;
-	min-height: 100vh;
+	padding: 1em;
+	max-height: calc(100vh - 2rem);
 	grid-area: display;
 	overflow-y: scroll;
 }
@@ -427,10 +435,11 @@ a:active {
 
 .milestone-container {
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	flex-direction: row;
 	justify-content: space-around;
 	height: 100%;
-	min-height: 100vh;
+	max-height: calc(100vh - 2rem);
 	width: 100%;
 }
 
@@ -471,7 +480,8 @@ a:active {
 	border-radius: 0.2rem;
 	margin: 1rem auto;
 	padding: 1rem;
-	width: 90%;
+	height: 100px;
+	width: 300px;
 }
 
 .progress-circle {

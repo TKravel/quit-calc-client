@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
+import CheckMarkIcon from './CheckMarkIcon';
 
 const StarIcon = ({
 	goalName,
@@ -30,7 +31,7 @@ const StarIcon = ({
 			</svg>
 		);
 	} else {
-		return null;
+		return <CheckMarkIcon />;
 	}
 };
 

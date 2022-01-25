@@ -31,14 +31,26 @@ export const GoalTracker1 = () => {
 	const defaultGoals = [
 		{
 			goalName: 'Goal #1',
-			goalAmount: 100,
+			goalAmount: 25,
 		},
 		{
 			goalName: 'Goal #2',
-			goalAmount: 500,
+			goalAmount: 50,
 		},
 		{
 			goalName: 'Goal #3',
+			goalAmount: 100,
+		},
+		{
+			goalName: 'Goal #4',
+			goalAmount: 250,
+		},
+		{
+			goalName: 'Goal #5',
+			goalAmount: 500,
+		},
+		{
+			goalName: 'Goal #6',
 			goalAmount: 1000,
 		},
 	];
