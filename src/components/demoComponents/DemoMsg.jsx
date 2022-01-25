@@ -3,6 +3,7 @@ import CloseIcon from '../icons/CloseIcon';
 import ExpandIcon from '../icons/ExpandIcon';
 import useDemo from '../../hooks/useDemo';
 import { UserContext } from '../../context/UserContext';
+import { InfoIcon } from '../icons/InfoIcon';
 
 const DemoMsg = () => {
 	const { user } = useContext(UserContext);
@@ -35,9 +36,8 @@ const DemoMsg = () => {
 		);
 	} else {
 		return (
-			<div className='demo-msg-container'>
-				<ExpandIcon style='open-demo-btn' onClick={toggleMsg} />
-				<p>Important demo message</p>
+			<div className='minimized-demo' onClick={toggleMsg}>
+				<InfoIcon styles='demo-info-icon' />
 			</div>
 		);
 	}

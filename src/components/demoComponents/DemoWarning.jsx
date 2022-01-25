@@ -1,4 +1,3 @@
-import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import React, { useState } from 'react';
 import CloseIcon from '../icons/CloseIcon';
 import ExpandIcon from '../icons/ExpandIcon';
