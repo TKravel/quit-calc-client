@@ -74,6 +74,7 @@ body {
 	font-size: 1.25rem;
 	min-width: 50%;
 	margin: 1rem;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 .button:hover {
 	background-color: #0dd48e;
@@ -132,6 +133,7 @@ a:active {
 	margin: 1rem auto;
 	padding: 1rem 2rem;
 	text-align: center;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 	z-index: 10;
 }
 
@@ -181,6 +183,7 @@ a:active {
 	font-size: 1.2rem;
 	padding: 0.25rem 1rem;
 	margin-top: 1rem;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 .demo-btn:hover {
@@ -212,6 +215,7 @@ a:active {
 	min-height: 350px;
 	padding: 2rem 1.5rem;
 	margin-bottom: calc((100vh / 2) - 175px);
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 .user-forms h1,
@@ -263,6 +267,7 @@ a:active {
 	min-height: 500px;
 	margin: 5rem auto;
 	padding: 2rem 1.5rem;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 .landing-form h2 {
@@ -362,18 +367,18 @@ a:active {
 .motivational-quote {
 	display: flex;
 	align-items: center;
-	flex-grow: 2;
+	flex-grow: 0;
 	background-color: #222626;
-	padding: 1rem;
-	margin: 3rem 1rem;
+	padding: 2.5rem 1rem;
+	margin: auto 1rem;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 .motivational-quote blockquote {
 	width: 100%;
-	margin: 0;
 }
 .motivational-quote p {
-	margin: 0;
+	margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 500px) {
@@ -470,6 +475,7 @@ a:active {
 	max-width: 90%;
 	margin: auto;
 	padding: 1rem;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 .goal-card {
@@ -482,6 +488,7 @@ a:active {
 	padding: 1rem;
 	height: 100px;
 	width: 300px;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 .progress-circle {
@@ -509,10 +516,13 @@ a:active {
 	.tracker-display-container {
 		height: 100%;
 		min-height: auto;
+		max-height: 100%;
 		grid-area: display;
 		overflow-y: visible;
 	}
 	.milestone-container {
+		flex-direction: column;
+		flex-wrap: nowrap;
 		min-height: 100%;
 		padding: 2rem 0;
 		/* overflow-y: visible; */
@@ -555,6 +565,9 @@ a:active {
 	display: inline;
 	border-top: 1px solid #222626;
 	border-bottom: 2px solid #222626;
+	font-size: 1.3rem;
+	padding: 1rem;
+	margin-top: 0.5rem;
 }
 
 .info-spent {
@@ -576,6 +589,7 @@ a:active {
 	margin: 0rem auto;
 	padding: 2rem 1rem;
 	width: 90%;
+	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
 @media screen and (max-width: 500px) {
