@@ -62,7 +62,7 @@ const MainApp = () => {
 			value={{ formData, setFormData, calculations, setCalculations }}
 		>
 			<>
-				{demoUser === 'true' ? null : <DemoMsg />}
+				{demoUser === 'true' ? <DemoWarning /> : <DemoMsg />}
 
 				{calculations.savings === 0 && (
 					<>

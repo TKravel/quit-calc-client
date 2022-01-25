@@ -129,6 +129,7 @@ a:active {
 	margin: 1rem auto;
 	padding: 1rem 2rem;
 	text-align: center;
+	z-index: 10;
 }
 
 .minimized-demo {

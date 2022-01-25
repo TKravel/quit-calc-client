@@ -1,33 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CloseIcon from '../icons/CloseIcon';
-import ExpandIcon from '../icons/ExpandIcon';
 
 const DemoWarning = () => {
-	const [isOpen, setIsOpen] = useState(true);
+	const demoMsg = document.getElementById('demo-selector');
 
-	const toggleMsg = (e) => {
-		isOpen ? setIsOpen(false) : setIsOpen(true);
+	const hideMsg = () => {
+		demoMsg.style.display = 'none';
 	};
 
-	if (isOpen) {
-		return (
-			<div className='demo-msg-container'>
-				<CloseIcon style='close-demo-btn' handleMsg={toggleMsg} />
-				<p>Demo User and data created.</p>
-				<p>
-					Demo data will be lost upon logout. Please register if you
-					wish to persist data in future sessions.
-				</p>
-			</div>
-		);
-	} else {
-		return (
-			<div className='demo-msg-container'>
-				<ExpandIcon style='open-demo-btn' handleMsg={toggleMsg} />
-				<p>Important demo warning</p>
-			</div>
-		);
-	}
+	return (
+		<div id='demo-selector' className='demo-msg-container'>
+			<CloseIcon style='close-demo-btn' onClick={hideMsg} />
+			<p>Demo User and data created.</p>
+			<p>
+				Demo data will be lost upon logout. Please register if you wish
+				to persist data in future sessions.
+			</p>
+		</div>
+	);
 };
 
 export default DemoWarning;
