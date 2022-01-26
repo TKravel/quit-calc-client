@@ -66,26 +66,19 @@ const MainApp = () => {
 
 				{calculations.savings === 0 && (
 					<>
-						<div className='landing-msg'>
-							<h1>
-								QUIT SMOKING
-								<br />
-								SET GOALS
-								<br />
-								TRACK SAVINGS
-							</h1>
-							<p>
-								Create goals as motivation. Vizualize progress
-								and savings. Stay on track.
-							</p>
-						</div>
+						<h1 className='landing-msg'>
+							QUIT SMOKING
+							<br />
+							SET GOALS
+							<br />
+							TRACK SAVINGS
+						</h1>
 
 						<p className='start-instructions'>
-							Start by filling out the form below to see your
-							savings.
+							Start by filling out the form below
 						</p>
 						<p className='start-instructions'>
-							Sign up to customize goals to motivate you!
+							Sign up to save and collect goals
 						</p>
 
 						<p>{errors && errors}</p>
@@ -93,7 +86,7 @@ const MainApp = () => {
 						<UserInput
 							styles='landing-form'
 							headerText={`Let's get some info!`}
-							buttonText='Calculate'
+							buttonText='CALCULATE'
 						/>
 					</>
 				)}

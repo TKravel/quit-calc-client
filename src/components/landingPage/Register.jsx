@@ -113,7 +113,7 @@ const Register = () => {
 				{errors && <p className='error-msg'>{errors}</p>}
 
 				<button className='button' type='submit'>
-					Register
+					REGISTER
 				</button>
 			</form>
 		</>

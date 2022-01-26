@@ -90,7 +90,7 @@ const Login = () => {
 				{errors && <p className='error-msg'>{errors}</p>}
 
 				<button className='button' type='submit'>
-					Login
+					LOGIN
 				</button>
 			</form>
 		</>

@@ -29,7 +29,7 @@ const DemoMsg = () => {
 					user account
 				</p>
 				<button className='demo-btn' onClick={handleClick}>
-					Demo
+					DEMO
 				</button>
 			</div>
 		);

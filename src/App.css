@@ -68,12 +68,13 @@ body {
 .button {
 	background-color: #0ab377;
 	border: 1px solid #088f60;
-	border-radius: 1rem;
+	border-radius: 5rem;
 	color: #0f1111;
 	cursor: pointer;
-	font-size: 1.25rem;
+	font-size: 1.2rem;
 	min-width: 50%;
 	margin: 1rem;
+	padding: 0.25rem 1rem;
 	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 .button:hover {
@@ -246,22 +247,9 @@ a:active {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	border-radius: 0.5rem;
+	color: #0ab377;
 	padding: 1rem;
 	height: calc(80vh - 3rem);
-	width: 90%;
-}
-
-.landing-msg h1 {
-	color: #0ab377;
-	width: 260px;
-}
-
-.landing-msg p {
-	background-color: #222626;
-	border-radius: 0.5rem;
-	padding: 2rem;
-	width: 260px;
 }
 
 .landing-form {
@@ -288,18 +276,9 @@ a:active {
 }
 
 @media screen and (max-width: 500px) {
-	/* .user-forms {
-
-	} */
-
-	.landing-msg {
-		flex-direction: column;
-	}
-	.landing-msg p {
-		background-color: inherit;
-	}
 	.start-instructions {
 		padding: 0.5rem 0;
+		text-align: center;
 		width: 90%;
 	}
 }
