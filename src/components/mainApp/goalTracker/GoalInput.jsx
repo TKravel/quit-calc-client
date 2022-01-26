@@ -12,7 +12,7 @@ const localString = (num) => {
 };
 
 const GoalInput = ({
-	disabled,
+	count,
 	handleFreeGoal,
 	handleUserGoals,
 	handleGoalCount,
@@ -82,140 +82,157 @@ const GoalInput = ({
 		saveGoal(goal);
 	};
 	return (
-		<form className='goal-form' onSubmit={handleSubmit(onSubmit)}>
-			<p>Create a personal goal</p>
-			<Controller
-				name='goal'
-				control={control}
-				render={({
-					field: { onChange, value },
-					fieldState: { error },
-				}) => (
-					<>
-						<TextField
-							name='goal'
-							value={value}
-							onChange={onChange}
-							tpye='text'
-							autoComplete='false'
-							label='Goal name'
-							placeholder='Cool stuff'
-							disabled={disabled}
-							margin='normal'
-							size='small'
-							error={error ? true : false}
-							helperText={error ? error.message : null}
-							InputLabelProps={{
-								style: { color: '#999c98' },
-							}}
-							sx={{
-								input: {
-									color: '#cdd1cc',
-									width: '100% !important',
-								},
-								'& label.Mui-focused': {
-									color: 'white',
-								},
-								'& .MuiInput-underline:after': {
-									borderBottomColor: 'yellow',
-								},
-								'& .MuiOutlinedInput-root': {
-									'& fieldset': {
-										color: 'white',
-										border: 'none',
-										borderBottom: '1px solid',
-										borderBottomColor: 'white',
-										borderRadius: '0',
-									},
-									'&:hover fieldset': {
-										borderColor: 'white',
-									},
-									'&.Mui-focused fieldset': {
-										borderColor: '#0ab377',
-									},
-								},
-							}}
-						/>
-					</>
+		<div className='goal-form-wrapper'>
+			<form
+				className='goal-form'
+				onSubmit={handleSubmit(onSubmit)}
+				autoComplete='off'
+			>
+				{count === 6 ? (
+					<p>Maximun of 6 goals</p>
+				) : (
+					<p>Create a personal goal</p>
 				)}
-				rules={{
-					required: 'Required',
-					pattern: '^[0-9]\\d*(\\.\\d+)?$',
-				}}
-			/>
-			<Controller
-				name='goalCost'
-				control={control}
-				render={({
-					field: { onChange, value },
-					fieldState: { error },
-				}) => (
-					<>
-						<TextField
-							type='number'
-							name='goalCost'
-							value={value}
-							onChange={onChange}
-							variant='outlined'
-							label='Goal cost'
-							placeholder='$00.00'
-							disabled={disabled}
-							margin='normal'
-							size='small'
-							error={error ? true : false}
-							helperText={error ? error.message : null}
-							inputProps={{
-								type: 'number',
-								pattern: '^[0-9]\\d*(\\.\\d+)?$',
-							}}
-							InputLabelProps={{
-								style: { color: '#999c98' },
-							}}
-							sx={{
-								input: {
-									'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button':
-										{
-											'-webkit-appearance': 'none',
-											display: 'none',
+				<Controller
+					name='goal'
+					control={control}
+					render={({
+						field: { onChange, value },
+						fieldState: { error },
+					}) => (
+						<>
+							<TextField
+								name='goal'
+								value={value}
+								onChange={onChange}
+								tpye='text'
+								label='Goal name'
+								placeholder='Cool stuff'
+								disabled={count === 6 ? true : false}
+								margin='normal'
+								size='small'
+								error={error ? true : false}
+								helperText={error ? error.message : null}
+								inputProps={{
+									autocomplete: 'false',
+								}}
+								InputLabelProps={{
+									style: { color: '#999c98' },
+								}}
+								sx={{
+									input: {
+										color: '#cdd1cc',
+										width: '100% !important',
+									},
+									'& label.Mui-focused': {
+										color: 'white',
+									},
+									'& .MuiInput-underline:after': {
+										borderBottomColor: 'yellow',
+									},
+									'& .MuiOutlinedInput-root': {
+										'& fieldset': {
+											color: 'white',
+											border: 'none',
+											borderBottom: '1px solid',
+											borderBottomColor: 'white',
+											borderRadius: '0',
 										},
-									color: '#cdd1cc',
-									width: '100% !important',
-								},
-								'& label.Mui-focused': {
-									color: 'white',
-								},
-								'& .MuiInput-underline:after': {
-									borderBottomColor: 'yellow',
-								},
-								'& .MuiOutlinedInput-root': {
-									'& fieldset': {
+										'&:hover fieldset': {
+											borderColor: 'white',
+										},
+										'&.Mui-focused fieldset': {
+											borderColor: '#0ab377',
+										},
+									},
+								}}
+							/>
+						</>
+					)}
+					rules={{
+						required: 'Required',
+						pattern: '^[0-9]\\d*(\\.\\d+)?$',
+					}}
+				/>
+				<Controller
+					name='goalCost'
+					control={control}
+					render={({
+						field: { onChange, value },
+						fieldState: { error },
+					}) => (
+						<>
+							<TextField
+								type='number'
+								name='goalCost'
+								value={value}
+								onChange={onChange}
+								variant='outlined'
+								label='Goal cost'
+								placeholder='$00.00'
+								disabled={count === 6 ? true : false}
+								margin='normal'
+								size='small'
+								error={error ? true : false}
+								helperText={error ? error.message : null}
+								inputProps={{
+									autocomplete: 'false',
+									type: 'number',
+									pattern: '^[0-9]\\d*(\\.\\d+)?$',
+								}}
+								InputLabelProps={{
+									style: { color: '#999c98' },
+								}}
+								sx={{
+									input: {
+										'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button':
+											{
+												'-webkit-appearance': 'none',
+												display: 'none',
+											},
+										color: '#cdd1cc',
+										width: '100% !important',
+									},
+									'& label.Mui-focused': {
 										color: 'white',
-										border: 'none',
-										borderBottom: '1px solid',
-										borderBottomColor: 'white',
-										borderRadius: '0',
 									},
-									'&:hover fieldset': {
-										borderColor: 'white',
+									'& .MuiInput-underline:after': {
+										borderBottomColor: 'yellow',
 									},
-									'&.Mui-focused fieldset': {
-										borderColor: '#0ab377',
+									'& .MuiOutlinedInput-root': {
+										'& fieldset': {
+											color: 'white',
+											border: 'none',
+											borderBottom: '1px solid',
+											borderBottomColor: 'white',
+											borderRadius: '0',
+										},
+										'&:hover fieldset': {
+											borderColor: 'white',
+										},
+										'&.Mui-focused fieldset': {
+											borderColor: '#0ab377',
+										},
 									},
-								},
-							}}
-						/>
-					</>
-				)}
-				rules={{
-					required: 'Required',
-					pattern: '^[0-9]\\d*(\\.\\d+)?$',
-				}}
-			/>
-			{errors && <p>{errors}</p>}
-			<button className='button' type='submit' disabled={disabled}>
-				Submit
-			</button>
-		</form>
+								}}
+							/>
+						</>
+					)}
+					rules={{
+						required: 'Required',
+						pattern: '^[0-9]\\d*(\\.\\d+)?$',
+					}}
+				/>
+				{errors && <p>{errors}</p>}
+				<button
+					className='button'
+					type='submit'
+					disabled={count === 6 ? true : false}
+				>
+					Submit
+				</button>
+			</form>
+		</div>
 	);
 };
 

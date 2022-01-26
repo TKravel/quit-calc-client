@@ -81,6 +81,13 @@ body {
 	color: #070808;
 }
 
+.button:disabled {
+	background-color: #0dd48e83;
+	box-shadow: none;
+	color: #07080880;
+	cursor: not-allowed;
+}
+
 a {
 	color: #0dd48e;
 }
@@ -336,6 +343,7 @@ a:active {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 0;
+	margin-bottom: 1rem;
 }
 
 .tracker-nav-btn {
@@ -369,7 +377,7 @@ a:active {
 	align-items: center;
 	flex-grow: 0;
 	background-color: #222626;
-	padding: 2.5rem 1rem;
+	padding: 1rem 1rem;
 	margin: auto 1rem;
 	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
@@ -377,8 +385,12 @@ a:active {
 .motivational-quote blockquote {
 	width: 100%;
 }
-.motivational-quote p {
+.quote {
 	margin-bottom: 1rem;
+}
+
+.author {
+	text-align: center;
 }
 
 @media screen and (max-width: 500px) {
@@ -399,14 +411,9 @@ a:active {
 		border-right: none;
 		border-bottom: 2px solid #0aaf75;
 	}
-	.tracker-nav-container p {
-		display: flex;
-		align-items: center;
-		flex-grow: 2;
+	/* .quote {
 		background-color: #222626;
-		padding: 1rem;
-		margin: 2rem 1rem;
-	}
+	} */
 }
 
 .tracker-display-container {
@@ -415,55 +422,38 @@ a:active {
 	justify-content: space-around;
 	align-items: center;
 	height: 100%;
-	padding: 1em;
 	max-height: calc(100vh - 2rem);
 	grid-area: display;
-	overflow-y: scroll;
 }
 
-.tracker-display-container::-webkit-scrollbar {
-	width: 0.5em;
-	height: 5rem;
-}
-
-.tracker-display-container::-webkit-scrollbar {
-	background-color: #222626;
-	border-radius: 3px;
-}
-.tracker-display-container::-webkit-scrollbar-thumb {
-	background: #0ab377;
-	cursor: pointer;
-}
-.tracker-display-container::-webkit-scrollbar-thumb:hover {
-	background: #07724c;
-}
-
-.milestone-container {
+.goal-container {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
 	justify-content: space-around;
-	height: 100%;
-	max-height: calc(100vh - 2rem);
+	max-height: 100%;
 	width: 100%;
+	overflow-y: scroll;
 }
 
-.personal-container {
-	display: flex;
-	flex-direction: column;
-	margin: auto;
-	min-height: 100vh;
-	width: 100%;
-}
+/* .goal-container::-webkit-scrollbar {
+	width: 0.5em;
+	height: 5rem;
+} */
 
-.completed-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	min-height: 100vh;
-	width: 100%;
-	padding: 0 1rem;
-	text-align: center;
+.goal-container::-webkit-scrollbar {
+	width: 0.5em;
+
+	background-color: #222626;
+	border-radius: 3px;
+}
+.goal-container::-webkit-scrollbar-thumb {
+	max-height: 5rem;
+	background: #0ab377;
+	cursor: pointer;
+}
+.goal-container::-webkit-scrollbar-thumb:hover {
+	background: #07724c;
 }
 
 .goal-form {
@@ -472,10 +462,14 @@ a:active {
 	justify-content: center;
 	align-items: center;
 	background-color: #222626;
-	max-width: 90%;
-	margin: auto;
+	max-width: 250px;
+	margin: 1rem auto;
 	padding: 1rem;
 	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.goal-form-wrapper {
+	width: 100%;
 }
 
 .goal-card {
@@ -510,6 +504,42 @@ a:active {
 .trash-button {
 	cursor: pointer;
 	fill: #6e6d6e;
+}
+
+.completed-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	min-height: 100vh;
+	width: 100%;
+	padding: 0 1rem;
+	text-align: center;
+}
+
+.completed-text {
+	color: #0ab377;
+	font-size: 1.2rem;
+}
+
+.completed-list {
+	overflow-y: scroll;
+}
+
+.completed-list::-webkit-scrollbar {
+	width: 0.5em;
+	height: 5rem;
+}
+
+.completed-list::-webkit-scrollbar {
+	background-color: #222626;
+	border-radius: 3px;
+}
+.completed-list::-webkit-scrollbar-thumb {
+	background: #0ab377;
+	cursor: pointer;
+}
+.completed-list::-webkit-scrollbar-thumb:hover {
+	background: #07724c;
 }
 
 @media screen and (max-width: 500px) {

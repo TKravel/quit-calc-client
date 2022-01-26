@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import CloseIcon from '../icons/CloseIcon';
-import ExpandIcon from '../icons/ExpandIcon';
 import useDemo from '../../hooks/useDemo';
 import { UserContext } from '../../context/UserContext';
 import { InfoIcon } from '../icons/InfoIcon';
@@ -24,7 +23,7 @@ const DemoMsg = () => {
 	if (isOpen) {
 		return (
 			<div className='demo-msg-container'>
-				<CloseIcon style='close-demo-btn' onClick={toggleMsg} />
+				<CloseIcon styles='close-demo-btn' onClick={toggleMsg} />
 				<p>
 					To view as a user click the button below to create a demo
 					user account

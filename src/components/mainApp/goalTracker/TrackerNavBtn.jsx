@@ -6,14 +6,6 @@ export const TrackerNavBtn = ({ id, text, currentPage, setPage }) => {
 		setPage(e.target.id);
 	};
 
-	let styles = {};
-
-	if (id === currentPage) {
-		styles = {
-			borderRight: '5px solid #fff',
-		};
-	}
-
 	return (
 		<button
 			id={id}

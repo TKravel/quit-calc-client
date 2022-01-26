@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 const date = new Date();
 const currentYear = date.getFullYear();

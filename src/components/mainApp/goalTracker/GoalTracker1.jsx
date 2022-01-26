@@ -24,7 +24,6 @@ export const GoalTracker1 = () => {
 	const { calculations, setCalculations } = useContext(CalcDataContext);
 	const [errors, setErrors] = useState();
 	const [userGoals, setUserGoals] = useState([]);
-	const [isDisabled, setIsDisabled] = useState(false);
 	const [completedGoals, setCompletedGoals] = useState([]);
 	const [goalCount, setGoalCount] = useState(0);
 	const [activePage, setActivePage] = useState('milestones');
@@ -64,8 +63,7 @@ export const GoalTracker1 = () => {
 				goalCost: userCost,
 			},
 		]);
-		setGoalCount(1);
-		setIsDisabled(true);
+		setGoalCount(goalCount + 1);
 	};
 
 	const handleGoalCompletion = (goal, cost) => {
@@ -182,7 +180,7 @@ export const GoalTracker1 = () => {
 			</div>
 			<div className='tracker-display-container'>
 				{activePage === 'milestones' && (
-					<div className='milestone-container'>
+					<div className='goal-container'>
 						{defaultGoals.map((goal, index) => {
 							return (
 								<MilestoneCard
@@ -196,8 +194,9 @@ export const GoalTracker1 = () => {
 					</div>
 				)}
 				{activePage === 'personal' && (
-					<div className='personal-container'>
+					<div className='goal-container'>
 						<GoalInput
+							count={goalCount}
 							handleFreeGoal={handleFreeGoals}
 							handleUserGoals={setUserGoals}
 							handleGoalCount={setGoalCount}
@@ -236,7 +235,7 @@ export const GoalTracker1 = () => {
 				<div className='info-form'>
 					<UserInput
 						styles='edit-form'
-						headerText='Edit'
+						headerText='Change data'
 						buttonText='Edit'
 					/>
 				</div>

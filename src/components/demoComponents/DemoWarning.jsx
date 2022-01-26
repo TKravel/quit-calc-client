@@ -10,7 +10,7 @@ const DemoWarning = () => {
 
 	return (
 		<div id='demo-selector' className='demo-msg-container'>
-			<CloseIcon style='close-demo-btn' onClick={hideMsg} />
+			<CloseIcon styles='close-demo-btn' onClick={hideMsg} />
 			<p>Demo User and data created.</p>
 			<p>
 				Demo data will be lost upon logout. Please register if you wish

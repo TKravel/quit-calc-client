@@ -5,7 +5,6 @@ import Login from './components/landingPage/Login';
 import Register from './components/landingPage/Register';
 import MainApp from './components/mainApp/MainApp';
 import NavBar from './components/NavBar';
-import Footer from './components/Footer';
 import { UserContext } from './context/UserContext';
 import useAuth from './hooks/useAuth';
 
@@ -28,7 +27,6 @@ function App() {
 							<MainApp />
 						</Route>
 					</Switch>
-					{/* <Footer /> */}
 				</div>
 			</UserContext.Provider>
 		</Router>

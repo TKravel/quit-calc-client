@@ -19,9 +19,9 @@ export const Quote = () => {
 		<div className='motivational-quote'>
 			<figure>
 				<blockquote cite='RapidAPI Inspiring quotes'>
-					<p>"{quote.quote}"</p>
+					<p className='quote'>"{quote.quote}"</p>
 				</blockquote>
-				<figcaption>
+				<figcaption className='author'>
 					-{quote.auther} <cite>Brave New World</cite>
 				</figcaption>
 			</figure>
