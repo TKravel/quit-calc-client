@@ -72,7 +72,9 @@ const Login = () => {
 								name='password'
 								value={value}
 								onChange={onChange}
-							></input>
+								error={error ? true : false}
+								helperText={error ? error.message : null}
+							/>
 							<p className='error-msg'>
 								{error ? error.message : null}
 							</p>

@@ -274,7 +274,7 @@ const UserInput = ({ styles, headerText, buttonText }) => {
 			<button className='button' id='subButton' type='submit'>
 				{buttonText}
 			</button>
-			<p>{errors && errors}</p>
+			<p className='error-msg'>{errors && errors}</p>
 		</form>
 	);
 };

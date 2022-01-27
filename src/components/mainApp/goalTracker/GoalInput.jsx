@@ -222,7 +222,7 @@ const GoalInput = ({
 						pattern: '^[0-9]\\d*(\\.\\d+)?$',
 					}}
 				/>
-				{errors && <p>{errors}</p>}
+				{errors && <p className='error-msg'>{errors}</p>}
 				<button
 					className='button'
 					type='submit'
