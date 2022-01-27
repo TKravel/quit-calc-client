@@ -2,7 +2,6 @@ import React from 'react';
 
 export const TrackerNavBtn = ({ id, text, currentPage, setPage }) => {
 	const handleClick = (e) => {
-		console.log(e.target.id);
 		setPage(e.target.id);
 	};
 
