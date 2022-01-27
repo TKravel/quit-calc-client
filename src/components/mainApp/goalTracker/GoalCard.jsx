@@ -41,7 +41,7 @@ export const GoalCard = ({
 
 					<p>Complete!</p>
 				</div>
-				{errors && <p>{errors}</p>}
+				{errors && <p className='goal-card-error'>{errors}</p>}
 			</div>
 		);
 	} else {

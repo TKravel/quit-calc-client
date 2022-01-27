@@ -1,90 +1,60 @@
-import React, { useState, useContext, useEffect } from 'react';
-import {
-	Container,
-	AppBar,
-	Grid,
-	Tab,
-	Tabs,
-	Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import MilestoneCard from './MilestoneCard';
-import GoalCard from './GoalCard';
-import CompletedCard from './CompletedCard';
-import GoalInput from '../goalTracker/GoalInput';
+import React, { useState, useEffect, useContext } from 'react';
+import { TrackerNavBtn } from './TrackerNavBtn';
+import { MilestoneCard } from './MilestoneCard';
+import { GoalCard } from './GoalCard';
+import { CompletedCard } from './CompletedCard';
 import { UserContext } from '../../../context/UserContext';
+import { CalcDataContext } from '../../../context/CalcDataContext';
+import UserInput from '../UserInput';
+import { Spinner } from '../../icons/Spinner';
+import GoalInput from './GoalInput';
+import { Quote } from './Quote';
 
-const useStyles = makeStyles((theme) => ({
-	goalContainer: {
-		color: '#000',
-		backgroundColor: theme.palette.primary.main,
-		maxWidth: '800px',
-		minHeight: '600px',
-		margin: '1em auto 1em auto',
-		padding: '0px',
-		alignContent: 'center',
-		justifyContent: 'center',
-		boxShadow:
-			'0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
-	},
-	grid: {
-		minHeight: '100vh',
-		justifyContent: 'center',
-		textAlign: 'center',
-	},
-	card: {
-		color: '#000',
-		backgroundColor: theme.palette.primary.light,
-		display: 'block',
-		padding: '0px',
-		margin: '5px',
-		alignSelf: 'center',
-		textAlign: 'center',
-		width: '300px',
-		borderRadius: '8px',
-		boxShadow:
-			'0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
-	},
-}));
-
-const GoalTracker = () => {
-	const classes = useStyles();
-	const { user } = useContext(UserContext);
-	function TabPanel(props) {
-		const { children, value, index, ...other } = props;
-
-		return (
-			<div
-				role='tabpanel'
-				hidden={value !== index}
-				id={`full-width-tabpanel-${index}`}
-				aria-labelledby={`full-width-tab-${index}`}
-				{...other}
-			>
-				{value === index && <Container>{children}</Container>}
-			</div>
-		);
+const compare = (a, b) => {
+	if (parseFloat(a.goalCost) < parseFloat(b.goalCost)) {
+		return -1;
 	}
+	if (parseFloat(a.goalCost) > parseFloat(b.goalCost)) {
+		return 1;
+	}
+	return 0;
+};
 
-	// TabPanel.propTypes = {
-	// 	children: PropTypes.node,
-	// 	index: PropTypes.number.isRequired,
-	// 	value: PropTypes.number.isRequired,
-	// };
-
-	// function a11yProps(index) {
-	// 	return {
-	// 		id: `full-width-tab-${index}`,
-	// 		'aria-controls': `full-width-tabpanel-${index}`,
-	// 	};
-	// }
-
-	const [value, setValue] = useState(0);
+export const GoalTracker = () => {
+	const { user } = useContext(UserContext);
+	const { calculations, setCalculations } = useContext(CalcDataContext);
+	const [errors, setErrors] = useState();
+	const [isLoading, setIsLoading] = useState(true);
 	const [userGoals, setUserGoals] = useState([]);
 	const [completedGoals, setCompletedGoals] = useState([]);
 	const [goalCount, setGoalCount] = useState(0);
-	const [isDisabled, setIsDisabled] = useState(false);
-	const [errors, setErrors] = useState('');
+	const [activePage, setActivePage] = useState('milestones');
+	const defaultGoals = [
+		{
+			goalName: 'Goal #1',
+			goalAmount: 25,
+		},
+		{
+			goalName: 'Goal #2',
+			goalAmount: 50,
+		},
+		{
+			goalName: 'Goal #3',
+			goalAmount: 100,
+		},
+		{
+			goalName: 'Goal #4',
+			goalAmount: 250,
+		},
+		{
+			goalName: 'Goal #5',
+			goalAmount: 500,
+		},
+		{
+			goalName: 'Goal #6',
+			goalAmount: 1000,
+		},
+	];
 
 	const handleFreeGoals = (goal, cost) => {
 		const userGoal = goal;
@@ -95,8 +65,7 @@ const GoalTracker = () => {
 				goalCost: userCost,
 			},
 		]);
-		setGoalCount(1);
-		setIsDisabled(true);
+		setGoalCount(goalCount + 1);
 	};
 
 	const handleGoalCompletion = (goal, cost) => {
@@ -138,36 +107,11 @@ const GoalTracker = () => {
 				}
 			});
 	};
-	const defaultGoals = [
-		{
-			goalName: 'Goal #1',
-			goalAmount: 100,
-		},
-		{
-			goalName: 'Goal #2',
-			goalAmount: 500,
-		},
-		{
-			goalName: 'Goal #3',
-			goalAmount: 1000,
-		},
-	];
-
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
-	};
-
-	function compare(a, b) {
-		if (parseFloat(a.goalCost) < parseFloat(b.goalCost)) {
-			return -1;
-		}
-		if (parseFloat(a.goalCost) > parseFloat(b.goalCost)) {
-			return 1;
-		}
-		return 0;
-	}
 
 	useEffect(() => {
+		if (!user) {
+			setIsLoading(false);
+		}
 		if (user) {
 			fetch(`${process.env.REACT_APP_SERVER}/goals/get_goals`, {
 				method: 'GET',
@@ -180,6 +124,7 @@ const GoalTracker = () => {
 					}
 					if (data.msg === 'none') {
 						setGoalCount(0);
+						setIsLoading(false);
 					} else if (data.docs) {
 						setGoalCount(data.count);
 						setUserGoals((prevValue) => {
@@ -191,6 +136,7 @@ const GoalTracker = () => {
 								...data.docs[0].completedGoals,
 							];
 						});
+						setIsLoading(false);
 					}
 				})
 				.catch((err) => {
@@ -200,68 +146,83 @@ const GoalTracker = () => {
 	}, [user]);
 
 	useEffect(() => {
-		if (user && goalCount !== 0) {
-			if (goalCount >= 3) {
-				setIsDisabled(true);
-			} else if (goalCount < 3) {
-				setIsDisabled(false);
-			}
+		if (completedGoals !== undefined) {
+			let spendings = 0;
+			completedGoals.forEach((goal) => {
+				spendings += parseFloat(goal.goalCost);
+			});
+			setCalculations((prevValues) => {
+				return {
+					...prevValues,
+					spent: parseFloat(spendings),
+				};
+			});
 		}
-	}, [user, goalCount]);
+	}, [completedGoals]);
+
+	if (isLoading) {
+		return (
+			<div className='loading-tracker-container'>
+				<Spinner styles='tracker-spinner' />
+				<p>Setting things up...</p>
+			</div>
+		);
+	}
 
 	return (
-		<Container className={classes.goalContainer}>
-			<AppBar position='static'>
-				<Tabs value={value} variant='fullWidth' onChange={handleChange}>
-					<Tab label='Milestones' />
-					<Tab label='Personal goals' />
-					<Tab label='Completed goals' />
-				</Tabs>
-			</AppBar>
-			<TabPanel value={value} index={0}>
-				<Grid
-					className={classes.grid}
-					container={true}
-					direction='column'
-				>
-					{defaultGoals.map((goal, index) => {
-						return (
-							<Grid item className={classes.card} key={index}>
+		<div className='tracker-container'>
+			<div className='tracker-nav-container'>
+				<nav className='tracker-nav'>
+					<TrackerNavBtn
+						id='milestones'
+						text='Milestones'
+						currentPage={activePage}
+						setPage={setActivePage}
+					/>
+					<TrackerNavBtn
+						id='personal'
+						text='Personal'
+						currentPage={activePage}
+						setPage={setActivePage}
+					/>
+					<TrackerNavBtn
+						id='completed'
+						text='Completed'
+						currentPage={activePage}
+						setPage={setActivePage}
+					/>
+				</nav>
+				<Quote />
+			</div>
+			<div className='tracker-display-container'>
+				{activePage === 'milestones' && (
+					<div className='goal-container'>
+						{defaultGoals.map((goal, index) => {
+							return (
 								<MilestoneCard
+									key={index}
+									idx={index}
 									goalName={goal.goalName}
 									goalAmount={goal.goalAmount}
 								/>
-							</Grid>
-						);
-					})}
-				</Grid>
-			</TabPanel>
-			<TabPanel value={value} index={1}>
-				<Grid
-					className={classes.grid}
-					container={true}
-					direction='column'
-				>
-					<Typography
-						className={classes.error}
-						variant='body1'
-						paragraph
-					>
-						Collect completed goals by clicking on the star icon
-					</Typography>
-					<Grid item className={classes.card}>
+							);
+						})}
+					</div>
+				)}
+				{activePage === 'personal' && (
+					<div className='goal-container'>
 						<GoalInput
-							disabled={isDisabled}
+							count={goalCount}
 							handleFreeGoal={handleFreeGoals}
 							handleUserGoals={setUserGoals}
 							handleGoalCount={setGoalCount}
 						/>
-					</Grid>
-					{userGoals.length !== 0 &&
-						userGoals.sort(compare).map((goal, index) => {
-							return (
-								<Grid item className={classes.card} key={index}>
+						{userGoals.length !== 0 &&
+							userGoals.sort(compare).map((goal, index) => {
+								return (
 									<GoalCard
+										key={index}
+										idx={index}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
 										handleGoals={setUserGoals}
@@ -270,42 +231,56 @@ const GoalTracker = () => {
 										errors={errors}
 										setErrors={setErrors}
 									/>
-								</Grid>
-							);
-						})}
-					{!user && goalCount > 0 ? (
-						<Grid item className={classes.card}>
-							<Typography variant='h5' paragraph>
-								Sign up to set more personal goals!
-							</Typography>
-						</Grid>
-					) : null}
-				</Grid>
-			</TabPanel>
-			<TabPanel value={value} index={2}>
-				<Grid
-					className={classes.grid}
-					container={true}
-					direction='column'
-				>
-					{!user ? (
-						<Grid item className={classes.card}>
-							<Typography variant='h5' paragraph>
-								Sign up to collect completed goals!
-							</Typography>
-						</Grid>
-					) : (
-						<Grid item className={classes.card}>
+								);
+							})}
+					</div>
+				)}
+				{activePage === 'completed' && (
+					<div className='completed-container'>
+						{!user ? (
+							<p>Sign up to collect completed goals!</p>
+						) : (
 							<CompletedCard
 								completed={completedGoals}
 								sortFunc={compare}
 							/>
-						</Grid>
-					)}
-				</Grid>
-			</TabPanel>
-		</Container>
+						)}
+					</div>
+				)}
+			</div>
+			<div className='tracker-info-container'>
+				<div className='info-form'>
+					<UserInput
+						styles='edit-form'
+						headerText='Change data'
+						buttonText='Edit'
+					/>
+				</div>
+				<div className='info-totals'>
+					<p>
+						Savings: $
+						<span>
+							{calculations !== undefined
+								? calculations.savings
+								: null}
+						</span>
+					</p>
+
+					<p className='info-spent'>
+						Spent: $
+						<span>{parseFloat(calculations.spent).toFixed(2)}</span>
+					</p>
+
+					<p className='info-balance'>
+						Balance: $
+						<span>
+							{parseFloat(
+								calculations.savings - calculations.spent
+							).toFixed(2)}
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
 	);
 };
-
-export default GoalTracker;

@@ -3,7 +3,7 @@ import '../../index.css';
 import DemoMsg from '../demoComponents/DemoMsg';
 import DemoWarning from '../demoComponents/DemoWarning';
 import UserInput from './UserInput';
-import { GoalTracker1 } from './goalTracker/GoalTracker1';
+import { GoalTracker } from './goalTracker/GoalTracker';
 import { UserContext } from '../../context/UserContext';
 import { CalcDataContext } from '../../context/CalcDataContext';
 import { parseISO } from 'date-fns';
@@ -93,7 +93,7 @@ const MainApp = () => {
 
 				{calculations.savings !== 0 && (
 					<>
-						<GoalTracker1 />
+						<GoalTracker />
 					</>
 				)}
 			</>
