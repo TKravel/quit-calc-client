@@ -248,8 +248,10 @@ a:active {
 	justify-content: space-around;
 	align-items: center;
 	color: #0ab377;
-	padding: 1rem;
+	font-size: 2.5rem;
 	height: calc(80vh - 3rem);
+	padding: 1rem;
+	text-align: center;
 }
 
 .landing-form {
@@ -293,6 +295,21 @@ a:active {
 	height: calc(100vh - 2rem);
 	width: 100vw;
 	overflow: hidden;
+}
+
+@media screen and (max-width: 850px) {
+	.tracker-container {
+		display: grid;
+		grid-template-columns: 100vw;
+		grid-template-rows: auto auto auto;
+		grid-template-areas:
+			'nav'
+			'display'
+			'info';
+		min-height: calc(100vh - 2rem);
+		width: 100vw;
+		overflow: scroll;
+	}
 }
 
 @media screen and (max-width: 500px) {
@@ -353,6 +370,7 @@ a:active {
 
 .motivational-quote {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	flex-grow: 0;
 	background-color: #222626;
@@ -373,7 +391,7 @@ a:active {
 	text-align: center;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 850px) {
 	.tracker-nav-container {
 		border: none;
 	}
@@ -391,9 +409,6 @@ a:active {
 		border-right: none;
 		border-bottom: 2px solid #0aaf75;
 	}
-	/* .quote {
-		background-color: #222626;
-	} */
 }
 
 .tracker-display-container {
@@ -416,14 +431,8 @@ a:active {
 	overflow-y: scroll;
 }
 
-/* .goal-container::-webkit-scrollbar {
-	width: 0.5em;
-	height: 5rem;
-} */
-
 .goal-container::-webkit-scrollbar {
 	width: 0.5em;
-
 	background-color: #222626;
 	border-radius: 3px;
 }
@@ -522,7 +531,7 @@ a:active {
 	background: #07724c;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 850px) {
 	.tracker-display-container {
 		height: 100%;
 		min-height: auto;
@@ -602,7 +611,7 @@ a:active {
 	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 850px) {
 	.tracker-info-container {
 		display: flex;
 		flex-direction: column-reverse;
