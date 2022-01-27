@@ -231,14 +231,20 @@ a:active {
 	text-align: center;
 }
 
-.user-forms input {
-	background-color: #222626;
-	border: none;
-	border-bottom: 1px solid #cdd1cc;
-	color: #cdd1cc;
-	font-size: 1rem;
-	margin: 0.5em 0;
+.form-spinner {
+	fill: #0ab377;
+	margin: auto;
+	height: 2rem;
+	width: 2rem;
+	animation: spinner 2s linear infinite;
 }
+
+@keyframes spinner {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 .error-msg {
 	color: #b20a0d;
 }

@@ -3,16 +3,23 @@ import CloseIcon from '../icons/CloseIcon';
 import useDemo from '../../hooks/useDemo';
 import { UserContext } from '../../context/UserContext';
 import { InfoIcon } from '../icons/InfoIcon';
+import { Spinner } from '../icons/Spinner';
 
 const DemoMsg = () => {
 	const { user } = useContext(UserContext);
-	const { createDemoUser } = useDemo();
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
+	const { createDemoUser } = useDemo(setIsLoading, setError);
 	const [isOpen, setIsOpen] = useState(true);
-	const toggleMsg = (e) => {
+	const toggleMsg = () => {
 		isOpen ? setIsOpen(false) : setIsOpen(true);
 	};
 
-	const handleClick = (e) => {
+	const handleClick = () => {
+		if (error !== '') {
+			setError('');
+		}
+		setIsLoading(true);
 		createDemoUser();
 	};
 
@@ -28,9 +35,14 @@ const DemoMsg = () => {
 					To view as a user click the button below to create a demo
 					user account
 				</p>
-				<button className='demo-btn' onClick={handleClick}>
-					DEMO
-				</button>
+				{isLoading ? (
+					<Spinner styles='form-spinner' />
+				) : (
+					<button className='demo-btn' onClick={handleClick}>
+						DEMO
+					</button>
+				)}
+				{error !== '' && <p className='error-msg'>{error}</p>}
 			</div>
 		);
 	} else {

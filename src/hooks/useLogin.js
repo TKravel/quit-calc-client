@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
-const useLogin = (errors, setErrors) => {
+const useLogin = (errors, setErrors, setIsLoading) => {
 	const { setUser } = useContext(UserContext);
 
 	const login = (data) => {
@@ -19,6 +19,7 @@ const useLogin = (errors, setErrors) => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {
+					setIsLoading(false);
 					setErrors(data.error);
 				} else if (data.msg === 'granted') {
 					setUser(true);
@@ -27,6 +28,7 @@ const useLogin = (errors, setErrors) => {
 			.catch((err) => {
 				console.log('error: ' + err);
 				setErrors('Server error, Please try again later.');
+				setIsLoading(false);
 			});
 	};
 
@@ -45,6 +47,7 @@ const useLogin = (errors, setErrors) => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.error) {
+					setIsLoading(false);
 					setErrors(data.error);
 				} else if (data.msg === 'granted') {
 					setUser(true);
@@ -53,6 +56,7 @@ const useLogin = (errors, setErrors) => {
 			.catch((err) => {
 				console.log('error: ' + err);
 				setErrors('Server error, Please try again later.');
+				setIsLoading(false);
 			});
 	};
 
