@@ -206,6 +206,7 @@ export const GoalTracker1 = () => {
 								return (
 									<GoalCard
 										key={index}
+										idx={index}
 										goalName={goal.goal}
 										goalAmount={goal.goalCost}
 										handleGoals={setUserGoals}

@@ -9,7 +9,7 @@ import {
 import 'react-circular-progressbar/dist/styles.css';
 
 export const GoalCard = ({
-	key,
+	idx,
 	goalName,
 	goalAmount,
 	handleGoals,
@@ -26,7 +26,7 @@ export const GoalCard = ({
 
 	if (percent >= 100) {
 		return (
-			<div key={key} className='goal-card'>
+			<div key={idx} className='goal-card'>
 				<StarIcon
 					goalName={goalName}
 					goalAmount={goalAmount}
@@ -46,7 +46,7 @@ export const GoalCard = ({
 		);
 	} else {
 		return (
-			<div key={key} className='goal-card'>
+			<div key={idx} className='goal-card'>
 				<CircularProgressbarWithChildren
 					className='progress-circle'
 					value={percent}

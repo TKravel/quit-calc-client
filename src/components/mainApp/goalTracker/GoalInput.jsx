@@ -114,7 +114,7 @@ const GoalInput = ({
 								error={error ? true : false}
 								helperText={error ? error.message : null}
 								inputProps={{
-									autocomplete: 'false',
+									autoComplete: 'false',
 								}}
 								InputLabelProps={{
 									style: { color: '#999c98' },
@@ -176,7 +176,7 @@ const GoalInput = ({
 								error={error ? true : false}
 								helperText={error ? error.message : null}
 								inputProps={{
-									autocomplete: 'false',
+									autoComplete: 'false',
 									type: 'number',
 									pattern: '^[0-9]\\d*(\\.\\d+)?$',
 								}}
@@ -187,7 +187,7 @@ const GoalInput = ({
 									input: {
 										'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button':
 											{
-												'-webkit-appearance': 'none',
+												WebkitAppearance: 'none',
 												display: 'none',
 											},
 										color: '#cdd1cc',
