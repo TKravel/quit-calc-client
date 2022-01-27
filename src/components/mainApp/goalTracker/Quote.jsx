@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export const Quote = () => {
-	const [quote, setQuote] = useState({ auther: '', quote: '' });
+	const [quote, setQuote] = useState({ author: '', quote: '' });
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_SERVER}/quote/getQuote`, {})
 			.then((response) => response.json())
@@ -22,7 +22,7 @@ export const Quote = () => {
 					<p className='quote'>"{quote.quote}"</p>
 				</blockquote>
 				<figcaption className='author'>
-					-{quote.auther} <cite>Brave New World</cite>
+					- <cite>{quote.author}</cite>
 				</figcaption>
 			</figure>
 		</div>
